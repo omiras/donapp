@@ -3,6 +3,8 @@ import ScrollToTop from "./component/scrollToTop";
 
 import { Home } from "./views/home";
 import { Newsletter } from "./views/newsletter";
+import { Profile } from "./views/profile";
+
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
@@ -22,6 +24,7 @@ const Layout = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/newsletter" element={<Newsletter />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<h1>Not found!</h1>} />
           </Routes>
           <Footer />
