@@ -3,3 +3,5 @@ export const Home = () => (
     <h1 className="text-2xl">Lista de donaciones</h1>
   </div>
 );
+
+
