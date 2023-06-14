@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useState, useContext } from 'react';
+import { Context } from "../store/appContext";
+
+export const Profiles = () => {
+
+    const { store } = useContext(Context);
+    console.log(store)
 
 
-export const Profile = () => {
     return ( 
-        <><div className="avatar">
-            <div className="w-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                <img src="https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.webp?w=1600&h=1067" />
-            </div>
-        </div>
-        <div>
-                <h2>NameTag</h2>
-            </div></>
+  <div>
+    <img src={store.profile.image}/>
+  </div>
     );
 }
