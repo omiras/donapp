@@ -19,6 +19,7 @@ export const Newsletter = () => {
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam,
         nostrum.
       </h1>
+
       <form onSubmit={handleSubmit}>
         <div className="join-horizontal">
           <label htmlFor="email">Email</label>

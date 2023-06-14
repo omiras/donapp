@@ -28,8 +28,12 @@ h3 {
   line-height: 1.1;
   text-wrap: balance;
 }
+.flow > * + * {
+  margin-top: var(--flow-space, 1em);
+}
 h1 {
   font-size: var(--fs-4);
+  --flow-space: 1.5em;
 }
 h2 {
   font-size: var(--fs-3);
@@ -41,7 +45,4 @@ h3 {
 .wrapper {
   width: min(100% - 3rem);
   margin-inline: auto;
-}
-.flow > * + * {
-  margin-top: 1em;
 }
