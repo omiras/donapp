@@ -10,7 +10,7 @@ export const NewDonation = () => {
     } = useForm();
 
     const onSubmit = (data) => {
-        const publishedDate = {...data, created_at: new Date()}
+        const publishedDate = {...data, created_at:"Fecha de publicación: " + new Date()}
         // handleData(data);
         console.log(publishedDate);
     };
@@ -22,7 +22,7 @@ export const NewDonation = () => {
     //const chooseOption === 'Elige una opcion'
 
     return (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-3 justify-center items-center">
             <h1 className="text-2xl font-bold">Formulario</h1>
 
             <form

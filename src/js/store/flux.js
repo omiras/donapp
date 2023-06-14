@@ -84,12 +84,18 @@ const getState = ({ getStore, getActions, setStore }) => {
           publishedDate: "2023-06-02",
         },
       ],
+      newDonation: {},
     },
     actions: {
       // Use getActions to call a function within a fuction
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
+
+      addNewDonation: () => {
+        
+      },
+
       loadSomeData: () => {
         /**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
