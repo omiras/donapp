@@ -84,7 +84,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           publishedDate: "2023-06-02",
         },
       ],
-      newDonation: {},
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -92,7 +91,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         getActions().changeColor(0, "green");
       },
 
-      addNewDonation: () => {
+      addNewDonation: (d) => {
+        const store = getStore();
+        const updatedList = [...store.donations, d];
+        console.log(d);
+        setStore({
+          donations: updatedList,
+        });
         
       },
 

@@ -1,18 +1,26 @@
+import { useContext } from "react";
 import { useForm } from "react-hook-form";
+import { Context } from "../store/appContext";
 
 export const NewDonation = () => {
 
+const { store, actions } = useContext(Context);
 
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm();
 
     const onSubmit = (data) => {
-        const publishedDate = {...data, created_at:"Fecha de publicación: " + new Date()}
+        const updatedDonation = {...data, publishedDate: new Date()}
         // handleData(data);
-        console.log(publishedDate);
+        console.log(updatedDonation);
+        actions.addNewDonation(updatedDonation);
+        console.log(store.donations);
+        reset();
+        
     };
 
     console.log(errors);
