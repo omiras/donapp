@@ -34,7 +34,7 @@ const { store, actions } = useContext(Context);
             <h1 className="text-2xl font-bold">Formulario</h1>
 
             <form
-                className="flex flex-col md:w-[50vw] w-full border border-secondary p-6 gap-4 rounded"
+                className="flex flex-col md:w-[50vw] w-full border p-6 gap-4 rounded"
                 onSubmit={handleSubmit(onSubmit)}
             >
                 {/* Name---------------- */}
