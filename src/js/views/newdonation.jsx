@@ -10,17 +10,20 @@ export const NewDonation = () => {
     } = useForm();
 
     const onSubmit = (data) => {
+        const publishedDate = {...data, created_at: new Date()}
         // handleData(data);
-        console.log(data);
+        console.log(publishedDate);
     };
 
     console.log(errors);
 
     // console.log(watch("example")); // watch input value by passing the name of it
 
+    //const chooseOption === 'Elige una opcion'
+
     return (
         <div className="flex flex-col gap-3">
-            <h1 className="text-2xl font-bold">Form</h1>
+            <h1 className="text-2xl font-bold">Formulario</h1>
 
             <form
                 className="flex flex-col md:w-[50vw] w-full border border-secondary p-6 gap-4 rounded"
@@ -28,17 +31,17 @@ export const NewDonation = () => {
             >
                 {/* Name---------------- */}
                 <div className="flex flex-col gap-2">
-                    <label className="label-text">Name</label>
+                    <label className="label-text">Nombre</label>
                     <input
                         className={`input input-md input-bordered  ${errors.name ? "input-error" : ""
                             }`}
-                        placeholder="Name"
+                        placeholder="Nombre"
                         {...register("name", {
                             //This is the validation
-                            required: "You need to provide a name.",
+                            required: "Campo requerido.",
                             maxLength: {
                                 value: 20,
-                                message: "The name needs to be less than 20 characters."
+                                message: "El nombre no puede tener más de 20 carácteres."
                             }
                         })}
                     />
@@ -49,22 +52,21 @@ export const NewDonation = () => {
 
                 {/* Description---------------- */}
                 <div className="flex flex-col gap-2">
-                    <label className="label-text">Description</label>
+                    <label className="label-text">Descripción</label>
                     <div className="flex flex-col relative">
-                        <input
-                            type="text"
-                            className={`input input-md input-bordered w-full  ${errors.description ? "input-error" : ""
+                        <textarea
+                            className= {`input input-md input-bordered w-full textarea  ${errors.description ? "input-error" : ""
                                 }`}
-                            placeholder="Description"
+                            placeholder="Descripción"
                             {...register("description", {
                                 //This is the validation
-                                required: "You need to provide a description",
+                                required: "Campo requerido.",
                                 maxLength: {
                                     value: 1000,
-                                    message: "The description needs to be less than 20 characters."
+                                    message: "El descripción no puede tener más de 20 carácteres."
                                 }
                             })}
-                        />
+                        ></textarea>
 
                         {errors?.description && (
                             <span className="text-error"> {errors.description.message}</span>
@@ -75,14 +77,14 @@ export const NewDonation = () => {
                 {/* Image---------------- */}
 
                 <div className="flex flex-col gap-2">
-                    <label htmlFor="image-url" className="block text-sm font-medium leading-6 text-gray-900">Image</label>
+                    <label htmlFor="image-url" className="block text-sm font-medium leading-6 text-gray-900">imágen</label>
                     <div className="flex flex-col relative">
                         <input id="image-url" name="image-url" type="url" className={`input input-md input-bordered w-full  ${errors.image ? "input-error" : ""
                             }`}
                             placeholder="https://fastly.picsum.photos/id/791/200/300.jpg?hmac=Ah_2kp5UqnZv5O0c333s3M4p-FqkCZ6ViRd1V_pAHYk"
                             {...register("image", {
                                 //This is the validation
-                                required: "You need to provide an image",
+                                required: "Campo requerido.",
 
                             })} />
                         {errors?.image && (
@@ -93,22 +95,19 @@ export const NewDonation = () => {
 
                 {/* State---------------- */}
                 <div className="flex flex-col gap-2">
-                    <label className="label-text">State</label>
+                    <label className="label-text">Estado</label>
                     <select
                         className={`select select-bordered select-md ${errors.state ? "input-error" : ""
                             }`}
                         name="state"
                         id="state"
                         {...register("state", {
-                            //This is the validation
-                            required: {
-                                value: "Choose an option",
-                                message: "You need to specify the state."
-                        }
+                            //This is the valid
+                            required: "Campo requerido.",
                         })}
 
                     >
-                        <option value="nuevo">Choose an option</option>
+                        <option value="">Elige una opción</option>
                         <option value="nuevo">Nuevo</option>
                         <option value="usado">Usado</option>
                         <option value="deteriorado">Deteriorado</option>
@@ -118,32 +117,10 @@ export const NewDonation = () => {
                     )}
                 </div>
 
-                {/* Published Date---------------- */}
-                <div className="flex flex-col gap-2">
-                    <label className="label-text">Published Date</label>
-                    <div className="flex flex-col relative">
-                        <input
-                            type="datetime-local"
-                            className={`input input-md input-bordered w-full  ${errors.publishedDate ? "input-error" : ""
-                                }`}
-                            placeholder="Published Date"
-                            {...register("publishedDate", {
-                                //This is the validation
-                                required: "You need to provide the current date.",
-
-                            })}
-                        />
-
-                        {errors?.publishedDate && (
-                            <span className="text-error"> {errors.publishedDate.message}</span>
-                        )}
-                    </div>
-                </div>
-
                 <input
                     className="btn bg-blue-400 text-black rounded w-fit place-self-center uppercase"
                     type="submit"
-                    value="publish"
+                    value="Publicar"
                 />
 
 
