@@ -71,7 +71,7 @@ const { store, actions } = useContext(Context);
                                 required: "Campo requerido.",
                                 maxLength: {
                                     value: 1000,
-                                    message: "El descripción no puede tener más de 20 carácteres."
+                                    message: "El descripción no puede tener más de 1000 carácteres."
                                 }
                             })}
                         ></textarea>
