@@ -21,7 +21,7 @@ export const Profile = () => {
         <StaticRating/>
     </div >
     <div className="flex justify-center gap-40 items-center m-4 mt-10 pt-4 pr-8">
-        <div className='flex flex-col gap-y-2 text-center border-r-2 mr-14'>
+        <div className='flex flex-col gap-y-2 text-center'>
     <span className='text-4xl'>35</span>
     <span className='text-xl'>Donaciones</span>
         </div>
