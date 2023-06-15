@@ -90,6 +90,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
+
+      addNewDonation: (d) => {
+        const store = getStore();
+        const updatedList = [...store.donations, d];
+        console.log(d);
+        setStore({
+          donations: updatedList,
+        });
+        
+      },
+
       loadSomeData: () => {
         /**
 					fetch().then().then(data => setStore({ "foo": data.bar }))

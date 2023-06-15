@@ -1,4 +1,5 @@
-import { useState, useContext } from "react";
+
+import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 
 export const Newsletter = () => {
@@ -14,7 +15,12 @@ export const Newsletter = () => {
   };
 
   return (
-    <div>
+    <div className="flow">
+      <h1>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam,
+        nostrum.
+      </h1>
+
       <form onSubmit={handleSubmit}>
         <div className="join-horizontal">
           <label htmlFor="email">Email</label>
