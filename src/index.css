@@ -46,3 +46,8 @@ h3 {
   width: min(100% - 3rem);
   margin-inline: auto;
 }
+
+.input,
+.select {
+  @apply bg-white;
+}
