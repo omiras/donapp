@@ -13,7 +13,7 @@ const Home = () => {
     
     const keyword = e.target.value;
 
-    const filteredDonations = donations.filter(d => new RegExp(keyword, 'i').test(d.name));
+    const filteredDonations = store.donations.filter(d => new RegExp(keyword, 'i').test(d.name));
 
     setSearch(keyword);
     setDonations(filteredDonations);
