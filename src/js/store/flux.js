@@ -2,86 +2,35 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       emailsNewsletter: [],
-      profile: {
-        username: "David",
-        rating: 4.3,
-        image: "https://randomuser.me/api/portraits/men/73.jpg",
-        city: "Barcelona",
-      },
+
       donations: [
         {
+          id: "1",
           name: "Ropa de invierno",
           description: "Abrigos, bufandas y guantes para proteger del frío.",
           imageURL: "https://ejemplo.com/ropa_invierno.jpg",
           productStatus: "usado",
           publishedDate: "2023-05-10",
+          profile: {
+            username: "zara",
+            rating: 4.3,
+            image: "https://randomuser.me/api/portraits/men/73.jpg",
+            city: "Barcelona",
+          },
         },
         {
+          id: "2",
           name: "Juguetes educativos",
           description: "Juguetes didácticos para el aprendizaje de los niños.",
           imageURL: "https://ejemplo.com/juguetes_educativos.jpg",
           productStatus: "nuevo",
           publishedDate: "2023-05-12",
-        },
-        {
-          name: "Muebles de cocina",
-          description: "Mesa y sillas para equipar una cocina comunitaria.",
-          imageURL: "https://ejemplo.com/muebles_cocina.jpg",
-          productStatus: "deteriorado",
-          publishedDate: "2023-05-15",
-        },
-        {
-          name: "Libros de literatura",
-          description:
-            "Novelas clásicas y contemporáneas para fomentar la lectura.",
-          imageURL: "https://ejemplo.com/libros_literatura.jpg",
-          productStatus: "usado",
-          publishedDate: "2023-05-18",
-        },
-        {
-          name: "Material escolar",
-          description: "Cuadernos, lápices y mochilas para estudiantes.",
-          imageURL: "https://ejemplo.com/material_escolar.jpg",
-          productStatus: "nuevo",
-          publishedDate: "2023-05-20",
-        },
-        {
-          name: "Electrodomésticos",
-          description:
-            "Pequeños electrodomésticos como licuadoras y tostadoras.",
-          imageURL: "https://ejemplo.com/electrodomesticos.jpg",
-          productStatus: "usado",
-          publishedDate: "2023-05-23",
-        },
-        {
-          name: "Ropa de bebé",
-          description: "Ropa y accesorios para recién nacidos y bebés.",
-          imageURL: "https://ejemplo.com/ropa_bebe.jpg",
-          productStatus: "nuevo",
-          publishedDate: "2023-05-25",
-        },
-        {
-          name: "Artículos deportivos",
-          description:
-            "Balones, raquetas y equipos para actividades deportivas.",
-          imageURL: "https://ejemplo.com/articulos_deportivos.jpg",
-          productStatus: "usado",
-          publishedDate: "2023-05-28",
-        },
-        {
-          name: "Instrumentos musicales",
-          description:
-            "Guitarras, teclados y otros instrumentos para la música.",
-          imageURL: "https://ejemplo.com/instrumentos_musicales.jpg",
-          productStatus: "usado",
-          publishedDate: "2023-05-30",
-        },
-        {
-          name: "Ropa de cama",
-          description: "Sábanas, mantas y almohadas para camas.",
-          imageURL: "https://ejemplo.com/ropa_cama.jpg",
-          productStatus: "deteriorado",
-          publishedDate: "2023-06-02",
+          profile: {
+            username: "sara",
+            rating: 4.3,
+            image: "https://randomuser.me/api/portraits/men/73.jpg",
+            city: "Barcelona",
+          },
         },
       ],
     },
@@ -98,7 +47,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({
           donations: updatedList,
         });
-        
       },
 
       loadSomeData: () => {

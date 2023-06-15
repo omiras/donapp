@@ -12,8 +12,9 @@ export default {
       {
         mytheme: {
           primary: "#22577A",
-          secondary: "#57CC99",
-          "base-100": "#C7F9CC",
+          secondary: "#E6F4EB",
+          accent: "#A9DABA",
+          "base-100": "#F8FCF9",
         },
       },
       "black",
