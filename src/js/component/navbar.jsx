@@ -95,6 +95,9 @@ export const Navbar = () => {
         </button>
         <span className="btm-nav-label">Mi perfil</span>
       </Link>
+      <Link to="/newdonation">
+        New Donation
+      </Link>
     </nav>
   );
 };
