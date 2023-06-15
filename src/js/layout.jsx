@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-import { Home } from "./views/home";
+import  Home  from "./views/home";
 import { Newsletter } from "./views/newsletter";
 import injectContext from "./store/appContext";
 
@@ -16,7 +16,7 @@ const Layout = () => {
   const basename = process.env.BASENAME || "";
 
   return (
-    <div>
+    <div className="wrapper flow">
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />

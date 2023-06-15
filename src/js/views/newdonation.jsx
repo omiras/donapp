@@ -4,7 +4,7 @@ import { Context } from "../store/appContext";
 
 export const NewDonation = () => {
 
-const { store, actions } = useContext(Context);
+    const { store, actions } = useContext(Context);
 
     const {
         register,
@@ -14,13 +14,14 @@ const { store, actions } = useContext(Context);
     } = useForm();
 
     const onSubmit = (data) => {
-        const updatedDonation = {...data, publishedDate: new Date()}
+        console.log(' DATA ', data);
+        const updatedDonation = { name: data.name, description: data.description, productStatus: data.state, imageURL: data.image, publishedDate: new Date(), }
         // handleData(data);
         console.log(updatedDonation);
         actions.addNewDonation(updatedDonation);
         console.log(store.donations);
         reset();
-        
+
     };
 
     console.log(errors);
@@ -63,7 +64,7 @@ const { store, actions } = useContext(Context);
                     <label className="label-text">Descripción</label>
                     <div className="flex flex-col relative">
                         <textarea
-                            className= {`input input-md input-bordered w-full textarea  ${errors.description ? "input-error" : ""
+                            className={`input input-md input-bordered w-full textarea  ${errors.description ? "input-error" : ""
                                 }`}
                             placeholder="Descripción"
                             {...register("description", {
