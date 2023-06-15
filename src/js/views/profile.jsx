@@ -10,25 +10,29 @@ export const Profile = () => {
 
 
     return ( 
-<div className='bg-Base-100'>
+<div >
     <div className="flex justify-center items-center flex-col m-4 pt-4">        
-        <img className='w-206px h-216px rounded-full ring ring-Secondary ring-offset-Secondary ring-offset-2' src={store.profile.image}/>
+        <img className='w-206px h-216px rounded-full ring ring-secondary ring-offset-secondary ring-offset-2' src={store.profile.image}/>
     </div>
     <div className="flex justify-center items-center flex-col m-4 pt-4">
-    <h2 className='text-3xl text-center text-Primary'>{store.profile.username}</h2>
+    <h2 className='text-3xl text-center text-primary'>{store.profile.username}</h2>
     </div>
-    <div className="flex justify-center items-center flex-col m-4 mb-12 ml-1 pt-4 gap-10">
+    <div className="flex justify-center items-center flex-col m-4 mb-12 ml-1 pt-4 gap-10 h-28">
         <StaticRating/>
     </div >
-    <div className="flex justify-center gap-40 items-center m-4 mt-10 pt-4 pr-8">
-        <div className='flex flex-col gap-y-2 text-center'>
-    <span className='text-4xl'>35</span>
-    <span className='text-xl'>Donaciones</span>
-        </div>
-        <div className='flex flex-col gap-y-2 text-center'>
-    <span className='text-4xl'>234</span>
-    <span className='text-xl'>Likes</span>  
-        </div>
+    <div className="flex bg-secondary justify-evenly text-base-100 w-full text-center place-items-center h-52">
+     
+            <div className="flex flex-col ">
+                <span className='text-4xl'>35</span>
+                <span className='text-xl '>Donaciones</span>
+            </div>
+
+            <span className='h-10 border border-base-100'></span>
+
+            <div className="flex flex-col">
+              <span className='text-4xl'>234</span>
+                <span className='text-xl'>Likes</span>  
+            </div>
     </div>
 </div>
     );

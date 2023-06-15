@@ -18,7 +18,7 @@ const Layout = () => {
   const basename = import.meta.env.BASENAME || "";
 
   return (
-    <div className="wrapper flow">
+    <div className="flow">
       <BrowserRouter basename={basename}>
         <ScrollToTop>
           <Navbar />
