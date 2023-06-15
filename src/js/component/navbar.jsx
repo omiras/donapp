@@ -10,6 +10,9 @@ export const Navbar = () => {
       <Link to="/newsletter">
         Newsletter
       </Link>
+      <Link to="/newdonation">
+        New Donation
+      </Link>
       <Link to="/profile">
         Profile
       </Link>
