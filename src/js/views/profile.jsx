@@ -27,7 +27,7 @@ export const Profile = () => {
                 <span className='text-xl '>Donaciones</span>
             </div>
 
-            <span className='h-10 border border-base-100'></span>
+            <span className='h-24 border border-base-100'></span>
 
             <div className="flex flex-col">
               <span className='text-4xl'>234</span>

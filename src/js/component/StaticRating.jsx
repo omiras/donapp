@@ -1,9 +1,12 @@
-
+import { useContext } from "react"
+import { Context } from "../store/appContext"
 
 function StaticRating() {
     const hoverRateUnity = "https://i.ibb.co/k8SssB1/recortada-7e5fdbd8-e899-4761-a950-aab6a404dfe9.png"
     const rateUnity = "https://i.ibb.co/k3wcv4m/recortada-1843b106-1d81-4eba-b69a-c4d81226d241.png"
     const halfRateUnity = "https://i.ibb.co/2ynFLWw/recortada-bf9bab81-a2cf-4bd3-8b7f-652560e863ce.png"
+
+    const { store } = useContext(Context);
 
     function ImageLoop(props) {
         let numImages = props.numImages
@@ -96,7 +99,7 @@ function StaticRating() {
 
 
     return (
-        <ImageLoop numImages={1.2} />
+        <ImageLoop numImages={store.profile.rating} />
     )
 }
 
