@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Context } from "../store/appContext";
+import { Context } from "../store/app/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
@@ -84,7 +84,7 @@ export const NewDonation = () => {
               placeholder="Descripción"
               {...register(
                 "description",
-               // { pattern: /^[A-Za-z-0-9]/i },
+                // { pattern: /^[A-Za-z-0-9]/i },
                 {
                   //This is the validation
                   required: "Campo requerido.",

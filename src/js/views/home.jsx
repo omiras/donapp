@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../store/app/appContext";
 import { Link } from "react-router-dom";
 
 const Home = () => {

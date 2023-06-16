@@ -1,8 +1,10 @@
+import { supabase } from "../../../lib/supabaseClient";
+
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      session: null,
       emailsNewsletter: [],
-
       donations: [
         {
           id: "1",
@@ -35,11 +37,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
     },
     actions: {
-      // Use getActions to call a function within a fuction
-      exampleFunction: () => {
-        getActions().changeColor(0, "green");
-      },
-
       addNewDonation: (d) => {
         const store = getStore();
         const updatedList = [...store.donations, d];
@@ -54,20 +51,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					fetch().then().then(data => setStore({ "foo": data.bar }))
 				*/
       },
-      changeColor: (index, color) => {
-        //get the store
-        const store = getStore();
-
-        //we have to loop the entire demo array to look for the respective index
-        //and change its color
-        const demo = store.demo.map((elm, i) => {
-          if (i === index) elm.background = color;
-          return elm;
-        });
-
-        //reset the global store
-        setStore({ demo: demo });
+      getUserSession: async () => {
+        const { data, error } = await supabase.auth.getSession();
+        if (error) return console.log(error);
+        console.log(data.session === null);
+        if (data.session === null) return setStore({ session: null });
+        setStore({ session: { ...data.session.user } });
       },
+      signOut: async () => {
+        const { error } = await supabase.auth.signOut();
+        if (error) return console.log(error);
+        setStore({ session: null });
+      },
+      signInWithProvider: async (provider) => {
+        const { user, session, error } = await supabase.auth.signInWithOAuth({
+          provider,
+        });
+        if (error) return console.log(error);
+        setStore({ session: { ...user } });
+      },
+
       addNewsletterEmail: (email) => {
         //get the store
         // Obten la variable que contiene todas las variables globales

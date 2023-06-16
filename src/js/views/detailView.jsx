@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { Context } from "../store/appContext";
+import { Context } from "../store/app/appContext";
 import { useParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
 

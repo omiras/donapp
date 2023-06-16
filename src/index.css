@@ -37,18 +37,15 @@ h1 {
 }
 h2 {
   font-size: var(--fs-3);
-  font-weight: bolder;
 }
 h3 {
   font-size: var(--fs-2);
 }
 h4 {
   font-size: var(--fs-1);
-  font-weight: bolder;
 }
 h5 {
   font-size: var(--fs-0);
-  font-weight: bolder;
 }
 
 .wrapper {
