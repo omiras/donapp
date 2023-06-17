@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 export const Navbar = () => {
   return (
-    <nav className="h-[70px] btm-nav bg-secondary">
+    <nav className="h-[70px] btm-nav bg-secondary"> 
       
         <Link to="/" className="flex-col">
           <button>
