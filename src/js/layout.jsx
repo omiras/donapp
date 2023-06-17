@@ -39,6 +39,18 @@ const Layout = () => {
           {loading ? (
             <Route path="*" element={<h1>Loading...</h1>} />
           ) : (
+            //navegar sin login
+            // <>
+            //       <Route path="/" element={<Home />} />
+            //       <Route path="/newdonation" element={<NewDonation />} />
+            //       <Route path="/newsletter" element={<Newsletter />} />
+            //       <Route path="/product/:id" element={<DetailView />} />
+            //       <Route path="/auth" element={<Auth />} />
+            //       <Route path="*" element={<h1>Not found!</h1>} />
+            // </>
+            // navegar con login
+
+            //naver solo con login
             <>
               {!store.session ? (
                 <>
@@ -56,6 +68,7 @@ const Layout = () => {
               )}
               <Route path="*" element={<h1>Not found!</h1>} />
             </>
+            //navegar solo con login
           )}
         </Routes>
         <Footer />
