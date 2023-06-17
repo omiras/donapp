@@ -19,7 +19,7 @@ const Home = () => {
             >
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
                 <img
-                  src={donation.imageURL}
+                  src={donation.image_url}
                   alt="..."
                   className="image h-full w-full object-cover object-center group-hover:opacity-75"
                 />

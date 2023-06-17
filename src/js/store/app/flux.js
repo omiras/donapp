@@ -4,6 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       session: null,
+      user: null,
       emailsNewsletter: [],
       donations: [
         {
@@ -20,43 +21,40 @@ const getState = ({ getStore, getActions, setStore }) => {
             city: "Barcelona",
           },
         },
-        {
-          id: "2",
-          name: "Juguetes educativos",
-          description: "Juguetes didácticos para el aprendizaje de los niños.",
-          imageURL: "https://ejemplo.com/juguetes_educativos.jpg",
-          productStatus: "nuevo",
-          publishedDate: "2023-05-12",
-          profile: {
-            username: "sara",
-            rating: 4.3,
-            image: "https://randomuser.me/api/portraits/men/73.jpg",
-            city: "Barcelona",
-          },
-        },
       ],
     },
     actions: {
-      addNewDonation: (d) => {
+      addNewDonation: (newDonation) => {
         const store = getStore();
-        const updatedList = [...store.donations, d];
-        console.log(d);
+        const updatedList = [...store.donations, newDonation];
         setStore({
           donations: updatedList,
         });
       },
-
-      loadSomeData: () => {
-        /**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
+      getDonations: async () => {
+        const { data, error } = await supabase
+          .from("products")
+          .select(`*,profiles(*)`);
+        if (error) return console.log(error);
+        setStore({ donations: [...data] });
       },
       getUserSession: async () => {
+        const actions = getActions();
         const { data, error } = await supabase.auth.getSession();
         if (error) return console.log(error);
-        console.log(data.session === null);
-        if (data.session === null) return setStore({ session: null });
-        setStore({ session: { ...data.session.user } });
+        if (!data.session) return;
+        await setStore({ session: { ...data.session } });
+        await actions.setUser();
+      },
+      setUser: async () => {
+        const store = getStore();
+        const { data: user, error } = await supabase
+          .from("profiles")
+          .select()
+          .eq("id", store.session.user.id)
+          .single();
+        if (error) return console.log(error);
+        setStore({ user: { ...user } });
       },
       signOut: async () => {
         const { error } = await supabase.auth.signOut();

@@ -2,13 +2,16 @@ import { useContext } from "react";
 import { Context } from "../store/app/appContext";
 import { useParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useEffect } from "react";
 
 const DetailView = () => {
   const { store, actions } = useContext(Context);
 
   const { id } = useParams();
 
-  const product = store.donations.find((donation) => donation.id === id);
+  const product = store.donations.find(
+    (donation) => donation.id + "" === id + ""
+  );
 
   return (
     <div className=" container grid p-1 md:place-content-center">
@@ -16,7 +19,7 @@ const DetailView = () => {
         <div className="header flex justify-between place-items-center">
           <div className="profile flex place-items-center gap-2">
             <Icon icon="carbon:user-avatar-filled-alt" width="40px" />
-            <h5 className="nombre capitalize">{product.profile.username}</h5>
+            <h5 className="nombre capitalize">{product.profiles.full_name}</h5>
           </div>
           <div className="contact">
             <Icon icon="fluent:chat-16-regular" width="40px" />
@@ -26,11 +29,11 @@ const DetailView = () => {
         <div className=" relative">
           <img
             className="w-full h-full rounded-lg"
-            src={product.imageURL}
+            src={product.image_url}
             alt="product-image"
           />
           <span className="badge badge-primary badge-lg absolute bottom-5 left-5">
-            {product.productStatus}
+            {product.product_status}
           </span>
         </div>
         <div
@@ -42,7 +45,7 @@ const DetailView = () => {
             width={26}
             className="w-fit"
           />
-          <p>{product.profile.city}</p>
+          {/* <p>{product.profile.city}</p> */}
         </div>
         <div className="info">
           <div className="title">
