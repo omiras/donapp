@@ -24,7 +24,7 @@ const Home = () => {
                   className="image h-full w-full object-cover object-center group-hover:opacity-75"
                 />
                 <p className="absolute bottom-3 left-3 badge-lg badge">
-                  {donation.productStatus}
+                  {donation.product_status}
                 </p>
               </div>
             </Link>

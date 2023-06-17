@@ -6,31 +6,55 @@ const getState = ({ getStore, getActions, setStore }) => {
       session: null,
       user: null,
       emailsNewsletter: [],
-      donations: [
-        {
-          id: "1",
-          name: "Ropa de invierno",
-          description: "Abrigos, bufandas y guantes para proteger del frío.",
-          imageURL: "https://ejemplo.com/ropa_invierno.jpg",
-          productStatus: "usado",
-          publishedDate: "2023-05-10",
-          profile: {
-            username: "zara",
-            rating: 4.3,
-            image: "https://randomuser.me/api/portraits/men/73.jpg",
-            city: "Barcelona",
-          },
-        },
-      ],
+      donations: [],
     },
     actions: {
-      addNewDonation: (newDonation) => {
+      addNewDonation: async (newDonation) => {
         const store = getStore();
-        const updatedList = [...store.donations, newDonation];
+        const { data, error } = await supabase
+          .from("products")
+          .insert({ ...newDonation })
+          .select();
+        if (error) return error;
+        const updatedList = [
+          ...store.donations,
+          { ...newDonation, id: data[0].id },
+        ];
+
         setStore({
           donations: updatedList,
         });
       },
+      deleteDonation: async (id) => {
+        const store = getStore();
+        const { data, error } = await supabase
+          .from("products")
+          .delete()
+          .eq("id", id);
+        if (error) return error;
+        const updatedList = store.donations.filter((item) => item.id !== id);
+        setStore({
+          donations: updatedList,
+        });
+      },
+      updateDonation: async (id, updatedDonation) => {
+        const store = getStore();
+        const { data, error } = await supabase
+          .from("products")
+          .update({ ...updatedDonation })
+          .eq("id", id);
+        if (error) return error;
+        const updatedList = store.donations.map((item) => {
+          if (item.id === id) {
+            return { ...item, ...updatedDonation };
+          }
+          return item;
+        });
+        setStore({
+          donations: updatedList,
+        });
+      },
+
       getDonations: async () => {
         const { data, error } = await supabase
           .from("products")

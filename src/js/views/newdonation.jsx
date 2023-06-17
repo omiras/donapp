@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { Context } from "../store/app/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const NewDonation = () => {
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,20 +16,22 @@ export const NewDonation = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(" DATA ", data);
+  const onSubmit = async (data) => {
     const updatedDonation = {
       name: data.name,
       description: data.description,
-      productStatus: data.state,
-      imageURL: data.image,
-      publishedDate: new Date(),
+      product_status: data.state,
+      image_url: data.image,
+      user_id: store.user.id,
     };
     // handleData(data);
-    console.log(updatedDonation);
-    actions.addNewDonation(updatedDonation);
-    console.log(store.donations);
+    const res = await actions.addNewDonation(updatedDonation);
     reset();
+    if (res) {
+      console.log(res);
+      alert("Error");
+      return;
+    }
     toast.success("¡Gracias, tu donación está publicada!"),
       { position: toast.POSITION.TOP_CENTER };
   };
