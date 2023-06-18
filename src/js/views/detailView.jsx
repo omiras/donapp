@@ -12,6 +12,7 @@ const DetailView = () => {
   const product = store.donations.find(
     (donation) => donation.id + "" === id + ""
   );
+  console.log(product);
 
   return (
     <div className=" container grid p-1 md:place-content-center">

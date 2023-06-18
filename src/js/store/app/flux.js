@@ -10,49 +10,31 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       addNewDonation: async (newDonation) => {
-        const store = getStore();
+        const actions = getActions();
         const { data, error } = await supabase
           .from("products")
           .insert({ ...newDonation })
           .select();
         if (error) return error;
-        const updatedList = [
-          ...store.donations,
-          { ...newDonation, id: data[0].id },
-        ];
-
-        setStore({
-          donations: updatedList,
-        });
+        actions.getDonations();
       },
       deleteDonation: async (id) => {
-        const store = getStore();
+        const actions = getActions();
         const { data, error } = await supabase
           .from("products")
           .delete()
           .eq("id", id);
         if (error) return error;
-        const updatedList = store.donations.filter((item) => item.id !== id);
-        setStore({
-          donations: updatedList,
-        });
+        actions.getDonations();
       },
       updateDonation: async (id, updatedDonation) => {
-        const store = getStore();
+        const actions = getActions();
         const { data, error } = await supabase
           .from("products")
           .update({ ...updatedDonation })
           .eq("id", id);
         if (error) return error;
-        const updatedList = store.donations.map((item) => {
-          if (item.id === id) {
-            return { ...item, ...updatedDonation };
-          }
-          return item;
-        });
-        setStore({
-          donations: updatedList,
-        });
+        actions.getDonations();
       },
 
       getDonations: async () => {

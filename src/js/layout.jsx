@@ -50,7 +50,7 @@ const Layout = () => {
             // </>
             // navegar con login
 
-            //naver solo con login
+            //navegar solo con login
             <>
               {!store.session ? (
                 <>
