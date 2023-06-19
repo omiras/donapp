@@ -1,15 +1,9 @@
-import { useContext } from "react"
-import { Context } from "../store/appContext"
-
-function StaticRating() {
+function StaticRating(props) {
     const hoverRateUnity = "https://i.ibb.co/k8SssB1/recortada-7e5fdbd8-e899-4761-a950-aab6a404dfe9.png"
     const rateUnity = "https://i.ibb.co/k3wcv4m/recortada-1843b106-1d81-4eba-b69a-c4d81226d241.png"
     const halfRateUnity = "https://i.ibb.co/2ynFLWw/recortada-bf9bab81-a2cf-4bd3-8b7f-652560e863ce.png"
 
-    const { store } = useContext(Context);
-
-    function ImageLoop(props) {
-        let numImages = props.numImages
+        let numImages = props.rating
 
         if (numImages === 5) {
             return <div style={{ display: 'flex', gap: "1em" }}>
@@ -79,7 +73,7 @@ function StaticRating() {
                 <img style={{ width: '2.5em' }} src={rateUnity} alt="hands and heart" />
             </div>
         } else if (numImages <= 1 && numImages > 0.5) {
-            return <div style={{ display: 'flex' }}>
+            return <div style={{ display: 'flex', gap: "1em" }}>
             <img style={{ width: '2.5em' }} src={hoverRateUnity} alt="hands and heart" />
             <img style={{ width: '2.5em' }} src={rateUnity} alt="hands and heart" />
             <img style={{ width: '2.5em' }} src={rateUnity} alt="hands and heart" />
@@ -95,12 +89,6 @@ function StaticRating() {
                 <img style={{ width: '2.5em' }} src={rateUnity} alt="hands and heart" />
             </div>
         }
-    }
-
-
-    return (
-        <ImageLoop numImages={store.profile.rating} />
-    )
 }
 
 export default StaticRating
