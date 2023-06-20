@@ -12,9 +12,11 @@ const Home = () => {
   const handleFilter = (e) => {
     
     const keyword = e.target.value;
+    const keywordRegex = new RegExp(keyword, 'i');
 
-    const filteredDonations = store.donations.filter(d => new RegExp(keyword, 'i').test(d.name));
-
+    const filteredDonations = store.donations.filter(d => keywordRegex.test(d.name) || keywordRegex.test(d.description));
+  
+  
     setSearch(keyword);
     setDonations(filteredDonations);
 
@@ -29,7 +31,8 @@ const Home = () => {
     <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
         <h2 className="text-4xl font-bold dark:text-white text-center">Donation List</h2>
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+
+        {donations.length > 0 ? (<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
           {donations.map((donation, index) => (
             <a href="#" className="group relative" key={index}>
               <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
@@ -38,13 +41,17 @@ const Home = () => {
               </div>
             </a>
           ))}
-        </div>
+        </div>) : (<p className="text-center m-6">No hay artículos con la descripción proporcionada.</p>)}
+
+        
       </div>
     </div>
     </div>
   );
 
 }
+
+
 export default Home;
 
 
