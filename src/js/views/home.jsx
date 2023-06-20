@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Context } from "../store/app/appContext";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 
 const Home = () => {
@@ -17,7 +17,7 @@ const Home = () => {
               className="group relative"
               key={donation.id}
             >
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 relative">
                 <img
                   src={donation.image_url}
                   alt="..."

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { useContext } from "react";
-import { Context } from "../store/app/appContext";
+import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -57,8 +57,10 @@ export default function Auth() {
             </div>
           </form>
           <div className="divider"></div>
+          {/* Ejecutamos una función para indicar que queremos hacer login con Google */}
           <button
             className="btn"
+
             onClick={() => actions.signInWithProvider("google")}
           >
             Google

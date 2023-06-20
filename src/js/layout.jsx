@@ -1,8 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./views/home";
-import { Newsletter } from "./views/newsletter";
-import injectContext, { Context } from "./store/app/appContext";
+import injectContext, { Context } from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -39,21 +38,12 @@ const Layout = () => {
           {loading ? (
             <Route path="*" element={<h1>Loading...</h1>} />
           ) : (
-            //navegar sin login
-            // <>
-            //       <Route path="/" element={<Home />} />
-            //       <Route path="/newdonation" element={<NewDonation />} />
-            //       <Route path="/newsletter" element={<Newsletter />} />
-            //       <Route path="/product/:id" element={<DetailView />} />
-            //       <Route path="/auth" element={<Auth />} />
-            //       <Route path="*" element={<h1>Not found!</h1>} />
-            // </>
-            // navegar con login
-
-            //navegar solo con login
             <>
+              {/* si la variable store.session tiene algún valor, significa que estamos logueados. En este apartado, vamos a mostrar todas las rutas a las que podemos acceder SIN estar logueados*/}
               {!store.session ? (
                 <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/product/:id" element={<DetailView />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="*" element={<Navigate to="/auth" />} />
                 </>
@@ -61,7 +51,6 @@ const Layout = () => {
                 <>
                   <Route path="/" element={<Home />} />
                   <Route path="/newdonation" element={<NewDonation />} />
-                  <Route path="/newsletter" element={<Newsletter />} />
                   <Route path="/product/:id" element={<DetailView />} />
                   <Route path="/auth" element={<Auth />} />
                 </>
