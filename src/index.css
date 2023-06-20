@@ -18,7 +18,7 @@
 
 body {
   font-family: var(--ff-base);
-  font-size: var(--fs-0);
+  font-size: var(--fs--1);
 }
 h1,
 h1,
@@ -41,8 +41,19 @@ h2 {
 h3 {
   font-size: var(--fs-2);
 }
+h4 {
+  font-size: var(--fs-1);
+}
+h5 {
+  font-size: var(--fs-0);
+}
 
 .wrapper {
   width: min(100% - 3rem);
   margin-inline: auto;
+}
+
+.input,
+.select {
+  @apply bg-white;
 }
