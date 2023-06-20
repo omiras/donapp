@@ -1,36 +1,66 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import ScrollToTop from "./component/scrollToTop";
 
-import  Home  from "./views/home";
-import { Newsletter } from "./views/newsletter";
+import Home from "./views/home";
+import injectContext, { Context } from "./store/appContext";
 import { Profile } from "./views/profile";
 
-import injectContext from "./store/appContext";
-
 import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
 import { NewDonation } from "./views/newDonation";
+import DetailView from "./views/DetailView";
+import Auth from "./views/auth";
+import { useContext, useEffect } from "react";
+import { Navigate } from "react-router-dom";
+import { useState } from "react";
+
+const basename = import.meta.env.BASENAME || "";
 
 //create your first component
 const Layout = () => {
-  //the basename is used when your project is published in a subdirectory and not in the root of the domain
-  // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
-  const basename = import.meta.env.BASENAME || "";
+  const { store, actions } = useContext(Context);
+  //loading usestate
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    //async function calls itself
+    const checkIfUserIsLoggedIn = async () => {
+      await actions.getUserSession();
+      await actions.getDonations();
+      setLoading(false);
+    };
+
+    checkIfUserIsLoggedIn();
+  }, []);
   return (
-    <div className="flow">
-      <BrowserRouter basename={basename}>
-        <ScrollToTop>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/newdonation" element={<NewDonation />} />
-            <Route path="/newsletter" element={<Newsletter />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="*" element={<h1>Not found!</h1>} />
-          </Routes>
-          <Footer />
-        </ScrollToTop>
+    <div className="flow h-screen">
+      <BrowserRouter>
+        <Routes>
+          {loading ? (
+            <Route path="*" element={<h1>Loading...</h1>} />
+          ) : (
+            <>
+              {/* si la variable store.session tiene algún valor, significa que estamos logueados. En este apartado, vamos a mostrar todas las rutas a las que podemos acceder SIN estar logueados*/}
+              {!store.session ? (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/product/:id" element={<DetailView />} />
+                  <Route path="/auth" element={<Auth />} />
+                  <Route path="*" element={<Navigate to="/auth" />} />
+                </>
+              ) : (
+                <>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/newdonation" element={<NewDonation />} />
+                  <Route path="/product/:id" element={<DetailView />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path="/auth" element={<Auth />} />
+                </>
+              )}
+              <Route path="*" element={<h1>Not found!</h1>} />
+            </>
+            //navegar solo con login
+          )}
+        </Routes>
+        <Navbar />
       </BrowserRouter>
     </div>
   );
