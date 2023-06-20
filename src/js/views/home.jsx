@@ -1,31 +1,61 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
+import SearchInput from "../component/search";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Home = () => {
   const { store, actions } = useContext(Context);
+
+  const [search, setSearch] = useState('');
+  const [donations, setDonations] = useState([...store.donations]);
+
+  const handleFilter = (e) => {
+
+    const keyword = e.target.value;
+    const keywordRegex = new RegExp(keyword, 'i');
+
+    const filteredDonations = store.donations.filter(d => keywordRegex.test(d.name) || keywordRegex.test(d.description));
+
+
+    setSearch(keyword);
+    setDonations(filteredDonations);
+
+  }
+
   return (
-    <div className="bg-white">
-      <div className="mx-auto max-w-2xl px-4 pb-20 pt-2 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-        <div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-          {store.donations.map((donation) => (
-            <Link
-              to={"/product/" + donation.id}
-              className="group relative"
-              key={donation.id}
-            >
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 relative">
-                <img
-                  src={donation.image_url}
-                  alt="..."
-                  className="image h-full w-full object-cover object-center group-hover:opacity-75"
-                />
-                <p className="absolute bottom-3 left-3 badge-lg badge">
-                  {donation.product_status}
-                </p>
-              </div>
-            </Link>
-          ))}
+    <div>
+
+
+      <div className="bg-white">
+
+        <div className="mx-auto max-w-2xl px-4 pt-6 pb-20 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+          <div className="flex justify-center align-center mb-3 gap-2 flex-col">
+            <SearchInput value={search} onSearchChange={handleFilter} />
+          </div>
+          {donations.length > 0 ? (<div className="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
+            {donations.map((donation, index) => (
+              <Link
+                to={"/product/" + donation.id}
+                className="group relative"
+                key={donation.id}
+              >
+                <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 relative">
+                  <img
+                    src={donation.image_url}
+                    alt="..."
+                    className="image h-full w-full object-cover object-center group-hover:opacity-75"
+                  />
+                  <p className="absolute bottom-3 left-3 badge-lg badge">
+                    {donation.product_status}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>) : (<div className="flex flex-col items-center justify-center"> <p className="text-center m-6">No hay artículos con la descripción proporcionada.</p>
+            <img src="https://media.tenor.com/gK32v_OWs0kAAAAM/omg-cat.gif" alt="Not Found GIF" /> </div>)}
+
+
         </div>
       </div>
     </div>

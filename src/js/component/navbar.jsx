@@ -5,7 +5,8 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  console.log(location.pathname)
+  // En la propiedad location.pathname nos dice en que ruta nos encontamos acutalemnte 
+  console.log('Ruta actual:', location.pathname)
 
   return (
     <nav className="h-[70px] btm-nav bg-secondary">
