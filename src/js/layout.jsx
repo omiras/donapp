@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./views/home";
 import injectContext, { Context } from "./store/appContext";
+import { Profile } from "./views/profile";
 
 import { Navbar } from "./component/navbar";
 import { NewDonation } from "./views/newDonation";
@@ -50,6 +51,7 @@ const Layout = () => {
                   <Route path="/" element={<Home />} />
                   <Route path="/newdonation" element={<NewDonation />} />
                   <Route path="/product/:id" element={<DetailView />} />
+                  <Route path="/profile" element={<Profile />} />
                   <Route path="/auth" element={<Auth />} />
                 </>
               )}
