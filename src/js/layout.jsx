@@ -4,7 +4,6 @@ import Home from "./views/home";
 import injectContext, { Context } from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
-import { Footer } from "./component/footer";
 import { NewDonation } from "./views/newDonation";
 import DetailView from "./views/DetailView";
 import Auth from "./views/auth";
@@ -33,7 +32,6 @@ const Layout = () => {
   return (
     <div className="flow h-screen">
       <BrowserRouter>
-        <Navbar />
         <Routes>
           {loading ? (
             <Route path="*" element={<h1>Loading...</h1>} />
@@ -60,7 +58,7 @@ const Layout = () => {
             //navegar solo con login
           )}
         </Routes>
-        <Footer />
+        <Navbar />
       </BrowserRouter>
     </div>
   );
