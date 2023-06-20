@@ -7,12 +7,8 @@ export const Navbar = () => {
       <Link to="/">
         <span>Home</span>
       </Link>
-      <Link to="/newsletter">
-        Newsletter
-      </Link>
-      <Link to="/newdonation">
-        New Donation
-      </Link>
+      <Link to="/newdonation">New Donation</Link>
+      <Link to="/auth">Auth</Link>
     </nav>
   );
 };

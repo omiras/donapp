@@ -17,14 +17,14 @@ const Home = () => {
               className="group relative"
               key={donation.id}
             >
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7">
+              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-lg bg-gray-200 xl:aspect-h-8 xl:aspect-w-7 relative">
                 <img
-                  src={donation.imageURL}
+                  src={donation.image_url}
                   alt="..."
                   className="image h-full w-full object-cover object-center group-hover:opacity-75"
                 />
                 <p className="absolute bottom-3 left-3 badge-lg badge">
-                  {donation.productStatus}
+                  {donation.product_status}
                 </p>
               </div>
             </Link>

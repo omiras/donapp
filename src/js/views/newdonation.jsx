@@ -3,10 +3,11 @@ import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const NewDonation = () => {
   const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -15,20 +16,22 @@ export const NewDonation = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(" DATA ", data);
+  const onSubmit = async (data) => {
     const updatedDonation = {
       name: data.name,
       description: data.description,
-      productStatus: data.state,
-      imageURL: data.image,
-      publishedDate: new Date(),
+      product_status: data.state,
+      image_url: data.image,
+      user_id: store.user.id,
     };
     // handleData(data);
-    console.log(updatedDonation);
-    actions.addNewDonation(updatedDonation);
-    console.log(store.donations);
+    const res = await actions.addNewDonation(updatedDonation);
     reset();
+    if (res) {
+      console.log(res);
+      alert("Error");
+      return;
+    }
     toast.success("¡Gracias, tu donación está publicada!"),
       { position: toast.POSITION.TOP_CENTER };
   };
@@ -51,9 +54,8 @@ export const NewDonation = () => {
         <div className="flex flex-col gap-2">
           <label className="label-text">Nombre</label>
           <input
-            className={`input input-md input-bordered  ${
-              errors.name ? "input-error" : ""
-            }`}
+            className={`input input-md input-bordered  ${errors.name ? "input-error" : ""
+              }`}
             placeholder="Nombre"
             {...register(
               "name",
@@ -78,13 +80,12 @@ export const NewDonation = () => {
           <label className="label-text">Descripción</label>
           <div className="flex flex-col relative">
             <textarea
-              className={`input input-md input-bordered w-full textarea h-auto  ${
-                errors.description ? "input-error" : ""
-              }`}
+              className={`input input-md input-bordered w-full textarea h-auto  ${errors.description ? "input-error" : ""
+                }`}
               placeholder="Descripción"
               {...register(
                 "description",
-               // { pattern: /^[A-Za-z-0-9]/i },
+                // { pattern: /^[A-Za-z-0-9]/i },
                 {
                   //This is the validation
                   required: "Campo requerido.",
@@ -117,9 +118,8 @@ export const NewDonation = () => {
               id="image-url"
               name="image-url"
               type="url"
-              className={`input input-md input-bordered w-full  ${
-                errors.image ? "input-error" : ""
-              }`}
+              className={`input input-md input-bordered w-full  ${errors.image ? "input-error" : ""
+                }`}
               placeholder="https://fastly.picsum.photos/id/791/200/300.jpg?hmac=Ah_2kp5UqnZv5O0c333s3M4p-FqkCZ6ViRd1V_pAHYk"
               {...register("image", {
                 //This is the validation
@@ -136,9 +136,8 @@ export const NewDonation = () => {
         <div className="flex flex-col gap-2">
           <label className="label-text">Estado</label>
           <select
-            className={`select select-bordered select-md  ${
-              errors.state ? "input-error" : ""
-            }`}
+            className={`select select-bordered select-md  ${errors.state ? "input-error" : ""
+              }`}
             name="state"
             id="state"
             {...register("state", {
