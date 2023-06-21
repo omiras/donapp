@@ -1,6 +1,8 @@
 import React, { useContext } from 'react';
 import { Context } from "../store/appContext";
 import StaticRating from '../component/StaticRating';
+import DonationList from '../component/donationList';
+
 
 
 export const Profile = () => {
@@ -8,7 +10,8 @@ export const Profile = () => {
     const { store } = useContext(Context);
     console.log(store)
 
-
+    const donations = store.donations.filter(d => d.user_id === store.user.id);
+ 
     return (
         <div >
             <div className="flex justify-center items-center flex-col m-4 pt-4">
@@ -21,7 +24,7 @@ export const Profile = () => {
                 <StaticRating rating={4} />
             </div >
             <div className="flex bg-secondary justify-evenly text-primary w-full text-center place-items-center h-52">
-
+            
                 <div className="flex flex-col  ">
                     <span className='text-4xl'>35</span>
                     <span className='text-xl '>Donaciones</span>
@@ -33,6 +36,10 @@ export const Profile = () => {
                     <span className='text-4xl'>234</span>
                     <span className='text-xl'>Likes</span>
                 </div>
+                
+            </div>
+            <div>
+            <DonationList items={donations} />
             </div>
         </div>
     );
