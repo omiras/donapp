@@ -24,6 +24,14 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (error) return console.log(error);
         setStore({ donations: [...data] });
       },
+
+      getDonationCount:  () => {
+      const store = getStore();
+      const numUserDonations = store.donations.filter(donation => store.user.id == donation.user_id);
+
+      return numUserDonations.length;
+      },
+      
       getUserSession: async () => {
         const actions = getActions();
         const { data, error } = await supabase.auth.getSession();

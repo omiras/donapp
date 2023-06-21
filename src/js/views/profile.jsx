@@ -2,10 +2,9 @@ import React, { useContext } from 'react';
 import { Context } from "../store/appContext";
 import StaticRating from '../component/StaticRating';
 
-
 export const Profile = () => {
 
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
     console.log(store)
 
 
@@ -23,7 +22,7 @@ export const Profile = () => {
             <div className="flex bg-secondary justify-evenly text-primary w-full text-center place-items-center h-52">
 
                 <div className="flex flex-col  ">
-                    <span className='text-4xl'>35</span>
+                    <span className='text-4xl'>{actions.getDonationCount()}</span>
                     <span className='text-xl '>Donaciones</span>
                 </div>
 
