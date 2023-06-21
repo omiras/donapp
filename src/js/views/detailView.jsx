@@ -19,7 +19,11 @@ const DetailView = () => {
       <div className="product-card h-full bg-secondary md:max-w-[500px]  flow p-5 rounded-lg">
         <div className="header flex justify-between place-items-center">
           <div className="profile flex place-items-center gap-2">
-            <Icon icon="carbon:user-avatar-filled-alt" width="40px" />
+            <img className="profleAvatar rounded-full"
+              src={product.profiles.avatar_url}
+              alt="user-avatar"
+              width="40px"
+            />
             <h5 className="nombre capitalize">{product.profiles.full_name}</h5>
           </div>
           <div className="contact">
