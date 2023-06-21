@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { Context } from "../store/appContext";
 import StaticRating from '../component/StaticRating';
+import { useState } from 'react';
 
 
 export const Profile = () => {
@@ -8,9 +9,14 @@ export const Profile = () => {
     const { store } = useContext(Context);
     console.log(store)
 
-    
-    const handleClick = (e) => {
-        
+    const [rating, setRating] = useState(1)
+
+    const handleClick = (ratingValue) => {
+
+        setRating(ratingValue)
+        console.log(ratingValue);
+        // setRating(ratingValue)
+        // console.log(rating);
     }
 
     return ( 
@@ -22,7 +28,7 @@ export const Profile = () => {
     <h2 className='text-3xl text-center text-primary'>{store.profile.username}</h2>
     </div>
     <div className="flex justify-center items-center flex-col m-4 mb-12 ml-1 pt-4 gap-10 h-28">
-        <StaticRating rating={store.profile.rating} itsEditable={true}/>
+        <StaticRating rating={rating} isEditable={false} onChangeRating={handleClick} />
     </div >
     <div className="flex bg-secondary justify-evenly text-base-100 w-full text-center place-items-center h-52">
      
