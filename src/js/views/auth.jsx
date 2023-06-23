@@ -4,6 +4,8 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
@@ -60,7 +62,6 @@ export default function Auth() {
           {/* Ejecutamos una función para indicar que queremos hacer login con Google */}
           <button
             className="btn"
-
             onClick={() => actions.signInWithProvider("google")}
           >
             Google
@@ -69,7 +70,7 @@ export default function Auth() {
       )}
       <div className="divider"></div>
       <button className="btn" onClick={handleLogout}>
-        Sign out
+        <FontAwesomeIcon icon={faSignOutAlt} /> Sign out
       </button>
     </div>
   );
