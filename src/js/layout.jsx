@@ -32,7 +32,7 @@ const Layout = () => {
     checkIfUserIsLoggedIn();
   }, []);
   return (
-    <div className="flow h-screen">
+    <div className="flow">
       <BrowserRouter>
         <Routes>
           {loading ? (
@@ -53,7 +53,7 @@ const Layout = () => {
                   <Route path="/newdonation" element={<NewDonation />} />
                   <Route path="/product/:id" element={<DetailView />} />
                   <Route path="/profile" element={<Profile />} />
-                  <Route path="/profile/edit" element={<EditProfile/>} />
+                  <Route path="/profile/edit" element={<EditProfile />} />
                   <Route path="/auth" element={<Auth />} />
                 </>
               )}
