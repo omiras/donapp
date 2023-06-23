@@ -13,13 +13,15 @@ const DetailView = () => {
     (donation) => donation.id + "" === id + ""
   );
   console.log(product);
+  console.log(store.user.user_id);
 
   return (
     <div className=" container grid p-1 md:place-content-center">
       <div className="product-card h-full bg-secondary md:max-w-[500px]  flow p-5 rounded-lg">
         <div className="header flex justify-between place-items-center">
           <div className="profile flex place-items-center gap-2">
-            <img className="profleAvatar rounded-full"
+            <img
+              className="profleAvatar rounded-full"
               src={product.profiles.avatar_url}
               alt="user-avatar"
               width="40px"
@@ -30,7 +32,6 @@ const DetailView = () => {
             <Icon icon="fluent:chat-16-regular" width="40px" />
           </div>
         </div>
-
         <div className=" relative">
           <img
             className="w-full h-full rounded-lg"
@@ -42,16 +43,23 @@ const DetailView = () => {
           </span>
         </div>
         <div
-          className="location flex gap-1  place-items-center justify-end mr-3"
+          className="location flex gap-1  place-items-center justify-between mr-3"
           style={{ "--flow-space": "0.3em" }}
         >
+          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success">
+            Donado
+          </button>
           <Icon
             icon="fluent:location-24-regular"
             width={26}
             className="w-fit"
           />
           {/* <p>{product.profile.city}</p> */}
+          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-error">
+            Cancelar
+          </button>
         </div>
+        ;
         <div className="info">
           <div className="title">
             <h3>{product.name}</h3>

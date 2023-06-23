@@ -1,12 +1,11 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 
 export const Navbar = () => {
-
   const navigate = useNavigate();
   const location = useLocation();
 
-  // En la propiedad location.pathname nos dice en que ruta nos encontamos acutalemnte 
-  console.log('Ruta actual:', location.pathname)
+  // En la propiedad location.pathname nos dice en que ruta nos encontamos acutalemnte
+  console.log("Ruta actual:", location.pathname);
 
   return (
     <nav className="h-[70px] btm-nav bg-secondary">
@@ -14,7 +13,6 @@ export const Navbar = () => {
         <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-
             fill="#22577a"
             height="1.5em"
             viewBox="0 0 576 512"
@@ -35,7 +33,6 @@ export const Navbar = () => {
         <button className=" ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-
             fill="#22577a"
             height="1.5em"
             viewBox="0 0 512 512"
@@ -54,17 +51,28 @@ export const Navbar = () => {
 
       {/* Como hago para que se aplique un estilo en línea display:none solamente cuando  location.pathname vale '/newdonation'*/}
 
-      <div onClick={() => navigate("/newdonation")} className={`static ${location.pathname.includes('newdonation') ? "hidden" : ""}`}>
+      <div
+        onClick={() => navigate("/newdonation")}
+        className={`static ${
+          location.pathname.includes("newdonation") ? "hidden" : ""
+        }`}
+      >
         <button className="btn bg-primary btn-circle basis-12 absolute w-[72px] h-[72px] bottom-8 ">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="#57cc99" height="1.5em" viewBox="0 0 448 512"><path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" /></svg>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="#57cc99"
+            height="1.5em"
+            viewBox="0 0 448 512"
+          >
+            <path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z" />
+          </svg>
         </button>
       </div>
 
       <Link to="/myDonations">
-        <button >
+        <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
-
             fill="#22577a"
             height="1.5em"
             viewBox="0 0 512 512"
@@ -81,7 +89,7 @@ export const Navbar = () => {
         <span className="btm-nav-label text-base">Donaciones</span>
       </Link>
       <Link to="/profile">
-        <button >
+        <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="1.5em"
@@ -98,7 +106,6 @@ export const Navbar = () => {
         </button>
         <span className="btm-nav-label text-base">Perfil</span>
       </Link>
-
     </nav>
   );
 };
