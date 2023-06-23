@@ -5,8 +5,8 @@ import injectContext, { Context } from "./store/appContext";
 import { Profile } from "./views/profile";
 
 import { Navbar } from "./component/navbar";
-import { NewDonation } from "./views/newDonation";
-import DetailView from "./views/DetailView";
+import { NewDonation } from "./views/newdonation";
+import DetailView from "./views/detailView";
 import Auth from "./views/auth";
 import { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
