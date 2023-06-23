@@ -11,11 +11,12 @@ export const Profile = () => {
     const { store, actions } = useContext(Context);
     console.log(store);
 
-    const handleLogout = () => {
-        // Lógica para cerrar sesión
-    };
+    const handleLogout = async () => {
+        await actions.signOut();
+        console.log("logged out");
+        navigate("/");
+      };
 
-    // TODO: Cambiar por el rating de la base de datos
     const [rating, setRating] = useState(1);
 
     const handleClick = (ratingValue) => {
