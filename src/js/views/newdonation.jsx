@@ -7,21 +7,25 @@ import { useNavigate } from "react-router-dom";
 import UploadImage from "../component/UploadImage";
 import { useState } from "react";
 import { useEffect } from "react";
+import { supabase } from "../../lib/supabaseClient";
 
 export const NewDonation = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [preview, setPreview] = useState();
+  const [image, setImage] = useState();
 
-  const handleImageChange = (event) => {
+
+  const handleImageChange = (file) => {
+    setImage(file)
     const reader = new FileReader();
 
     reader.onload = () => {
       setPreview(reader.result);
     };
 
-    if (event) {
-      reader.readAsDataURL(event);
+    if (file) {
+      reader.readAsDataURL(file);
     }
   };
 
@@ -36,11 +40,23 @@ export const NewDonation = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+
+    const fileExt = image.name.split(".").pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    let { error: uploadError } = await supabase.storage
+      .from("products")
+      .upload(filePath, image);
+    if (uploadError) {
+      throw uploadError;
+    }
+
     const updatedDonation = {
       name: data.name,
       description: data.description,
       product_status: data.state,
-      image_url: data.image,
+      image_url: url + filePath,
       user_id: store.user.id,
     };
     // handleData(data);
@@ -64,7 +80,7 @@ export const NewDonation = () => {
   // useEffect(() => {}, [preview]);
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center">
+    <div className="flex flex-col gap-3 justify-center items-center pb-20">
       <h1 className="text-2xl font-bold">Describe tu regalo</h1>
 
       <form
@@ -75,9 +91,8 @@ export const NewDonation = () => {
         <div className="flex flex-col gap-2">
           <label className="label-text">Nombre</label>
           <input
-            className={`input input-md input-bordered  ${
-              errors.name ? "input-error" : ""
-            }`}
+            className={`input input-md input-bordered  ${errors.name ? "input-error" : ""
+              }`}
             placeholder="Nombre"
             {...register(
               "name",
@@ -102,9 +117,8 @@ export const NewDonation = () => {
           <label className="label-text">Descripción</label>
           <div className="flex flex-col relative">
             <textarea
-              className={`input input-md input-bordered w-full textarea h-auto  ${
-                errors.description ? "input-error" : ""
-              }`}
+              className={`input input-md input-bordered w-full textarea h-auto  ${errors.description ? "input-error" : ""
+                }`}
               placeholder="Descripción"
               {...register(
                 "description",
@@ -129,12 +143,12 @@ export const NewDonation = () => {
 
         {/* Image---------------- */}
 
-        <div className="flex flex-col max-w-[250px]">
+        <div className="flex flex-col gap-3">
           {preview && <img src={preview} alt="" />}
           <UploadImage
             size={150}
             onUpload={(url) => {
-              console.log(url);
+
               handleImageChange(url);
               // setPreview(url);
             }}
@@ -145,9 +159,8 @@ export const NewDonation = () => {
         <div className="flex flex-col gap-2">
           <label className="label-text">Estado</label>
           <select
-            className={`select select-bordered select-md  ${
-              errors.state ? "input-error" : ""
-            }`}
+            className={`select select-bordered select-md  ${errors.state ? "input-error" : ""
+              }`}
             name="state"
             id="state"
             {...register("state", {

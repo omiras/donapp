@@ -13,18 +13,6 @@ export default function UploadImage({ size, onUpload }) {
       }
 
       const file = event.target.files[0];
-      const fileExt = file.name.split(".").pop();
-      const fileName = `${Math.random()}.${fileExt}`;
-      const filePath = `${fileName}`;
-
-      //   let { error: uploadError } = await supabase.storage
-      //     .from("products")
-      //     .upload(filePath, file);
-
-      //   if (uploadError) {
-      //     throw uploadError;
-      //   }
-      //   console.log(file);
 
       onUpload(file);
     } catch (error) {

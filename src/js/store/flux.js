@@ -56,6 +56,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const { error } = await supabase.auth.signOut();
         if (error) return console.log(error);
         setStore({ session: null });
+        setStore({ user: null });
       },
       // La función supabase.auth nos autentifica usando Google
       signInWithProvider: async (provider) => {
