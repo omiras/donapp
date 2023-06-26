@@ -11,6 +11,7 @@ import Auth from "./views/auth";
 import { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
+import EditProfile from "./views/EditProfile";
 
 const basename = import.meta.env.BASENAME || "";
 
@@ -31,7 +32,7 @@ const Layout = () => {
     checkIfUserIsLoggedIn();
   }, []);
   return (
-    <div className="flow h-screen">
+    <div className="flow">
       <BrowserRouter>
         <Routes>
           {loading ? (
@@ -52,6 +53,7 @@ const Layout = () => {
                   <Route path="/newdonation" element={<NewDonation />} />
                   <Route path="/product/:id" element={<DetailView />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/profile/edit" element={<EditProfile />} />
                   <Route path="/auth" element={<Auth />} />
                 </>
               )}
