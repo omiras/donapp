@@ -14,7 +14,7 @@ export const Profile = () => {
   const handleLogout = async () => {
     await actions.signOut();
     console.log("logged out");
-    navigate("/");
+    location.reload();
   };
 
   const [rating, setRating] = useState(1);
