@@ -45,6 +45,8 @@ const Layout = () => {
                   <Route path="/" element={<Home />} />
                   <Route path="/product/:id" element={<DetailView />} />
                   <Route path="/auth" element={<Auth />} />
+                  <Route path="/profile/:id" element={<EditProfile />} />
+
                   <Route path="*" element={<Navigate to="/auth" />} />
                 </>
               ) : (
@@ -52,6 +54,8 @@ const Layout = () => {
                   <Route path="/" element={<Home />} />
                   <Route path="/newdonation" element={<NewDonation />} />
                   <Route path="/product/:id" element={<DetailView />} />
+                  <Route path="/profile/:id" element={<EditProfile />} />
+
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/profile/edit" element={<EditProfile />} />
                   <Route path="/auth" element={<Auth />} />

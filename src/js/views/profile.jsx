@@ -24,6 +24,12 @@ export const Profile = () => {
     console.log(ratingValue);
   };
 
+  /** SI el usuario está logueado, todo tiene que funcionar como hasta ahora. SAbemos que un usuario está logueado porque la variable store.user tiene valor.  */
+
+  /**
+   * Si no está logueado, las donaciones, el avatar, el full name y cualquier otra información debe provenir del usuario procedente de la URL. Si hemos hecho click aqui /profile/cced0883-c7d4-49f1-a0ab-ddc93e637da5 , debemos traernos toda la información del usuario Fran 
+   */
+
   const donations = store.donations.filter((d) => d.user_id === store.user.id);
 
   return (
