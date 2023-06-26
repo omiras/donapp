@@ -9,10 +9,26 @@ const DetailView = () => {
 
   const { id } = useParams();
 
+  const handleDonation = async (e) => {
+    const idProduct = e.target.id;
+    await actions.getDonationDate(new Date(), idProduct);
+
+    console.log(e.target.id);
+  };
+  const handleDeleteProduct = async (e) => {
+    const idProduct = e.target.id;
+    await actions.getDeletedProduct(new Date(), idProduct);
+    console.log(e.target.id);
+    const filteredProduct = store.donations.filter((p) => p.id !== idProduct);
+    getDonation()
+
+    console.log(filteredProduct);
+  };
+
   const product = store.donations.find(
     (donation) => donation.id + "" === id + ""
   );
-  console.log(product);
+  console.log(product.id);
   console.log("user", store.user.id);
   console.log("product?", product.profiles.id);
 
@@ -44,12 +60,16 @@ const DetailView = () => {
           </span>
         </div>
 
-        {store.user.id === product.profiles.id ? 
+        {store.user.id === product.profiles.id ? (
           <div
             className="location flex gap-1  place-items-center justify-between mr-3"
             style={{ "--flow-space": "0.3em" }}
           >
-            <button onClick={()=>console.log("clicked",new Date())}  className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success">
+            <button
+              id={product.id}
+              onClick={(e) => handleDonation(e)}
+              className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success"
+            >
               Donado
             </button>
             <Icon
@@ -58,19 +78,24 @@ const DetailView = () => {
               className="w-fit"
             />
             {/* <p>{product.profile.city}</p> */}
-            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-error">
+            <button
+              id={product.id}
+              onClick={(e) => handleDeleteProduct(e)}
+              className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-error"
+            >
               Cancelar
             </button>
           </div>
-         : <>
-          <Icon
-            icon="fluent:location-24-regular"
-            width={26}
-            className="w-fit"
+        ) : (
+          <>
+            <Icon
+              icon="fluent:location-24-regular"
+              width={26}
+              className="w-fit"
             />
             <p>Barcelona</p>
           </>
-        }
+        )}
 
         <div className="info">
           <div className="title">
