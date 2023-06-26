@@ -5,7 +5,7 @@ import { useState } from "react";
 export default function EditProfile() {
   const { store, actions } = useContext(Context);
   const [name, setName] = useState(store.user.full_name);
-  const [city, setCity] = useState(store.user.city);
+  const [city, setCity] = useState(store.user.city || '');
   const [avatar, setAvatar] = useState(store.user.avatar_url);
 
   return (
