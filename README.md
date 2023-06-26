@@ -5,4 +5,3 @@ Instalar todas dependencias
 
 Ejecutar el proyecto
 ```npm run dev```
-a
