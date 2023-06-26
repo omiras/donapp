@@ -25,13 +25,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ donations: [...data] });
       },
 
-      getDonationCount:  () => {
-      const store = getStore();
-      const numUserDonations = store.donations.filter(donation => store.user.id == donation.user_id);
+      getDonationCount: () => {
+        const store = getStore();
+        const numUserDonations = store.donations.filter(
+          (donation) => store.user.id == donation.user_id
+        );
 
-      return numUserDonations.length;
+        return numUserDonations.length;
       },
-      
+
       getUserSession: async () => {
         const actions = getActions();
         const { data, error } = await supabase.auth.getSession();
@@ -62,6 +64,17 @@ const getState = ({ getStore, getActions, setStore }) => {
         });
         if (error) return console.log(error);
         setStore({ session: { ...user } });
+      },
+      editProfile: async (profile) => {
+        const store = getStore();
+        const { data, error } = await supabase
+          .from("profiles")
+          .update({ ...profile })
+          .eq("id", store.user.id)
+          .select();
+        if (error) return console.log(error);
+        console.log(data);
+        setStore({ user: { ...data[0] } });
       },
     },
   };
