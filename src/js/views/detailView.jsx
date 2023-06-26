@@ -13,7 +13,8 @@ const DetailView = () => {
     (donation) => donation.id + "" === id + ""
   );
   console.log(product);
-  console.log(store.user.user_id);
+  console.log("user", store.user.id);
+  console.log("product?", product.profiles.id);
 
   return (
     <div className=" container grid p-1 md:place-content-center">
@@ -42,24 +43,35 @@ const DetailView = () => {
             {product.product_status}
           </span>
         </div>
-        <div
-          className="location flex gap-1  place-items-center justify-between mr-3"
-          style={{ "--flow-space": "0.3em" }}
-        >
-          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success">
-            Donado
-          </button>
+
+        {store.user.id === product.profiles.id ? 
+          <div
+            className="location flex gap-1  place-items-center justify-between mr-3"
+            style={{ "--flow-space": "0.3em" }}
+          >
+            <button onClick={()=>console.log("clicked",new Date())}  className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success">
+              Donado
+            </button>
+            <Icon
+              icon="fluent:location-24-regular"
+              width={26}
+              className="w-fit"
+            />
+            {/* <p>{product.profile.city}</p> */}
+            <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-error">
+              Cancelar
+            </button>
+          </div>
+         : <>
           <Icon
             icon="fluent:location-24-regular"
             width={26}
             className="w-fit"
-          />
-          {/* <p>{product.profile.city}</p> */}
-          <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-error">
-            Cancelar
-          </button>
-        </div>
-        ;
+            />
+            <p>Barcelona</p>
+          </>
+        }
+
         <div className="info">
           <div className="title">
             <h3>{product.name}</h3>
