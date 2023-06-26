@@ -4,10 +4,29 @@ import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import UploadImage from "../component/UploadImage";
+import { useState } from "react";
+import { useEffect } from "react";
 
 export const NewDonation = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const [preview, setPreview] = useState();
+
+  const handleImageChange = (event) => {
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      setPreview(reader.result);
+    };
+
+    if (event) {
+      reader.readAsDataURL(event);
+    }
+  };
+
+  const url =
+    "https://wfjvzsivrrhoqaqhqvuj.supabase.co/storage/v1/object/public/products/";
 
   const {
     register,
@@ -42,6 +61,8 @@ export const NewDonation = () => {
 
   //const chooseOption === 'Elige una opcion'
 
+  // useEffect(() => {}, [preview]);
+
   return (
     <div className="flex flex-col gap-3 justify-center items-center">
       <h1 className="text-2xl font-bold">Describe tu regalo</h1>
@@ -54,8 +75,9 @@ export const NewDonation = () => {
         <div className="flex flex-col gap-2">
           <label className="label-text">Nombre</label>
           <input
-            className={`input input-md input-bordered  ${errors.name ? "input-error" : ""
-              }`}
+            className={`input input-md input-bordered  ${
+              errors.name ? "input-error" : ""
+            }`}
             placeholder="Nombre"
             {...register(
               "name",
@@ -80,8 +102,9 @@ export const NewDonation = () => {
           <label className="label-text">Descripción</label>
           <div className="flex flex-col relative">
             <textarea
-              className={`input input-md input-bordered w-full textarea h-auto  ${errors.description ? "input-error" : ""
-                }`}
+              className={`input input-md input-bordered w-full textarea h-auto  ${
+                errors.description ? "input-error" : ""
+              }`}
               placeholder="Descripción"
               {...register(
                 "description",
@@ -106,38 +129,25 @@ export const NewDonation = () => {
 
         {/* Image---------------- */}
 
-        <div className="flex flex-col gap-2">
-          <label
-            htmlFor="image-url"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            imágen
-          </label>
-          <div className="flex flex-col relative">
-            <input
-              id="image-url"
-              name="image-url"
-              type="url"
-              className={`input input-md input-bordered w-full  ${errors.image ? "input-error" : ""
-                }`}
-              placeholder="https://fastly.picsum.photos/id/791/200/300.jpg?hmac=Ah_2kp5UqnZv5O0c333s3M4p-FqkCZ6ViRd1V_pAHYk"
-              {...register("image", {
-                //This is the validation
-                required: "Campo requerido.",
-              })}
-            />
-            {errors?.image && (
-              <span className="text-error"> {errors.image.message}</span>
-            )}
-          </div>
+        <div className="flex flex-col max-w-[250px]">
+          {preview && <img src={preview} alt="" />}
+          <UploadImage
+            size={150}
+            onUpload={(url) => {
+              console.log(url);
+              handleImageChange(url);
+              // setPreview(url);
+            }}
+          />
         </div>
 
         {/* State---------------- */}
         <div className="flex flex-col gap-2">
           <label className="label-text">Estado</label>
           <select
-            className={`select select-bordered select-md  ${errors.state ? "input-error" : ""
-              }`}
+            className={`select select-bordered select-md  ${
+              errors.state ? "input-error" : ""
+            }`}
             name="state"
             id="state"
             {...register("state", {
