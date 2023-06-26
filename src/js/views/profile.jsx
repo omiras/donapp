@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import StaticRating from "../component/StaticRating";
 import { useState } from "react";
-import DonationList from "../component/donationList";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
+import DonationList  from "../component/donationList";
 
 export const Profile = () => {
   const { store, actions } = useContext(Context);
@@ -45,6 +46,11 @@ export const Profile = () => {
         <h2 className="text-3xl text-center text-primary">
           {store.user.full_name}
         </h2>
+      </div>
+      <div className="flex justify-center">
+        <Link className="link" to={`/profile/edit`}>
+          Editar perfil
+        </Link>
       </div>
       <div className="flex justify-center items-center flex-col m-4 mb-12 ml-1 pt-4 gap-10 h-28">
         {/* Traer esto de la base de datos */}
