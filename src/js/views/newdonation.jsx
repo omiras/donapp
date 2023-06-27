@@ -4,9 +4,7 @@ import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import UploadImage from "../component/UploadImage";
 import { useState } from "react";
-import { useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient";
 
 export const NewDonation = () => {
@@ -14,19 +12,35 @@ export const NewDonation = () => {
   const navigate = useNavigate();
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
+  const [uploading, setUploading] = useState(false);
 
-  const handleImageChange = (file) => {
-    setImage(file);
-    const reader = new FileReader();
+  async function uploadAvatar(event) {
+    try {
+      setUploading(true);
+      setPreview(null);
+      setImage(null);
 
-    reader.onload = () => {
-      setPreview(reader.result);
-    };
+      // if (!event.target.files || event.target.files.length === 0) {
+      //   throw new Error("You must select an image to upload.");
+      // }
 
-    if (file) {
-      reader.readAsDataURL(file);
+      const file = event.target.files[0];
+      setImage(file);
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setUploading(false);
     }
-  };
+  }
 
   const url =
     "https://wfjvzsivrrhoqaqhqvuj.supabase.co/storage/v1/object/public/products/";
@@ -39,6 +53,7 @@ export const NewDonation = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
     const fileExt = image.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExt}`;
     const filePath = `${fileName}`;
@@ -68,14 +83,6 @@ export const NewDonation = () => {
     toast.success("¡Gracias, tu donación está publicada!"),
       { position: toast.POSITION.TOP_CENTER };
   };
-
-  console.log(errors);
-
-  // console.log(watch("example")); // watch input value by passing the name of it
-
-  //const chooseOption === 'Elige una opcion'
-
-  // useEffect(() => {}, [preview]);
 
   return (
     <div className="flex flex-col gap-3 justify-center items-center pb-20">
@@ -143,14 +150,26 @@ export const NewDonation = () => {
 
         {/* Image---------------- */}
 
-        <div className="flex flex-col gap-3">
-          {preview && <img src={preview} alt="" />}
-          <UploadImage
-            size={150}
-            onUpload={(url) => {
-              handleImageChange(url);
+        <div className="flex flex-col gap-2">
+          <img src={preview} alt="" />
+          <label className="btn btn-primary" htmlFor="single">
+            {uploading ? "Uploading ..." : "Upload Image"}
+          </label>
+          <input
+            style={{
+              visibility: "hidden",
+              position: "absolute",
             }}
+            {...register("image", { required: "Campo requerido." })}
+            type="file"
+            id="single"
+            accept="image/*"
+            onChange={uploadAvatar}
+            disabled={uploading}
           />
+          {errors?.image && (
+            <span className="text-error"> {errors.image.message}</span>
+          )}
         </div>
 
         {/* State---------------- */}
