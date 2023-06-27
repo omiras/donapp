@@ -82,7 +82,7 @@ export const Profile = () => {
             className="w-206px h-216px rounded-full ring ring-secondary ring-offset-secondary ring-offset-2 m-auto "
             src={profile.avatar_url}
             alt="Avatar"
-            width={206}
+            width={"20em"}
           />
         </div>
       </div>
