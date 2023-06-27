@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import DonationList  from "../component/donationList";
 
 export const Profile = () => {
+
   const { store, actions } = useContext(Context);
   console.log(store);
 
