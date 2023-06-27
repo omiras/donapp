@@ -171,29 +171,11 @@ export const NewDonation = () => {
             type="file"
             id="single"
             accept="image/*"
+            capture="user"
             onChange={uploadAvatar}
             disabled={uploading}
           />
-          {size.width < 768 && (
-            <>
-              <label className="btn btn-primary" htmlFor="single">
-                {uploading ? "Uploading ..." : "Take a picture"}
-              </label>
-              <input
-                style={{
-                  visibility: "hidden",
-                  position: "absolute",
-                }}
-                {...register("image", { required: "Campo requerido." })}
-                type="file"
-                id="single"
-                accept="image/*"
-                capture="user"
-                onChange={uploadAvatar}
-                disabled={uploading}
-              />
-            </>
-          )}
+
           {errors?.image && (
             <span className="text-error"> {errors.image.message}</span>
           )}
