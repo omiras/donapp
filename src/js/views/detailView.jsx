@@ -59,6 +59,7 @@ const DetailView = () => {
           className="location flex gap-1  place-items-center justify-end mr-3"
           style={{ "--flow-space": "0.3em" }}
         >
+          <p>{product.profiles.city}</p>
           <Icon
             icon="fluent:location-24-regular"
             width={26}

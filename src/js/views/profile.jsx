@@ -9,7 +9,12 @@ export const Profile = () => {
   const { store, actions } = useContext(Context);
   console.log(store);
 
-  // TODO: Cambiar por el rating de base de datos
+  const handleLogout = async () => {
+    await actions.signOut();
+    console.log("logged out");
+    window.location.replace("/");
+  };
+
   const [rating, setRating] = useState(1);
 
   const handleClick = (ratingValue) => {
