@@ -134,9 +134,7 @@ export const NewDonation = () => {
           <UploadImage
             size={150}
             onUpload={(url) => {
-              console.log(url);
               handleImageChange(url);
-              // setPreview(url);
             }}
           />
         </div>
