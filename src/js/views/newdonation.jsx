@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 export const NewDonation = () => {
   const { store, actions } = useContext(Context);
@@ -13,6 +14,7 @@ export const NewDonation = () => {
   const [preview, setPreview] = useState();
   const [image, setImage] = useState();
   const [uploading, setUploading] = useState(false);
+  const size = useWindowSize();
 
   async function uploadAvatar(event) {
     try {
@@ -151,7 +153,12 @@ export const NewDonation = () => {
         {/* Image---------------- */}
 
         <div className="flex flex-col gap-2">
-          <img src={preview} alt="" />
+          {preview && <img src={preview} alt="" />}
+          {!preview && (
+            <div className="h-52 w-full flex place-items-center justify-center border border-secondary border-4 rounded">
+              <p>Image</p>
+            </div>
+          )}
           <label className="btn btn-primary" htmlFor="single">
             {uploading ? "Uploading ..." : "Upload Image"}
           </label>
@@ -167,6 +174,26 @@ export const NewDonation = () => {
             onChange={uploadAvatar}
             disabled={uploading}
           />
+          {size.width < 768 && (
+            <>
+              <label className="btn btn-primary" htmlFor="single">
+                {uploading ? "Uploading ..." : "Take a picture"}
+              </label>
+              <input
+                style={{
+                  visibility: "hidden",
+                  position: "absolute",
+                }}
+                {...register("image", { required: "Campo requerido." })}
+                type="file"
+                id="single"
+                accept="image/*"
+                capture="user"
+                onChange={uploadAvatar}
+                disabled={uploading}
+              />
+            </>
+          )}
           {errors?.image && (
             <span className="text-error"> {errors.image.message}</span>
           )}
