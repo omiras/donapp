@@ -2,6 +2,8 @@ import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useEffect } from "react";
 
 const DetailView = () => {
@@ -12,17 +14,16 @@ const DetailView = () => {
   const handleDonation = async (e) => {
     const idProduct = e.target.id;
     await actions.getDonationDate(new Date(), idProduct);
-
-    console.log(e.target.id);
+    toast.success("El producto ha sido donado correctamente al usuario."),
+      { position: toast.POSITION.TOP_CENTER };
   };
+  // Send the delete date to the database.
   const handleDeleteProduct = async (e) => {
     const idProduct = e.target.id;
     await actions.getDeletedProduct(new Date(), idProduct);
-    console.log(e.target.id);
-    const filteredProduct = store.donations.filter((p) => p.id !== idProduct);
-    getDonation()
-
-    console.log(filteredProduct);
+    console.log("Como queda", store.donations);
+    toast.error("El producto ha sido eliminado correctamente."),
+      { position: toast.POSITION.TOP_CENTER };
   };
 
   const product = store.donations.find(
@@ -45,6 +46,7 @@ const DetailView = () => {
             />
             <h5 className="nombre capitalize">{product.profiles.full_name}</h5>
           </div>
+          <ToastContainer></ToastContainer>
           <div className="contact">
             <Icon icon="fluent:chat-16-regular" width="40px" />
           </div>
@@ -70,7 +72,7 @@ const DetailView = () => {
               onClick={(e) => handleDonation(e)}
               className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success"
             >
-              Donado
+              Marcar Donación
             </button>
             <Icon
               icon="fluent:location-24-regular"
@@ -83,7 +85,7 @@ const DetailView = () => {
               onClick={(e) => handleDeleteProduct(e)}
               className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-error"
             >
-              Cancelar
+              Eliminar
             </button>
           </div>
         ) : (
