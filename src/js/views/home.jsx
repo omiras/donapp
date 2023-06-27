@@ -12,17 +12,22 @@ const Home = () => {
   const [donations, setDonations] = useState([...store.donations]);
 
   const handleFilter = (e) => {
-    const keyword = e.target.value;
-    const keywordRegex = new RegExp(keyword, "i");
+    const keyword = e.target.value; // Obtiene el valor ingresado en el campo de búsqueda
+    const keywords = keyword.split(/\s+/).filter(Boolean); // Divide la entrada en palabras clave y elimina los espacios en blanco
+  
+    const filteredDonations = store.donations.filter((d) => {
+      return keywords.every((kw) =>
+        [d.name, d.description, d.profiles.city].some((field) =>
+          new RegExp(kw, "i").test(field)
+        )
+      );
+    });
+  
+    setSearch(keyword); // Establece la palabra clave de búsqueda en el estado
+    setDonations(filteredDonations); // Establece las donaciones filtradas en el estado
 
-    const filteredDonations = store.donations.filter(
-      (d) => keywordRegex.test(d.name) || keywordRegex.test(d.description)
-    );
-
-    setSearch(keyword);
-    setDonations(filteredDonations);
   };
-
+  
   // Por defeccto, me las como todas
   let filteredUser = donations;
 
