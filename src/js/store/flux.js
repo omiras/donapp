@@ -75,6 +75,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       editProfile: async (profile) => {
         const store = getStore();
+        
         const { data, error } = await supabase
           .from("profiles")
           .update({ ...profile })
@@ -84,8 +85,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log(data);
         setStore({ user: { ...data[0] } });
       },
+
     },
   };
 };
+
+
+
 
 export default getState;
