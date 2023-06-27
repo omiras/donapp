@@ -7,21 +7,24 @@ import { useNavigate } from "react-router-dom";
 import UploadImage from "../component/UploadImage";
 import { useState } from "react";
 import { useEffect } from "react";
+import { supabase } from "../../lib/supabaseClient";
 
 export const NewDonation = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
   const [preview, setPreview] = useState();
+  const [image, setImage] = useState();
 
-  const handleImageChange = (event) => {
+  const handleImageChange = (file) => {
+    setImage(file);
     const reader = new FileReader();
 
     reader.onload = () => {
       setPreview(reader.result);
     };
 
-    if (event) {
-      reader.readAsDataURL(event);
+    if (file) {
+      reader.readAsDataURL(file);
     }
   };
 
@@ -36,11 +39,22 @@ export const NewDonation = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    const fileExt = image.name.split(".").pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    let { error: uploadError } = await supabase.storage
+      .from("products")
+      .upload(filePath, image);
+    if (uploadError) {
+      throw uploadError;
+    }
+
     const updatedDonation = {
       name: data.name,
       description: data.description,
       product_status: data.state,
-      image_url: data.image,
+      image_url: url + filePath,
       user_id: store.user.id,
     };
     // handleData(data);
@@ -64,7 +78,7 @@ export const NewDonation = () => {
   // useEffect(() => {}, [preview]);
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center">
+    <div className="flex flex-col gap-3 justify-center items-center pb-20">
       <h1 className="text-2xl font-bold">Describe tu regalo</h1>
 
       <form
@@ -129,7 +143,7 @@ export const NewDonation = () => {
 
         {/* Image---------------- */}
 
-        <div className="flex flex-col max-w-[250px]">
+        <div className="flex flex-col gap-3">
           {preview && <img src={preview} alt="" />}
           <UploadImage
             size={150}

@@ -27,7 +27,7 @@ export const Profile = () => {
   const donations = store.donations.filter((d) => d.user_id === store.user.id);
 
   return (
-    <div>
+    <div className="pb-[70px] flex flex-col gap-5">
       <div className="flex relative m-4 pt-4">
         <div className="absolute">
           <button className="btn btn-sm text-xs" onClick={handleLogout}>
@@ -67,7 +67,7 @@ export const Profile = () => {
           <span className="text-xl">Likes</span>
         </div>
       </div>
-      <div>
+      <div className="p-5">
         <DonationList items={donations} />
       </div>
     </div>
