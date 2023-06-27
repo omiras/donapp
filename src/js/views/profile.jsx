@@ -31,7 +31,7 @@ export const Profile = () => {
       }
 
 
-  }, [])
+  }, [id]) 
 
   console.log(store);
   console.log("id del usaurio", id);
@@ -70,10 +70,9 @@ export const Profile = () => {
   }
 
   console.log('etiqeuta donaciones:',donations);
-  return (
-    <div>
+  return <div>
       <div className="flex relative m-4 pt-4">
-        <div className="absolute">
+        <div style={{display : id ? "none": ""}} className="absolute">
           <button className="btn btn-sm text-xs" onClick={handleLogout}>
             <FontAwesomeIcon icon={faSignOutAlt} /> Sign out
           </button>
@@ -83,6 +82,7 @@ export const Profile = () => {
             className="w-206px h-216px rounded-full ring ring-secondary ring-offset-secondary ring-offset-2 m-auto "
             src={profile.avatar_url}
             alt="Avatar"
+            width={206}
           />
         </div>
       </div>
@@ -91,7 +91,7 @@ export const Profile = () => {
           {profile.full_name}
         </h2>
       </div>
-      <div className="flex justify-center">
+      <div style={{display : id ? "none": ""}} className="flex justify-center">
         <Link className="link" to={`/profile/edit`}>
           Editar perfil
         </Link>
@@ -115,5 +115,7 @@ export const Profile = () => {
         <DonationList items={donations} />
       </div>
     </div>
-  );
+  
+  
 };
+
