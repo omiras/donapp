@@ -25,10 +25,11 @@ const DetailView = () => {
               <img className="profleAvatar rounded-full"
                 src={product.profiles.avatar_url}
                 alt="user-avatar"
-                width="40px"
+                width={45}
+                height={45}
               />
-            </Link>
             <h5 className="nombre capitalize">{product.profiles.full_name}</h5>
+            </Link>
           </div>
           <div className="contact">
             <Icon icon="fluent:chat-16-regular" width="40px" />
