@@ -62,43 +62,17 @@ const DetailView = () => {
           </span>
         </div>
 
-        {store.user.id === product.profiles.id ? (
-          <div
-            className="location flex gap-1  place-items-center justify-between mr-3"
-            style={{ "--flow-space": "0.3em" }}
-          >
-            <button
-              id={product.id}
-              onClick={(e) => handleDonation(e)}
-              className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-success"
-            >
-              Marcar Donación
-            </button>
-            <Icon
-              icon="fluent:location-24-regular"
-              width={26}
-              className="w-fit"
-            />
-            {/* <p>{product.profile.city}</p> */}
-            <button
-              id={product.id}
-              onClick={(e) => handleDeleteProduct(e)}
-              className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg btn-error"
-            >
-              Eliminar
-            </button>
-          </div>
-        ) : (
-          <>
-            <Icon
-              icon="fluent:location-24-regular"
-              width={26}
-              className="w-fit"
-            />
-            <p>Barcelona</p>
-          </>
-        )}
-
+        <div
+          className="location flex gap-1  place-items-center justify-end mr-3"
+          style={{ "--flow-space": "0.3em" }}
+        >
+          <Icon
+            icon="fluent:location-24-regular"
+            width={26}
+            className="w-fit"
+          />
+          {/* <p>{product.profile.city}</p> */}
+        </div>
         <div className="info">
           <div className="title">
             <h3>{product.name}</h3>
@@ -108,6 +82,24 @@ const DetailView = () => {
           </div>
         </div>
       </div>
+      {store.user.id === product.profiles.id ? (
+        <>
+          <button
+            id={product.id}
+            onClick={(e) => handleDonation(e)}
+            className="btn btn-success mb-1"
+          >
+            Marcar Donación
+          </button>
+          <button
+            id={product.id}
+            onClick={(e) => handleDeleteProduct(e)}
+            className="btn btn-error"
+          >
+            Eliminar
+          </button>
+        </>
+      ) : null}
     </div>
   );
 };
