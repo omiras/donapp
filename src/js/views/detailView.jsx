@@ -1,29 +1,22 @@
 import { useContext } from "react";
 import { Context } from "../store/appContext";
-import { useParams } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 
 const DetailView = () => {
   const { store, actions } = useContext(Context);
-
   const { id } = useParams();
 
   const handleDonation = async (e) => {
     const idProduct = e.target.id;
     await actions.getDonationDate(new Date(), idProduct);
-    toast.success("El producto ha sido donado correctamente al usuario."),
-      { position: toast.POSITION.TOP_CENTER };
+    window.location.href = "/profile";
   };
   // Send the delete date to the database.
   const handleDeleteProduct = async (e) => {
     const idProduct = e.target.id;
     await actions.getDeletedProduct(new Date(), idProduct);
-    console.log("Como queda", store.donations);
-    toast.error("El producto ha sido eliminado correctamente."),
-      { position: toast.POSITION.TOP_CENTER };
+    window.location.href = "/profile";
   };
 
   const product = store.donations.find(
@@ -46,7 +39,7 @@ const DetailView = () => {
             />
             <h5 className="nombre capitalize">{product.profiles.full_name}</h5>
           </div>
-          <ToastContainer></ToastContainer>
+
           <div className="contact">
             <Icon icon="fluent:chat-16-regular" width="40px" />
           </div>
@@ -83,7 +76,7 @@ const DetailView = () => {
         </div>
       </div>
       {store.user.id === product.profiles.id ? (
-        <>
+        <div className="flex flex-col">
           <button
             id={product.id}
             onClick={(e) => handleDonation(e)}
@@ -91,6 +84,7 @@ const DetailView = () => {
           >
             Marcar Donación
           </button>
+
           <button
             id={product.id}
             onClick={(e) => handleDeleteProduct(e)}
@@ -98,7 +92,7 @@ const DetailView = () => {
           >
             Eliminar
           </button>
-        </>
+        </div>
       ) : null}
     </div>
   );

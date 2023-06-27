@@ -12,6 +12,7 @@ import { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import EditProfile from "./views/EditProfile";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 const basename = import.meta.env.BASENAME || "";
 

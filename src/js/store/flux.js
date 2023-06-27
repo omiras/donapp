@@ -22,7 +22,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           .from("donations")
           .select(`*,profiles(*)`)
           // Filter the columns where there is not donation date and deleted date.
-          .is("donation_at, deleted_at", null);
+          .is("donation_at", null)
+          .is("deleted_at", null);
         if (error) return console.log(error);
         setStore({ donations: [...data] });
       },
