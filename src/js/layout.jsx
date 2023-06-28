@@ -1,23 +1,25 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import  SplashPage  from "./views/SplashPage";
 import Home from "./views/home";
 import injectContext, { Context } from "./store/appContext";
 import { Profile } from "./views/profile";
-
+import { Navigate } from "react-router-dom";
 import { Navbar } from "./component/navbar";
 import { NewDonation } from "./views/newdonation";
 import DetailView from "./views/detailView";
 import Auth from "./views/auth";
 import { useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+
 import { useState } from "react";
 import EditProfile from "./views/EditProfile";
-import DonationList from "./component/donationList";
 
 const basename = import.meta.env.BASENAME || "";
 
 //create your first component
 const Layout = () => {
+  const [splash, SetSplash] = useState(false)
+
   const { store, actions } = useContext(Context);
   //loading usestate
   const [loading, setLoading] = useState(true);
@@ -27,15 +29,12 @@ const Layout = () => {
     const checkIfUserIsLoggedIn = async () => {
       await actions.getUserSession();
       await actions.getDonations();
-      await actions.getCategories();
       setLoading(false);
     };
 
     checkIfUserIsLoggedIn();
   }, []);
-  console.log(DonationList.user_id)
   return (
-
     <div className="flow">
       <BrowserRouter>
         <Routes>
@@ -46,11 +45,10 @@ const Layout = () => {
               {/* si la variable store.session tiene algún valor, significa que estamos logueados. En este apartado, vamos a mostrar todas las rutas a las que podemos acceder SIN estar logueados*/}
               {!store.session ? (
                 <>
+                  <Route path="/splash" element={<SplashPage />} />
                   <Route path="/" element={<Home />} />
                   <Route path="/product/:id" element={<DetailView />} />
                   <Route path="/auth" element={<Auth />} />
-                  <Route path="/profile/:id" element={<Profile />} />
-
                   <Route path="*" element={<Navigate to="/auth" />} />
                 </>
               ) : (
@@ -58,8 +56,6 @@ const Layout = () => {
                   <Route path="/" element={<Home />} />
                   <Route path="/newdonation" element={<NewDonation />} />
                   <Route path="/product/:id" element={<DetailView />} />
-                  <Route path="/profile/:id" element={<Profile />} />
-
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/profile/edit" element={<EditProfile />} />
                   <Route path="/auth" element={<Auth />} />
@@ -70,8 +66,8 @@ const Layout = () => {
             //navegar solo con login
           )}
         </Routes>
-        <div className="pt-28"></div>
-        <Navbar />
+        {!splash ? "" : <Navbar />}
+
       </BrowserRouter>
     </div>
   );
