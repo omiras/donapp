@@ -7,6 +7,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: null,
       donations: [],
       categories: [],
+     
     },
     actions: {
       addNewDonation: async (newDonation) => {
@@ -20,10 +21,13 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getCategories: async () => {
-        const { data, error } = await supabase.from("categories").select();
+        const { data, error } = await supabase
+          .from("categories")
+          .select(); 
         if (error) return console.log(error);
         setStore({ categories: [...data] });
         console.log(data);
+       
         
       },
       
