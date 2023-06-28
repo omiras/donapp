@@ -13,13 +13,13 @@ import { useContext, useEffect } from "react";
 
 import { useState } from "react";
 import EditProfile from "./views/EditProfile";
+import { useLocation } from 'react-router-dom';
+
 
 const basename = import.meta.env.BASENAME || "";
 
 //create your first component
 const Layout = () => {
-
-  
 
   const [splash, SetSplash] = useState(false)
 

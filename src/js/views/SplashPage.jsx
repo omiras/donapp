@@ -1,6 +1,7 @@
 import React from "react";
 import background from "../../assets/img/dona+_splash.png";
 import ButtonsSplash from "../component/buttonStyle";
+import { Link } from "react-router-dom";
 
 function SplashPage() {
   return (
