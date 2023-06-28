@@ -4,6 +4,9 @@ import SearchInput from "../component/search";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import DonationList from "../component/donationList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Icon } from '@iconify/react';
+
 
 const Home = () => {
   const { store, actions } = useContext(Context);
@@ -43,12 +46,34 @@ const Home = () => {
     <div>
       
       <div className="">
+
         <div className="mx-auto max-w-2xl px-4 pt-6 pb-20 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="flex justify-center align-center mb-3 gap-2 flex-col">
             <SearchInput value={search} onSearchChange={handleFilter} />
           </div>
+          <div>
+      <h1>Productos por Categoría</h1>
+
+      <div>
+        {store.categories.map((category) => (
+          <div key={category.id}>
+
+            
+            <Icon icon={category.icon_classes} />
+             
+              
+            
+            <span>{category.name}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  
+
+
           {donations.length > 0 ? (
             <DonationList items={filteredUser} />
+            
           ) : (
             <div className="flex flex-col items-center justify-center">
               {" "}
@@ -63,6 +88,7 @@ const Home = () => {
           )}
         </div>
       </div>
+     
       
       
     </div>
@@ -70,3 +96,6 @@ const Home = () => {
   );
 };
 export default Home;
+
+
+
