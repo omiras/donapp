@@ -1,6 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import  SplashPage  from "./views/SplashPage";
 import Home from "./views/home";
 import injectContext, { Context } from "./store/appContext";
 import { Profile } from "./views/profile";
@@ -66,7 +65,8 @@ const Layout = () => {
             //navegar solo con login
           )}
         </Routes>
-        {!splash ? "" : <Navbar />}
+        <div className="pt-16"></div>
+        <Navbar />
 
       </BrowserRouter>
     </div>
