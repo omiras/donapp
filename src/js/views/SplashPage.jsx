@@ -13,14 +13,12 @@ function SplashPage() {
         backgroundPosition: "center",
         minHeight: "100vh",
       }}
-      className="flex justify-around items-end"
+      className="flex flex-col justify-end"
     >
       {/* <img></img> */}
-      <div className="flex">
+      <div className="flex justify-around mb-10">
         <ButtonsSplash>¿Quienes somos?</ButtonsSplash>
-      </div>
       <nav></nav>
-      <div className="flex">
       <Link to="/">
         <ButtonsSplash>¡Empieza a Donar+!</ButtonsSplash>
         </Link>
