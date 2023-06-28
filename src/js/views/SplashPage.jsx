@@ -20,7 +20,9 @@ function SplashPage() {
       </div>
       <nav></nav>
       <div className="flex">
+      <Link to="/">
         <ButtonsSplash>¡Empieza a Donar+!</ButtonsSplash>
+        </Link>
       </div>
     </div>
   );
