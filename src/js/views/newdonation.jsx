@@ -86,8 +86,7 @@ export const NewDonation = () => {
       { position: toast.POSITION.TOP_CENTER };
 
     reset();
-    setPreview('');
-
+    setPreview("");
   };
 
   return (
@@ -102,8 +101,9 @@ export const NewDonation = () => {
         <div className="flex flex-col gap-2">
           <label className="label-text">Nombre</label>
           <input
-            className={`input input-md input-bordered  ${errors.name ? "input-error" : ""
-              }`}
+            className={`input input-md input-bordered  ${
+              errors.name ? "input-error" : ""
+            }`}
             placeholder="Nombre"
             {...register(
               "name",
@@ -128,8 +128,9 @@ export const NewDonation = () => {
           <label className="label-text">Descripción</label>
           <div className="flex flex-col relative">
             <textarea
-              className={`input input-md input-bordered w-full textarea h-auto  ${errors.description ? "input-error" : ""
-                }`}
+              className={`input input-md input-bordered w-full textarea h-auto  ${
+                errors.description ? "input-error" : ""
+              }`}
               placeholder="Descripción"
               {...register(
                 "description",
@@ -172,22 +173,41 @@ export const NewDonation = () => {
             {...register("image", { required: "Campo requerido." })}
             type="file"
             id="single"
-            capture="user"
             accept="image/*"
             onChange={uploadAvatar}
             disabled={uploading}
           />
+          {size.width < 768 && (
+            <>
+              <label className="btn btn-primary hidden" htmlFor="single">
+                {uploading ? "Uploading ..." : "Take a picture"}
+              </label>
+              <input
+                style={{
+                  visibility: "hidden",
+                  position: "absolute",
+                }}
+                {...register("image", { required: "Campo requerido." })}
+                type="file"
+                id="single"
+                accept="image/*"
+                capture="user"
+                onChange={uploadAvatar}
+                disabled={uploading}
+              />
+            </>
+          )}
           {errors?.image && (
             <span className="text-error"> {errors.image.message}</span>
           )}
         </div>
-
         {/* State---------------- */}
         <div className="flex flex-col gap-2">
           <label className="label-text">Estado</label>
           <select
-            className={`select select-bordered select-md  ${errors.state ? "input-error" : ""
-              }`}
+            className={`select select-bordered select-md  ${
+              errors.state ? "input-error" : ""
+            }`}
             name="state"
             id="state"
             {...register("state", {
