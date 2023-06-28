@@ -37,6 +37,14 @@ const Layout = () => {
 
     checkIfUserIsLoggedIn();
   }, []);
+
+  useEffect(() => {
+    const showNavbar = location.pathname !== "/splash"; // Verifica si la ruta actual no es '/splash'
+    setShowNavbar(showNavbar);
+  }, [location.pathname]);
+
+  const [showNavbar, setShowNavbar] = useState(true);
+
   return (
     <div className="flow">
       <BrowserRouter>
@@ -69,8 +77,8 @@ const Layout = () => {
             //navegar solo con login
           )}
         </Routes>
-        {!splash ? "" : <Navbar />}
-
+        {showNavbar && <Navbar />}
+                {/* La Navbar se ve en todas las paginas excepto en Splash (OK), pero cuando pasas de Splash a otra pagina esta sigue oculta*/}
       </BrowserRouter>
     </div>
   );
