@@ -27,7 +27,7 @@ export default function EditProfile() {
         <img
           src={watch("avatar_url") || store.user.avatar_url}
           alt=""
-          className="rounded-full w-36 m-auto aspect-square object-cover"
+          className="w-36 h-36 m-auto aspect-square object-cover"
         />
       </div>
       <div className="edit-avatar flex flex-col justify-center">
@@ -51,6 +51,7 @@ export default function EditProfile() {
         <input
           type="text"
           className="input"
+          maxLength={20}
           defaultValue={store.user.full_name}
           {...register("full_name", {
             required: "Campo requerido",
@@ -73,6 +74,7 @@ export default function EditProfile() {
         <input
           type="text"
           className="input"
+          maxLength={20}
           defaultValue={store.user.city}
           {...register("city", {
             required: "Campo requerido",
