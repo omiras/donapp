@@ -9,12 +9,12 @@ export default function EditProfile() {
   const [avatar, setAvatar] = useState(store.user.avatar_url);
 
   return (
-    <div className="flow flex flex-col place-items-center h-full pb-20 place-content-center">
+    <div className="flow flex flex-col place-items-center pb-20 place-content-center">
       <div className="w-full">
         <img
           src={avatar}
           alt=""
-          className="rounded-full w-36 m-auto aspect-square object-cover"
+          className="w-36 h-36 m-auto aspect-square object-cover"
         />
       </div>
       <div className="edit-avatar flex flex-col justify-center">

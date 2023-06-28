@@ -12,6 +12,7 @@ import { useContext, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import EditProfile from "./views/EditProfile";
+import DonationList from "./component/donationList";
 
 const basename = import.meta.env.BASENAME || "";
 
@@ -31,7 +32,9 @@ const Layout = () => {
 
     checkIfUserIsLoggedIn();
   }, []);
+  console.log(DonationList.user_id)
   return (
+    
     <div className="flow">
       <BrowserRouter>
         <Routes>
@@ -45,6 +48,8 @@ const Layout = () => {
                   <Route path="/" element={<Home />} />
                   <Route path="/product/:id" element={<DetailView />} />
                   <Route path="/auth" element={<Auth />} />
+                  <Route path="/profile/:id" element={<Profile />} />
+
                   <Route path="*" element={<Navigate to="/auth" />} />
                 </>
               ) : (
@@ -52,6 +57,8 @@ const Layout = () => {
                   <Route path="/" element={<Home />} />
                   <Route path="/newdonation" element={<NewDonation />} />
                   <Route path="/product/:id" element={<DetailView />} />
+                  <Route path="/profile/:id" element={<Profile />} />
+
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/profile/edit" element={<EditProfile />} />
                   <Route path="/auth" element={<Auth />} />

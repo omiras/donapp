@@ -23,6 +23,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           .select(`*,profiles(*)`);
         if (error) return console.log(error);
         setStore({ donations: [...data] });
+      },//Funsión creada por Hector para ayudarnos a Daniel y Nordim
+      getUserById: async (id) => {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select(`*,donations(*)`)
+          .eq("id",id)
+          .single()
+          return data
       },
 
       getDonationCount: () => {
