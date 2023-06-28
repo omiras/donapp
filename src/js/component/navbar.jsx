@@ -5,7 +5,7 @@ import { Context } from "../store/appContext";
 export const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const {store, actions} = useContext(Context);
+  const { store, actions } = useContext(Context);
   // En la propiedad location.pathname nos dice en que ruta nos encontamos acutalemnte
 
   return (
@@ -30,8 +30,8 @@ export const Navbar = () => {
         <span className="btm-nav-label text-base">Inicio</span>
       </Link>
 
-      <Link to="/favorites">
-        <button >
+      <Link to="/chat">
+        <button>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="#22577a"
@@ -91,20 +91,29 @@ export const Navbar = () => {
       </Link>
       <Link className="flex flex-col gap-0 mb-[7px]" to="/profile">
         <button>
-          {store.user ? <><img className="w-8 rounded-full" src={store.user.avatar_url} alt="profile picture" /></> : <svg
-            xmlns="http://www.w3.org/2000/svg"
-            height="1.5em"
-            viewBox="0 0 512 512"
-            fill="#22577a"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
-            />
-          </svg>}
-          
+          {store.user ? (
+            <>
+              <img
+                className="w-8 rounded-full"
+                src={store.user.avatar_url}
+                alt="profile picture"
+              />
+            </>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="1.5em"
+              viewBox="0 0 512 512"
+              fill="#22577a"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7C448 383.8 368.2 304 269.7 304H178.3z"
+              />
+            </svg>
+          )}
         </button>
         <span className="btm-nav-label text-base">Perfil</span>
       </Link>

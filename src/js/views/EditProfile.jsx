@@ -21,7 +21,7 @@ export default function EditProfile() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flow flex flex-col place-items-center h-screen pb-20 justify-center "
+      className="flow flex flex-col place-items-center h-screen justify-center "
     >
       <div className="w-full">
         <img

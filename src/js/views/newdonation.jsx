@@ -90,7 +90,7 @@ export const NewDonation = () => {
   };
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center pb-20">
+    <div className="flex flex-col gap-3 justify-center items-center ">
       <h1 className="text-2xl font-bold">Describe tu regalo</h1>
 
       <form

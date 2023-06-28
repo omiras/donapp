@@ -13,6 +13,7 @@ import { Navigate } from "react-router-dom";
 import { useState } from "react";
 import EditProfile from "./views/EditProfile";
 import DonationList from "./component/donationList";
+import Chat from "./views/chat";
 
 const basename = import.meta.env.BASENAME || "";
 
@@ -32,46 +33,49 @@ const Layout = () => {
 
     checkIfUserIsLoggedIn();
   }, []);
-  console.log(DonationList.user_id)
   return (
-    
-    <div className="flow">
-      <BrowserRouter>
-        <Routes>
-          {loading ? (
-            <Route path="*" element={<h1>Loading...</h1>} />
-          ) : (
-            <>
-              {/* si la variable store.session tiene algún valor, significa que estamos logueados. En este apartado, vamos a mostrar todas las rutas a las que podemos acceder SIN estar logueados*/}
-              {!store.session ? (
-                <>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/product/:id" element={<DetailView />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/profile/:id" element={<Profile />} />
+    <BrowserRouter>
+      <div className="flex flex-col w-full place-items-center">
+        <div className="flex w-full">
+          <Routes>
+            {loading ? (
+              <Route path="*" element={<h1>Loading...</h1>} />
+            ) : (
+              <>
+                {/* si la variable store.session tiene algún valor, significa que estamos logueados. En este apartado, vamos a mostrar todas las rutas a las que podemos acceder SIN estar logueados*/}
+                {!store.session ? (
+                  <>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/product/:id" element={<DetailView />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/profile/:id" element={<Profile />} />
 
-                  <Route path="*" element={<Navigate to="/auth" />} />
-                </>
-              ) : (
-                <>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/newdonation" element={<NewDonation />} />
-                  <Route path="/product/:id" element={<DetailView />} />
-                  <Route path="/profile/:id" element={<Profile />} />
+                    <Route path="*" element={<Navigate to="/auth" />} />
+                  </>
+                ) : (
+                  <>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/newdonation" element={<NewDonation />} />
+                    <Route path="/product/:id" element={<DetailView />} />
+                    <Route path="/profile/:id" element={<Profile />} />
+                    <Route path="/chat" element={<Chat />} />
 
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/profile/edit" element={<EditProfile />} />
-                  <Route path="/auth" element={<Auth />} />
-                </>
-              )}
-              <Route path="*" element={<h1>Not found!</h1>} />
-            </>
-            //navegar solo con login
-          )}
-        </Routes>
-        <Navbar />
-      </BrowserRouter>
-    </div>
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile/edit" element={<EditProfile />} />
+                    <Route path="/auth" element={<Auth />} />
+                  </>
+                )}
+                <Route path="*" element={<h1>Not found!</h1>} />
+              </>
+              //navegar solo con login
+            )}
+          </Routes>
+        </div>
+        <div className="flex h-[70px]">
+          <Navbar />
+        </div>
+      </div>
+    </BrowserRouter>
   );
 };
 
