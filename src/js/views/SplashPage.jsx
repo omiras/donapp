@@ -7,11 +7,7 @@ import { Link } from "react-router-dom";
 
 function SplashPage() {
 
-
-
-
-
-    return (
+return (
     
     <div style={{
         backgroundColor:"#e0fdf8",
@@ -31,7 +27,7 @@ function SplashPage() {
                 <nav></nav>
                 <div className="flex">
                 <Link to="/">
-                <button className="btn">¡Empieza a Donar+!</button>
+                <button className="btn" onClick={showNavbar}>¡Empieza a Donar+!</button>
                 </Link>
             </div>
     </div>

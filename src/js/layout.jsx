@@ -18,6 +18,9 @@ const basename = import.meta.env.BASENAME || "";
 
 //create your first component
 const Layout = () => {
+
+  
+
   const [splash, SetSplash] = useState(false)
 
   const { store, actions } = useContext(Context);
