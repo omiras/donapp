@@ -27,14 +27,14 @@ export default function EditProfile() {
         <img
           src={watch("avatar_url") || store.user.avatar_url}
           alt=""
-          className="w-36 h-36 m-auto aspect-square object-cover"
+          className="w-36 h-36 m-auto aspect-square object-cover rounded-full"
         />
       </div>
       <div className="edit-avatar flex flex-col justify-center">
         <h2>{watch("full_name") || store.user.full_name}</h2>
         <h4>{watch("city") || store.user.city}</h4>
       </div>
-      <div className="flex flex-col">
+      <div className="flex flex-col hidden">
         <label className="label">Image url</label>
         <input
           {...register("avatar_url", { required: "Campo requerido" })}
