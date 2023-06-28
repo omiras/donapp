@@ -41,6 +41,7 @@ const Home = () => {
 
   return (
     <div>
+      
       <div className="">
         <div className="mx-auto max-w-2xl px-4 pt-6 pb-20 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="flex justify-center align-center mb-3 gap-2 flex-col">
@@ -62,7 +63,10 @@ const Home = () => {
           )}
         </div>
       </div>
+      
+      
     </div>
+    
   );
 };
 export default Home;
