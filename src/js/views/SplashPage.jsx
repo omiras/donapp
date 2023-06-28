@@ -18,10 +18,11 @@ function SplashPage() {
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
         minHeight: "100vh",
-        }} className=" flex"> 
+        }} className="flex justify-around items-end"> 
         {/* <img></img> */}
-            <div className=" flex justify-end">
+            <div className="flex">
                 <button className="btn">¿Quienes somos?</button>
+                <nav></nav>
                 <button className="btn">¡Empieza a Donar+!</button>
             </div>
     </div>
