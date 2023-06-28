@@ -34,7 +34,7 @@ const Layout = () => {
   }, []);
   console.log(DonationList.user_id)
   return (
-    
+
     <div className="flow">
       <BrowserRouter>
         <Routes>
@@ -69,6 +69,7 @@ const Layout = () => {
             //navegar solo con login
           )}
         </Routes>
+        <div className="pt-28"></div>
         <Navbar />
       </BrowserRouter>
     </div>

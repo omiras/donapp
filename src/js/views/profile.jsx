@@ -47,6 +47,8 @@ export const Profile = () => {
   const handleClick = (ratingValue) => {
     setRating(ratingValue);
     console.log(ratingValue);
+    // setRating(ratingValue)
+    // console.log(rating);
   };
 
   /**

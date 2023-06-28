@@ -20,7 +20,10 @@ const getState = ({ getStore, getActions, setStore }) => {
       getDonations: async () => {
         const { data, error } = await supabase
           .from("donations")
-          .select(`*,profiles(*)`);
+          .select(`*,profiles(*)`)
+          // Filter the columns where there is not donation date and deleted date.
+          .is("donation_at", null)
+          .is("deleted_at", null);
         if (error) return console.log(error);
         setStore({ donations: [...data] });
       },//Funsión creada por Hector para ayudarnos a Daniel y Nordim
@@ -76,7 +79,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       editProfile: async (profile) => {
         const store = getStore();
-        
+
         const { data, error } = await supabase
           .from("profiles")
           .update({ ...profile })
@@ -87,11 +90,34 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ user: { ...data[0] } });
       },
 
+      getDonationDate: async (date, idProduct) => {
+        const store = getStore();
+
+        console.log(store.user);
+        const { data, error } = await supabase
+          .from("donations")
+          .update({ donation_at: date })
+          .eq("id", idProduct)
+          .select();
+        if (error) return console.log(error);
+        console.log(data);
+        console.log(date);
+      },
+      getDeletedProduct: async (date, idProduct) => {
+        const store = getStore();
+
+        console.log(store.user);
+        const { data, error } = await supabase
+          .from("donations")
+          .update({ deleted_at: date })
+          .eq("id", idProduct)
+          .select();
+        if (error) return console.log(error);
+        console.log(data);
+        console.log(date);
+      },
     },
   };
 };
-
-
-
 
 export default getState;
