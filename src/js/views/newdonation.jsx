@@ -4,10 +4,48 @@ import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { supabase } from "../../lib/supabaseClient";
+import { useWindowSize } from "@uidotdev/usehooks";
 
 export const NewDonation = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  const [preview, setPreview] = useState();
+  const [image, setImage] = useState();
+  const [uploading, setUploading] = useState(false);
+  const size = useWindowSize();
+
+  async function uploadAvatar(event) {
+    try {
+      setUploading(true);
+      setPreview(null);
+      setImage(null);
+
+      // if (!event.target.files || event.target.files.length === 0) {
+      //   throw new Error("You must select an image to upload.");
+      // }
+
+      const file = event.target.files[0];
+      setImage(file);
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        setPreview(reader.result);
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
+      }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  const url =
+    "https://wfjvzsivrrhoqaqhqvuj.supabase.co/storage/v1/object/public/products/";
 
   const {
     register,
@@ -17,11 +55,23 @@ export const NewDonation = () => {
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
+    const fileExt = image.name.split(".").pop();
+    const fileName = `${Math.random()}.${fileExt}`;
+    const filePath = `${fileName}`;
+
+    let { error: uploadError } = await supabase.storage
+      .from("products")
+      .upload(filePath, image);
+    if (uploadError) {
+      throw uploadError;
+    }
+
     const updatedDonation = {
       name: data.name,
       description: data.description,
       product_status: data.state,
-      image_url: data.image,
+      image_url: url + filePath,
       user_id: store.user.id,
     };
     // handleData(data);
@@ -34,16 +84,14 @@ export const NewDonation = () => {
     }
     toast.success("¡Gracias, tu donación está publicada!"),
       { position: toast.POSITION.TOP_CENTER };
+
+    reset();
+    setPreview('');
+
   };
 
-  console.log(errors);
-
-  // console.log(watch("example")); // watch input value by passing the name of it
-
-  //const chooseOption === 'Elige una opcion'
-
   return (
-    <div className="flex flex-col gap-3 justify-center items-center">
+    <div className="flex flex-col gap-3 justify-center items-center pb-20">
       <h1 className="text-2xl font-bold">Describe tu regalo</h1>
 
       <form
@@ -109,30 +157,31 @@ export const NewDonation = () => {
         {/* Image---------------- */}
 
         <div className="flex flex-col gap-2">
-          <label
-            htmlFor="image-url"
-            className="block text-sm font-medium leading-6 text-gray-900"
-          >
-            imágen
+          {preview && <img src={preview} alt="" />}
+          {!preview && (
+            <div className="h-52 w-full flex place-items-center justify-center border border-secondary border-4 rounded">
+              <p>Image</p>
+            </div>
+          )}
+          <label className="btn btn-primary" htmlFor="single">
+            {uploading ? "Uploading ..." : "Upload Image"}
           </label>
-          <div className="flex flex-col relative">
-            <input
-              id="image-url"
-              name="image-url"
-              type="url"
-              className={`input input-md input-bordered w-full  ${
-                errors.image ? "input-error" : ""
-              }`}
-              placeholder="https://fastly.picsum.photos/id/791/200/300.jpg?hmac=Ah_2kp5UqnZv5O0c333s3M4p-FqkCZ6ViRd1V_pAHYk"
-              {...register("image", {
-                //This is the validation
-                required: "Campo requerido.",
-              })}
-            />
-            {errors?.image && (
-              <span className="text-error"> {errors.image.message}</span>
-            )}
-          </div>
+          <input
+            style={{
+              visibility: "hidden",
+              position: "absolute",
+            }}
+            {...register("image", { required: "Campo requerido." })}
+            type="file"
+            id="single"
+            capture="user"
+            accept="image/*"
+            onChange={uploadAvatar}
+            disabled={uploading}
+          />
+          {errors?.image && (
+            <span className="text-error"> {errors.image.message}</span>
+          )}
         </div>
 
         {/* State---------------- */}

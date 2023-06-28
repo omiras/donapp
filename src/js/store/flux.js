@@ -26,6 +26,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           .is("deleted_at", null);
         if (error) return console.log(error);
         setStore({ donations: [...data] });
+      },//Funsión creada por Hector para ayudarnos a Daniel y Nordim
+      getUserById: async (id) => {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select(`*,donations(*)`)
+          .eq("id",id)
+          .single()
+          return data
       },
 
       getDonationCount: () => {
@@ -59,6 +67,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         const { error } = await supabase.auth.signOut();
         if (error) return console.log(error);
         setStore({ session: null });
+        setStore({ user: null });
       },
       // La función supabase.auth nos autentifica usando Google
       signInWithProvider: async (provider) => {
