@@ -1,10 +1,9 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Context } from "../store/appContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { useWindowSize } from "@uidotdev/usehooks";
 
@@ -73,7 +72,9 @@ export const NewDonation = () => {
       product_status: data.state,
       image_url: url + filePath,
       user_id: store.user.id,
+      category_id: data.category,
     };
+    console.log('data', data);
     // handleData(data);
     const res = await actions.addNewDonation(updatedDonation);
     reset();
@@ -154,6 +155,29 @@ export const NewDonation = () => {
           </div>
         </div>
 
+        {/* Category---------------- */}
+
+        <div className="flex flex-col gap-2">
+          <label className="label-text">Categoría</label>
+          <select className={`select select-bordered select-md  ${errors.category ? "input-error" : ""
+            }`}
+            name="category"
+            id="category"
+            {...register("category", {
+              //This is the valid
+              required: "Campo requerido.",
+            })}  >
+            {/** teneis que iterar la variable options per crear tants <option> com elements hi ha a l'array */}
+            <option value="">Elige una opción</option>
+            {store.categories.map(category => <option key={category.id} value={category.id}> {category.name} </option>
+            )}
+          </select>
+          {errors?.category && (
+            <span className="text-error"> {errors.category.message}</span>
+          )}
+
+        </div>
+
         {/* Image---------------- */}
 
         <div className="flex flex-col gap-2">
@@ -217,4 +241,5 @@ export const NewDonation = () => {
       </form>
     </div>
   );
-};
+}
+
