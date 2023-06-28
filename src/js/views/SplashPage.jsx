@@ -22,7 +22,9 @@ function SplashPage() {
         {/* <img></img> */}
             <div className="flex">
                 <button className="btn">¿Quienes somos?</button>
+                </div>
                 <nav></nav>
+                <div className="flex">
                 <button className="btn">¡Empieza a Donar+!</button>
             </div>
     </div>
