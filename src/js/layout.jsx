@@ -33,10 +33,11 @@ const Layout = () => {
 
     checkIfUserIsLoggedIn();
   }, []);
+  const basename = process.env.BASENAME || "";
 
   const showNavbar = !location.pathname.includes("splash");
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename} >
       <div className="flex flex-col w-full place-items-center">
         <div className="w-full">
           <Routes>
