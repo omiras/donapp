@@ -6,6 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       session: null,
       user: null,
       donations: [],
+      categories: [],
+     
     },
     actions: {
       addNewDonation: async (newDonation) => {
@@ -17,12 +19,33 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (error) return error;
         actions.getDonations();
       },
+
+      getCategories: async () => {
+        const { data, error } = await supabase
+          .from("categories")
+          .select(); 
+        if (error) return console.log(error);
+        setStore({ categories: [...data] });
+        console.log(data);
+       
+        
+      },
+      
+
       getDonations: async () => {
         const { data, error } = await supabase
           .from("donations")
           .select(`*,profiles(*)`);
         if (error) return console.log(error);
         setStore({ donations: [...data] });
+      }, //Funsión creada por Hector para ayudarnos a Daniel y Nordim
+      getUserById: async (id) => {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select(`*,donations(*)`)
+          .eq("id", id)
+          .single();
+        return data;
       },
 
       getDonationCount: () => {

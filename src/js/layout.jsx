@@ -24,6 +24,7 @@ const Layout = () => {
     const checkIfUserIsLoggedIn = async () => {
       await actions.getUserSession();
       await actions.getDonations();
+      await actions.getCategories();
 
       setLoading(false);
     };
