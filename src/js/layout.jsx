@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {} from "react-router-dom";
 
 import Home from "./views/home";
 import injectContext, { Context } from "./store/appContext";
@@ -14,6 +14,10 @@ import { useState } from "react";
 import EditProfile from "./views/EditProfile";
 import DonationList from "./component/donationList";
 import Chat from "./views/chat";
+import Room from "./views/room";
+import { BrowserRouter } from "react-router-dom";
+import { Routes } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 const basename = import.meta.env.BASENAME || "";
 
@@ -59,7 +63,7 @@ const Layout = () => {
                     <Route path="/product/:id" element={<DetailView />} />
                     <Route path="/profile/:id" element={<Profile />} />
                     <Route path="/chat" element={<Chat />} />
-
+                    <Route path="/chat/:id" element={<Room />} />
                     <Route path="/profile" element={<Profile />} />
                     <Route path="/profile/edit" element={<EditProfile />} />
                     <Route path="/auth" element={<Auth />} />
