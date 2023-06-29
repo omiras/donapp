@@ -14,7 +14,6 @@ export const Profile = () => {
 
   const handleLogout = async () => {
     await actions.signOut();
-    console.log("logged out");
     window.location.replace("/");
   };
 
