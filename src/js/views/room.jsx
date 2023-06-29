@@ -54,7 +54,10 @@ export default function Room() {
   }, []);
   return (
     <div className="flex flex-col justify-between h-[90vh] w-full gap-16 p-3 relative ">
-      <h5>CHAT</h5>
+      <div className="flex">
+        <h3>CHAT</h3>
+        <button className="btn btn-primary">Entregado</button>
+      </div>
       {messages.map((message) => (
         <div key={message.id}>
           {message.profiles.id === store.user.id ? (
