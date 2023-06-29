@@ -20,7 +20,7 @@ const DetailView = () => {
   const handleDeleteProduct = async (e) => {
     const idProduct = e.target.id;
     await actions.setDeletedProduct(new Date(), idProduct);
-    window.location.href = "/profile";
+    window.location.replace("/profile");
   };
 
   const product = store.donations.find(
