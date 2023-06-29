@@ -148,20 +148,6 @@ const Home = () => {
           )}
         </div>
       </div>
-      {donations.length > 0 ? (
-        <DonationList items={filteredUser} />
-      ) : (
-        <div className="flex flex-col items-center justify-center">
-          {" "}
-          <p className="text-center m-6">
-            No hay artículos con la descripción proporcionada.
-          </p>
-          <img
-            src="https://media.tenor.com/gK32v_OWs0kAAAAM/omg-cat.gif"
-            alt="Not Found GIF"
-          />{" "}
-        </div>
-      )}
     </div>
   );
 };
