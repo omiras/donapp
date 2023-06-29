@@ -60,7 +60,7 @@ export default function Chat() {
           schema: "public",
           table: "messages",
         },
-        (payload) => getMessages(payload.new.room_id)
+        (payload) => getMessages(messages.room_id)
       )
       .subscribe();
   }, []);
