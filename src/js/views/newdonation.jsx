@@ -73,6 +73,8 @@ export const NewDonation = () => {
       product_status: data.state,
       image_url: url + filePath,
       user_id: store.user.id,
+      category_id: data.category,
+
     };
     // handleData(data);
     const res = await actions.addNewDonation(updatedDonation);
@@ -150,7 +152,28 @@ export const NewDonation = () => {
             )}
           </div>
         </div>
+        {/* Category---------------- */}
 
+        <div className="flex flex-col gap-2">
+          <label className="label-text">Categoría</label>
+          <select className={`select select-bordered select-md  ${errors.category ? "input-error" : ""
+            }`}
+            name="category"
+            id="category"
+            {...register("category", {
+              //This is the valid
+              required: "Campo requerido.",
+            })}  >
+            {/** teneis que iterar la variable options per crear tants <option> com elements hi ha a l'array */}
+            <option value="">Elige una opción</option>
+            {store.categories.map(category => <option key={category.id} value={category.id}> {category.name} </option>
+            )}
+          </select>
+          {errors?.category && (
+            <span className="text-error"> {errors.category.message}</span>
+          )}
+
+        </div>
         {/* Image---------------- */}
 
         <div className="flex flex-col gap-2">
