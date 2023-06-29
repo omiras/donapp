@@ -28,10 +28,10 @@ export default function Auth() {
   };
 
   return (
-    <div className="flow flex flex-col justify-center items-center my-24">
+    <div className="flow flex flex-col h-[90vh] justify-center place-items-center w-full">
       {!store.session && (
         <>
-          <h4 className="pb-4">Sign In </h4>
+          <h4 className="">Sign In </h4>
           {/* <form>
             <div className="mb-6">
               <label
@@ -87,7 +87,7 @@ export default function Auth() {
             </button>
           </form> */}
 
-          <p className="description text-center">
+          <p className="text-center">
             No tienes cuenta con nosotros?
             <br />
             Regístrate con Google.

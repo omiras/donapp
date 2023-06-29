@@ -88,9 +88,32 @@ const getState = ({ getStore, getActions, setStore }) => {
         if (error) return console.log(error);
         setStore({ session: { ...user } });
       },
+      setDonationDate: async (date, idProduct) => {
+        const store = getStore();
+
+        const { data, error } = await supabase
+          .from("donations")
+          .update({ donation_at: date })
+          .eq("id", idProduct)
+          .select();
+        if (error) return console.log(error);
+      },
+      setDeletedProduct: async (date, idProduct) => {
+        const store = getStore();
+
+        console.log(store.user);
+        const { data, error } = await supabase
+          .from("donations")
+          .update({ deleted_at: date })
+          .eq("id", idProduct)
+          .select();
+        if (error) return console.log(error);
+        console.log(data);
+        console.log(date);
+      },
       editProfile: async (profile) => {
         const store = getStore();
-        
+
         const { data, error } = await supabase
           .from("profiles")
           .update({ ...profile })
@@ -100,12 +123,8 @@ const getState = ({ getStore, getActions, setStore }) => {
         console.log(data);
         setStore({ user: { ...data[0] } });
       },
-
     },
   };
 };
-
-
-
 
 export default getState;

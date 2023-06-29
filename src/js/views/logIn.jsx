@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export default function logIn() {
-  return (
-    <div>logIn</div>
-  )
+  return <div className="flex place-items-center w-full">logIn</div>;
 }

@@ -10,13 +10,15 @@ import DetailView from "./views/detailView";
 import Auth from "./views/auth";
 import { useContext, useEffect, useState } from "react";
 import EditProfile from "./views/EditProfile";
+import Chat from "./views/chat";
+import Room from "./views/room";
+
 
 const Layout = () => {
   const [splash, SetSplash] = useState(false)
 
   const { store, actions } = useContext(Context);
   const [loading, setLoading] = useState(true);
-  const location = useLocation();
 
 
 
@@ -35,46 +37,51 @@ const Layout = () => {
   const showNavbar = location.pathname !== "/splash";
 
   return (
-    <div className="flow">
-      <Routes>
-        {loading ? (
-          <Route path="*" element={<h1>Loading...</h1>} />
-        ) : (
-          <>
-            {!store.session ? (
-              <>
-                <Route path="/splash" element={<SplashPage />} />
-                <Route path="/" element={<Home />} />
-                <Route path="/product/:id" element={<DetailView />} />
-                <Route path="/auth" element={<Auth />} />
-                <Route path="*" element={<Navigate to="/auth" />} />
-              </>
+    <BrowserRouter>
+      <div className="flex flex-col w-full place-items-center">
+        <div className="flex w-full">
+          <Routes>
+            {loading ? (
+              <Route path="*" element={<h1>Loading...</h1>} />
             ) : (
               <>
-                <Route path="/" element={<Home />} />
+                {/* si la variable store.session tiene algún valor, significa que estamos logueados. En este apartado, vamos a mostrar todas las rutas a las que podemos acceder SIN estar logueados*/}
+                {!store.session ? (
+                  <>
+                    <Route path="/splash" element={<SplashPage />} />
+                    <Route path="/" element={<Home />} />
+                    <Route path="/product/:id" element={<DetailView />} />
+                    <Route path="/auth" element={<Auth />} />
+                    <Route path="/profile/:id" element={<Profile />} />
 
-                <Route path="/newdonation" element={<NewDonation />} />
-                <Route path="/product/:id" element={<DetailView />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path="/profile/edit" element={<EditProfile />} />
-                <Route path="/auth" element={<Auth />} />
+                    <Route path="*" element={<Navigate to="/auth" />} />
+                  </>
+                ) : (
+                  <>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/newdonation" element={<NewDonation />} />
+                    <Route path="/product/:id" element={<DetailView />} />
+                    <Route path="/profile/:id" element={<Profile />} />
+                    <Route path="/chat" element={<Chat />} />
+                    <Route path="/chat/:id" element={<Room />} />
+                    <Route path="/profile" element={<Profile />} />
+                    <Route path="/profile/edit" element={<EditProfile />} />
+                    <Route path="/auth" element={<Auth />} />
+                  </>
+                )}
+                <Route path="*" element={<h1>Not found!</h1>} />
               </>
+              //navegar solo con login
             )}
-            <Route path="*" element={<h1>Not found!</h1>} />
-          </>
-        )}
-      </Routes>
-      {showNavbar && <Navbar />}
-    </div>
-  );
-};
-
-const App = () => {
-  return (
-    <BrowserRouter>
-      <Layout />
+          </Routes>
+        </div>
+        <div className="flex h-[70px]">
+          {showNavbar && <Navbar />}
+        </div>
+      </div>
     </BrowserRouter>
   );
 };
 
-export default injectContext(App);
+
+export default injectContext(Layout);

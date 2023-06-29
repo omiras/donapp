@@ -9,55 +9,67 @@ export default function EditProfile() {
   const [avatar, setAvatar] = useState(store.user.avatar_url);
 
   return (
-    <div className="flow flex flex-col place-items-center h-full pb-20 place-content-center">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flow flex flex-col place-items-center w-full h-screen justify-center "
+    >
       <div className="w-full">
-        <img
-          src={avatar}
-          alt=""
-          className="rounded-full w-36 m-auto aspect-square object-cover"
-        />
+        <div className="chat-image avatar w-full ">
+          <div className="w-40 rounded-full mx-auto">
+            <img src={store.user.avatar_url} />
+          </div>
+        </div>
       </div>
       <div className="edit-avatar flex flex-col justify-center">
-        <h2>{name}</h2>
-        <h4>{city}</h4>
+        <h2>{watch("full_name") || store.user.full_name}</h2>
+        <h4>{watch("city") || store.user.city}</h4>
       </div>
-      <div className="edit-img">
-        <label className="label">Image url</label>
-        <input
-          type="text"
-          value={avatar}
-          className="input"
-          onChange={(e) => setAvatar(e.target.value)}
-        />
-      </div>
-      <div className="edit-name">
+
+      <div className="flex flex-col">
         <label className="label">Name</label>
         <input
           type="text"
-          value={name}
           className="input"
-          onChange={(e) => setName(e.target.value)}
+          maxLength={20}
+          defaultValue={store.user.full_name}
+          {...register("full_name", {
+            required: "Campo requerido",
+            maxLength: {
+              value: 20,
+              message: "El nombre no puede tener más de 25 carácteres.",
+            },
+            minLength: {
+              value: 3,
+              message: "El nombre no puede tener menos de 3 carácteres.",
+            },
+          })}
         />
+        {errors.full_name && (
+          <span className="text-red-500">{errors.full_name.message}</span>
+        )}
       </div>
-      <div className="edit-city">
+      <div className="flex flex-col">
         <label className="label">City</label>
         <input
           type="text"
-          value={city}
           className="input"
-          onChange={(e) => setCity(e.target.value)}
+          maxLength={20}
+          defaultValue={store.user.city}
+          {...register("city", {
+            required: "Campo requerido",
+            maxLength: {
+              value: 20,
+              message: "La ciudad no puede tener más de 15 carácteres.",
+            },
+          })}
         />
+        {errors.city && (
+          <span className="text-red-500">{errors.city.message}</span>
+        )}
       </div>
       <div className="edit-btn">
-        <button
-          className="btn"
-          onClick={() =>
-            actions.editProfile({ full_name: name, city, avatar_url: avatar })
-          }
-        >
-          Save
-        </button>
+        <button className="btn">Save</button>
       </div>
-    </div>
+    </form>
   );
 }

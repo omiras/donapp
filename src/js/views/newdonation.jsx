@@ -34,6 +34,9 @@ export const NewDonation = () => {
     }
     toast.success("¡Gracias, tu donación está publicada!"),
       { position: toast.POSITION.TOP_CENTER };
+
+    reset();
+    setPreview("");
   };
 
   console.log(errors);
@@ -43,7 +46,7 @@ export const NewDonation = () => {
   //const chooseOption === 'Elige una opcion'
 
   return (
-    <div className="flex flex-col gap-3 justify-center items-center">
+    <div className="flex flex-col gap-3 justify-center items-center ">
       <h1 className="text-2xl font-bold">Describe tu regalo</h1>
 
       <form
@@ -54,8 +57,9 @@ export const NewDonation = () => {
         <div className="flex flex-col gap-2">
           <label className="label-text">Nombre</label>
           <input
-            className={`input input-md input-bordered  ${errors.name ? "input-error" : ""
-              }`}
+            className={`input input-md input-bordered  ${
+              errors.name ? "input-error" : ""
+            }`}
             placeholder="Nombre"
             {...register(
               "name",
@@ -80,8 +84,9 @@ export const NewDonation = () => {
           <label className="label-text">Descripción</label>
           <div className="flex flex-col relative">
             <textarea
-              className={`input input-md input-bordered w-full textarea h-auto  ${errors.description ? "input-error" : ""
-                }`}
+              className={`input input-md input-bordered w-full textarea h-auto  ${
+                errors.description ? "input-error" : ""
+              }`}
               placeholder="Descripción"
               {...register(
                 "description",
@@ -113,31 +118,49 @@ export const NewDonation = () => {
           >
             imágen
           </label>
-          <div className="flex flex-col relative">
-            <input
-              id="image-url"
-              name="image-url"
-              type="url"
-              className={`input input-md input-bordered w-full  ${errors.image ? "input-error" : ""
-                }`}
-              placeholder="https://fastly.picsum.photos/id/791/200/300.jpg?hmac=Ah_2kp5UqnZv5O0c333s3M4p-FqkCZ6ViRd1V_pAHYk"
-              {...register("image", {
-                //This is the validation
-                required: "Campo requerido.",
-              })}
-            />
-            {errors?.image && (
-              <span className="text-error"> {errors.image.message}</span>
-            )}
-          </div>
+          <input
+            style={{
+              visibility: "hidden",
+              position: "absolute",
+            }}
+            {...register("image", { required: "Campo requerido." })}
+            type="file"
+            id="single"
+            accept="image/*"
+            onChange={uploadAvatar}
+            disabled={uploading}
+          />
+          {size.width < 768 && (
+            <>
+              <label className="btn btn-primary hidden" htmlFor="single">
+                {uploading ? "Uploading ..." : "Take a picture"}
+              </label>
+              <input
+                style={{
+                  visibility: "hidden",
+                  position: "absolute",
+                }}
+                {...register("image", { required: "Campo requerido." })}
+                type="file"
+                id="single"
+                accept="image/*"
+                capture="user"
+                onChange={uploadAvatar}
+                disabled={uploading}
+              />
+            </>
+          )}
+          {errors?.image && (
+            <span className="text-error"> {errors.image.message}</span>
+          )}
         </div>
-
         {/* State---------------- */}
         <div className="flex flex-col gap-2">
           <label className="label-text">Estado</label>
           <select
-            className={`select select-bordered select-md  ${errors.state ? "input-error" : ""
-              }`}
+            className={`select select-bordered select-md  ${
+              errors.state ? "input-error" : ""
+            }`}
             name="state"
             id="state"
             {...register("state", {
