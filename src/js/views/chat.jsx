@@ -31,29 +31,39 @@ export default function Chat() {
     navigate(`/chat/${id}`);
   };
 
+  function formatearFecha(fechaISO) {
+    const fecha = new Date(fechaISO);
+    const dia = fecha.getDate();
+    const mes = fecha.getMonth() + 1; // Los meses en JavaScript son base 0
+  
+    return dia + '/' + mes;
+  }
+
   useEffect(() => {
     getRooms();
   }, []);
   return (
-    <div className="flex w-full ">
-      <div className="flex flex-col p-3 sticky top-0 h-[90vh] w-[450px] gap-10 bg-black text-white ">
-        <h5>Rooms</h5>
-        <div className="flex flex-col gap-5">
+    
+    <div className="flex flex-col w-full p-3 gap-12" >
+      
+        <h3>Notificaciones</h3>
+        <div className="flex flex-col gap-3 w-full">
           {rooms.map((room) => (
-            <div key={room.id} className="flex flex-col">
-              <span
-                className="bg-primary rounded px-3 py-1 mx-auto w-full cursor-pointer hover:scale-105 "
+              <span key={room.id}
+                className="bg-primary rounded px-3 py-1 mx-auto w-full cursor-pointer  flex place-items-center gap-5 relative "
                 onClick={() => setRoom(room.id)}
               >
-                <p>Donacion: {room.donations.name}</p>
-                <p>Persona: {room.profiles.full_name} </p>
+                <div className="">
+                  <img className="rounded-lg w-full object-cover w-24 h-24"  src={room.donations.image_url} alt="" />
+                </div>
+                <div className="text-white "> 
+                  <p className="font-bold text-lg capitalize"> {room.donations.name}</p>
+                <p className="capitalize"> {room.profiles.full_name} </p>
+                </div>
+               <p className="absolute top-5 right-5 text-white">{formatearFecha(room.created_at)}</p>
               </span>
-            </div>
           ))}
         </div>
       </div>
-
-      {/* Messages */}
-    </div>
   );
 }
