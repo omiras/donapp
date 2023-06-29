@@ -51,6 +51,7 @@ const Layout = () => {
             ) : (
               <>
                 <Route path="/" element={<Home />} />
+
                 <Route path="/newdonation" element={<NewDonation />} />
                 <Route path="/product/:id" element={<DetailView />} />
                 <Route path="/profile" element={<Profile />} />

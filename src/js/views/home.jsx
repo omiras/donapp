@@ -41,7 +41,7 @@ const Home = () => {
   }
   useEffect(() => {
     const isTheFirstTime = localStorage.getItem('primeraVisita')
-    if (isTheFirstTime) {
+    if (isTheFirstTime || store.user) {
       navigate('/')
     } else {
       navigate('/splash')
