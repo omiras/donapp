@@ -59,8 +59,9 @@ export default function Chat() {
           event: "INSERT",
           schema: "public",
           table: "messages",
+          filter: "room_id=eq." + messages.room_id,
         },
-        (payload) => getMessages(messages.room_id)
+        (payload) => getMessages(payload.new.room_id)
       )
       .subscribe();
   }, []);
