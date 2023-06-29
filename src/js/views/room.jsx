@@ -4,6 +4,7 @@ import { supabase } from "../../lib/supabaseClient";
 import { Context } from "../store/appContext";
 import { useContext } from "react";
 import { useParams } from "react-router-dom";
+import StaticRating from "../component/StaticRating";
 
 export default function Room() {
   const [messages, setMessages] = useState([]);
@@ -68,21 +69,22 @@ export default function Room() {
     <div className="flex flex-col justify-between h-[90vh] w-full gap-16 p-3 relative ">
       <div className="flex gap-5">
         <h3>CHAT</h3>
-        {console.log(donation, donation.donations?.user_id)}
-        {!donation.donated_at && donation.user_id == store.user.id ? (
+        {!donation.donation_at && donation.user_id == store.user.id && (
           <button
             className="btn btn-primary"
             onClick={() => {
-              actions.setDonationDate(
-                new Date(),
-                messages[0].rooms.donations.id
-              );
-              // setDonation(true);
+              actions.setDonationDate(new Date(), donation.id);
+              setDonation({ ...donation, donation_at: new Date() });
             }}
           >
             Entregado
           </button>
-        ) : null}
+        )}
+        {donation.donation_at && donation.user_id != store.user.id && (
+          <>
+            <StaticRating rating={4} isEditable={false} />
+          </>
+        )}
       </div>
       {messages.map((message) => (
         <div key={message.id}>

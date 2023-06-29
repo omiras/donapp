@@ -10,17 +10,17 @@ export const Navbar = () => {
   // En la propiedad location.pathname nos dice en que ruta nos encontamos acutalemnte
 
   return (
-    <nav className="h-[70px] btm-nav bg-secondary">
+    <nav className=" flex place-items-center h-[70px] btm-nav bg-secondary">
       <Link to="/" className="flex-col">
         <button>
-        <Icon width={28}  icon="material-symbols:home" />
+          <Icon width={28} color="#265a7d" icon="material-symbols:home" />
         </button>
         <span className="btm-nav-label text-base">Inicio</span>
       </Link>
 
       <Link to="/chat">
         <button>
-        <Icon width={28}  icon="fluent:chat-12-filled" />
+          <Icon width={28} color="#265a7d" icon="fluent:chat-12-filled" />
         </button>
         <span className="btm-nav-label text-base">Chat</span>
       </Link>
@@ -47,24 +47,20 @@ export const Navbar = () => {
 
       <Link to="/myDonations">
         <button>
-        <Icon width={28}  icon="mdi:present" />
+          <Icon width={28} color="#265a7d" icon="mdi:present" />
         </button>
         <span className="btm-nav-label text-base">Donaciones</span>
       </Link>
-      <Link className="flex flex-col gap-0 " to="/profile">
-        <button>
-          {store.user ? (
-            <>
-              <img
-                className="w-8 rounded-full"
-                src={store.user.avatar_url}
-                alt="profile picture"
-              />
-            </>
-          ) : (
-            <Icon width={33}  icon="iconamoon:profile-fill" />
-          )}
-        </button>
+      <Link className="flex flex-col" to="/profile">
+        {store.user ? (
+          <div className="chat-image avatar">
+            <div className="w-10 rounded-full">
+              <img src={store.user.avatar_url} />
+            </div>
+          </div>
+        ) : (
+          <Icon width={33} color="#265a7d" icon="iconamoon:profile-fill" />
+        )}
         <span className="btm-nav-label text-base">Perfil</span>
       </Link>
     </nav>
