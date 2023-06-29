@@ -65,8 +65,8 @@ export default function Chat() {
       .subscribe();
   }, []);
   return (
-    <div className="flex w-full overflow-auto ">
-      <div className="flex flex-col p-3 sticky top-0 w-[450px] gap-10 bg-black text-white ">
+    <div className="flex w-full ">
+      <div className="flex flex-col p-3 sticky top-0 min-h-screen w-[450px] gap-10 bg-black text-white ">
         <h5>Rooms</h5>
         <div className="flex flex-col gap-5">
           {rooms.map((room) => (
@@ -84,7 +84,7 @@ export default function Chat() {
       </div>
 
       {/* Messages */}
-      <div className="flex flex-col justify-between  w-full gap-16 p-3 relative">
+      <div className="flex flex-col justify-between  w-full gap-16 p-3 relative ">
         <h5>CHAT</h5>
         {messages?.messages.map((message) => (
           <div key={message.id}>
@@ -125,7 +125,7 @@ export default function Chat() {
             )}
           </div>
         ))}
-        {messages.messages[0] && (
+        {messages.room_id && (
           <form action="" className="flex gap-2 ">
             <input
               type="text"
