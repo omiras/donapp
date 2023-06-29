@@ -34,7 +34,7 @@ const Layout = () => {
     checkIfUserIsLoggedIn();
   }, []);
 
-  const showNavbar = location.pathname.includes("splash");
+  const showNavbar = !location.pathname.includes("splash");
   return (
     <BrowserRouter>
       <div className="flex flex-col w-full place-items-center">
