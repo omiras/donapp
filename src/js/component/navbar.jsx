@@ -6,10 +6,17 @@ export const Navbar = () => {
 
   // En la propiedad location.pathname nos dice en que ruta nos encontamos acutalemnte
 
+  const scrollToTop = () =>{
+    window.scrollTo({
+      top: 0, 
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <nav className="h-[70px] btm-nav bg-secondary">
       <Link to="/" className="flex-col">
-        <button>
+        <button onClick={scrollToTop}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="#22577a"
