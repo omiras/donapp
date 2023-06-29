@@ -17,8 +17,6 @@ export default {
           "base-100": "#F8FCF9",
         },
       },
-      "black",
-      "lofi",
     ],
   },
 };
