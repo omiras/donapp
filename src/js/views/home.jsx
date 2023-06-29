@@ -115,7 +115,7 @@ const Home = () => {
 
 
           {store.user && <div>
-            <h2>Donaciones cerca de {store.user.city}</h2>
+            <h3 className="pt-8 text-xl text-center">Donaciones cerca de {store.user.city}</h3>
             <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
               {nearbyDonations.map((donation) => (
                 <Link
