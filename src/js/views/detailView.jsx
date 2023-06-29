@@ -15,6 +15,7 @@ const DetailView = () => {
   const product = store.donations.find(
     (donation) => donation.id + "" === id + ""
   );
+  console.log(product.user_id, store.user.id);
 
   const openChat = async () => {
     const { data, error } = await supabase
@@ -25,7 +26,6 @@ const DetailView = () => {
         donation_id: product.id,
       })
       .select();
-    console.log(data);
 
     if (error) console.log(error);
     navigate(`/chat/${data[0].id}`);
@@ -49,13 +49,15 @@ const DetailView = () => {
               </h5>
             </Link>
           </div>
-          <div className="contact" onClick={openChat}>
-            <Icon
-              icon="fluent:chat-16-regular"
-              className="cursor-pointer"
-              width="40px"
-            />
-          </div>
+          {product.user_id !== store.user.id ? (
+            <div className="contact" onClick={openChat}>
+              <Icon
+                icon="fluent:chat-16-regular"
+                className="cursor-pointer"
+                width="40px"
+              />
+            </div>
+          ) : null}
         </div>
 
         <div className=" relative">
