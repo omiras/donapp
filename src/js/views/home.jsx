@@ -4,16 +4,23 @@ import SearchInput from "../component/search";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import DonationList from "../component/donationList";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Icon } from "@iconify/react";
-import Slider from 'react-horizontal-slider';
 
 const Home = () => {
   const { store, actions } = useContext(Context);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [filteredDonations, setFilteredDonations] = useState([...store.donations]);
+  const [filteredDonations, setFilteredDonations] = useState([
+    ...store.donations,
+  ]);
 
+  const filterByCity = () => {
+    return store.donations.filter(
+      (donation) =>
+        donation.profiles.city?.toLowerCase() === store.user?.city.toLowerCase()
+    );
+  };
 
+  const [nearbyDonations, setNearbyDonations] = useState(filterByCity);
   const [search, setSearch] = useState("");
   const [donations, setDonations] = useState([...store.donations]);
 
@@ -25,13 +32,15 @@ const Home = () => {
     } else {
       // Establecer la categoría seleccionada para filtrar las donaciones
       setSelectedCategory(categoryId);
-      const filteredDonations = store.donations.filter((d) => d.category_id === categoryId);
-      setFilteredDonations(filteredDonations);
+      const filteredDonationsC = store.donations.filter(
+        (d) => d.category_id === categoryId
+      );
+      setFilteredDonations(filteredDonationsC);
     }
   };
 
   const handleFilter = (e) => {
-
+    setSelectedCategory(null)
     const keyword = e.target.value; // Obtiene el valor ingresado en el campo de búsqueda
     const keywords = keyword.split(/\s+/).filter(Boolean); // Divide la entrada en palabras clave y elimina los espacios en blanco
 
@@ -41,12 +50,13 @@ const Home = () => {
         (kw) =>
           [d.name, d.description, d.profiles.city].some((field) =>
             new RegExp(kw, "i").test(field)
-          ) && 
-          (selectedCategory === null || d.category_id === selectedCategory)
+          )
         
-      ); 
+          // &&
+          // (selectedCategory === null || d.category_id === selectedCategory)
+      );
     });
-    
+    console.log( "estas aqui?",filteredDonations)
 
     setSearch(keyword); // Establece la palabra clave de búsqueda en el estado
     setDonations(filteredDonations); // Establece las donaciones filtradas en el estado
@@ -59,26 +69,16 @@ const Home = () => {
 
   if (store.user) {
     console.log(store.user);
-    console.log(donations);
-    
     filteredUser = donations.filter((d) => d.user_id !== store.user.id);
-    
-  } console.log("checking", store.donations)
-  
-
-
-
-  const nearbyDonations = store.donations.filter((d) => (
-    d.user &&
-    d.user.city &&
-    d.user.city === store.user.city
-  ));
-  // const nearbyDonations = store.donations.filter((d) => d.profiles.city === store.user.city);
-
-  
-
-
+  }
+  if (selectedCategory) {
+    filteredUser=filteredUser.filter((c)=>c.category_id ===selectedCategory)
+  }
+  console.log("checking", store);
+  console.log()
+  console.log( "hi?????",donations);
   return (
+    
     <div>
       <div className="">
         <div className="mx-auto max-w-2xl px-4 pt-6 pb-20 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -86,25 +86,45 @@ const Home = () => {
             <SearchInput value={search} onSearchChange={handleFilter} />
           </div>
           <h1>Productos por Categoría</h1>
-          <div className="flex
-           flex-row">
-          {store.categories.map((category) => (
-            <div
-              className="flex flex-col items-center justify-around"
-              key={category.id}
-              onClick={() => handleCategoryFilter(category.id)}
-            >
-              <Icon
-                icon={category.icon_classes}
-                className="text-4xl my-6 mr-2 hover:text-green-300"
-              />
-              <span className="text-sm my-px mx-1">{category.name}</span>
+
+          <div
+            className="flex
+           flex-row"
+          >
+            {store.categories.map((category) => (
+              <div
+                className="flex flex-col items-center justify-around"
+                key={category.id}
+                onClick={() => handleCategoryFilter(category.id)}
+              >
+                <Icon
+                  icon={category.icon_classes}
+                  className="text-4xl my-6 mr-2 hover:text-green-300"
+                />
+                <span className="text-sm my-px mx-1">{category.name}</span>
+              </div>
+            ))}
+          </div>
+
+          {store.user && <div>
+            <h2>Donaciones cerca de {store.user.city}</h2>
+            <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
+              {nearbyDonations.map((donation) => (
+                <div className="carousel-item" key={donation.id}>
+                  <img
+                    className="rounded-box max-w-xs max-h-80"
+                    src={donation.image_url }
+                    alt={donation.name}
+                    style={{}}
+                  />
+                 
+                </div>
+              ))}
             </div>
-          ))}
-            </div>
+          </div>}
 
           {donations.length > 0 ? (
-            <DonationList items={filteredDonations} />
+            <DonationList items={filteredUser} />
           ) : (
             <div className="flex flex-col items-center justify-center">
               {" "}
@@ -119,14 +139,6 @@ const Home = () => {
           )}
         </div>
       </div>
-       {/* <Slider
-     elements={nearbyDonations.map((donation) => (
-     <div key={donation.id}>
-      <img src={donation.image_url} alt={donation.name} />
-      <p>{donation.name}</p>
-     </div>
-  ))}
-/>  */}
     </div>
   );
 };
