@@ -23,10 +23,12 @@ const DetailView = () => {
         user1_id: product.profiles.id,
         user2_id: store.user.id,
         donation_id: product.id,
-      });
+      })
+      .select();
+    console.log(data);
 
     if (error) console.log(error);
-    navigate(`/chat`);
+    navigate(`/chat/${data[0].id}`);
   };
 
   return (
