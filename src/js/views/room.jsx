@@ -8,12 +8,23 @@ import { useParams } from "react-router-dom";
 export default function Room() {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
+  const [donation, setDonation] = useState({});
   const { store, actions } = useContext(Context);
 
   const { id } = useParams();
 
+  const getDonacion = async (id) => {
+    const { data, error } = await supabase
+      .from("rooms")
+      .select(`*,donations(*)`)
+      .eq("id", id)
+      .single();
+
+    if (error) console.log(error);
+    setDonation(data.donations);
+  };
+
   const getMessages = async (id) => {
-    console.log("AAA");
     const { data, error } = await supabase
       .from("messages")
       .select(`*,profiles(*)`)
@@ -38,6 +49,7 @@ export default function Room() {
 
   useEffect(() => {
     getMessages(id);
+    getDonacion(id);
     const channel = supabase
       .channel("table-db-changes")
       .on(
@@ -54,9 +66,23 @@ export default function Room() {
   }, []);
   return (
     <div className="flex flex-col justify-between h-[90vh] w-full gap-16 p-3 relative ">
-      <div className="flex">
+      <div className="flex gap-5">
         <h3>CHAT</h3>
-        <button className="btn btn-primary">Entregado</button>
+        {console.log(donation, donation.donations?.user_id)}
+        {!donation.donated_at && donation.user_id == store.user.id ? (
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              actions.setDonationDate(
+                new Date(),
+                messages[0].rooms.donations.id
+              );
+              // setDonation(true);
+            }}
+          >
+            Entregado
+          </button>
+        ) : null}
       </div>
       {messages.map((message) => (
         <div key={message.id}>
