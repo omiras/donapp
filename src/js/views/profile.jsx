@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import DonationList from "../component/donationList";
+import ButtonsSplash from "../component/buttonStyle";
 
 export const Profile = () => {
 
@@ -83,7 +84,7 @@ export const Profile = () => {
         className="flex justify-center"
       >
         <Link className="link" to={`/profile/edit`}>
-          Editar perfil
+          <ButtonsSplash>Editar Perfil</ButtonsSplash>
         </Link>
       </div>
       <div className="flex justify-center items-center flex-col m-4 mb-12 ml-1 pt-4 gap-10 h-28">
