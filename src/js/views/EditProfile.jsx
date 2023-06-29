@@ -1,96 +1,63 @@
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 
 export default function EditProfile() {
   const { store, actions } = useContext(Context);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    await actions.editProfile(data);
-  };
+  const [name, setName] = useState(store.user.full_name);
+  const [city, setCity] = useState(store.user.city || '');
+  const [avatar, setAvatar] = useState(store.user.avatar_url);
 
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flow flex flex-col place-items-center h-screen pb-20 justify-center "
-    >
+    <div className="flow flex flex-col place-items-center h-full pb-20 place-content-center">
       <div className="w-full">
         <img
-          src={watch("avatar_url") || store.user.avatar_url}
+          src={avatar}
           alt=""
-          className="w-36 h-36 m-auto aspect-square object-cover rounded-full"
+          className="rounded-full w-36 m-auto aspect-square object-cover"
         />
       </div>
       <div className="edit-avatar flex flex-col justify-center">
-        <h2>{watch("full_name") || store.user.full_name}</h2>
-        <h4>{watch("city") || store.user.city}</h4>
+        <h2>{name}</h2>
+        <h4>{city}</h4>
       </div>
-      <div className="flex flex-col hidden">
+      <div className="edit-img">
         <label className="label">Image url</label>
         <input
-          {...register("avatar_url", { required: "Campo requerido" })}
           type="text"
-          defaultValue={store.user.avatar_url}
+          value={avatar}
           className="input"
+          onChange={(e) => setAvatar(e.target.value)}
         />
-        {errors.avatar_url && (
-          <span className="text-red-500">{errors.avatar_url.message}</span>
-        )}
       </div>
-      <div className="flex flex-col">
+      <div className="edit-name">
         <label className="label">Name</label>
         <input
           type="text"
+          value={name}
           className="input"
-          maxLength={20}
-          defaultValue={store.user.full_name}
-          {...register("full_name", {
-            required: "Campo requerido",
-            maxLength: {
-              value: 20,
-              message: "El nombre no puede tener más de 25 carácteres.",
-            },
-            minLength: {
-              value: 3,
-              message: "El nombre no puede tener menos de 3 carácteres.",
-            },
-          })}
+          onChange={(e) => setName(e.target.value)}
         />
-        {errors.full_name && (
-          <span className="text-red-500">{errors.full_name.message}</span>
-        )}
       </div>
-      <div className="flex flex-col">
+      <div className="edit-city">
         <label className="label">City</label>
         <input
           type="text"
+          value={city}
           className="input"
-          maxLength={20}
-          defaultValue={store.user.city}
-          {...register("city", {
-            required: "Campo requerido",
-            maxLength: {
-              value: 20,
-              message: "La ciudad no puede tener más de 15 carácteres.",
-            },
-          })}
+          onChange={(e) => setCity(e.target.value)}
         />
-        {errors.city && (
-          <span className="text-red-500">{errors.city.message}</span>
-        )}
       </div>
       <div className="edit-btn">
-        <button className="btn">Save</button>
+        <button
+          className="btn"
+          onClick={() =>
+            actions.editProfile({ full_name: name, city, avatar_url: avatar })
+          }
+        >
+          Save
+        </button>
       </div>
-    </form>
+    </div>
   );
 }

@@ -1,46 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import SearchInput from "../component/search";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DonationList from "../component/donationList";
 import { Icon } from "@iconify/react";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [filteredDonations, setFilteredDonations] = useState([
     ...store.donations,
   ]);
 
-  const filterByCity = () => {
-    return store.donations.filter(
-      (donation) =>
-        donation.profiles.city?.toLowerCase() === store.user?.city.toLowerCase()
-    );
-  };
-
-  const [nearbyDonations, setNearbyDonations] = useState(filterByCity);
   const [search, setSearch] = useState("");
   const [donations, setDonations] = useState([...store.donations]);
 
   const handleCategoryFilter = (categoryId) => {
-    if (categoryId === selectedCategory) {
-      // Si la misma categoría está seleccionada, eliminar el filtro
-      setSelectedCategory(null);
-      setFilteredDonations([...store.donations]);
-    } else {
-      // Establecer la categoría seleccionada para filtrar las donaciones
-      setSelectedCategory(categoryId);
-      const filteredDonationsC = store.donations.filter(
-        (d) => d.category_id === categoryId
-      );
-      setFilteredDonations(filteredDonationsC);
-    }
+    setSearch('');
+    setSelectedCategory(categoryId);
   };
 
+  let nearbyDonations = donations; // TODAS
+  nearbyDonations = donations.filter(
+    (donation) =>
+      donation.profiles.city?.toLowerCase() === store.user?.city.toLowerCase()
+      && donation.user_id !== store.user?.id
+  ); // Me quedo con aquellos que son de mi ciudad y no son mías
+  if (selectedCategory) {
+    nearbyDonations = nearbyDonations.filter((c) => c.category_id === selectedCategory)
+  } // además, si tengo seleccionado el filtro de categorías, debo quedarme también solamente con las donaciones de esa categoría
+
   const handleFilter = (e) => {
-    setSelectedCategory(null)
+    setSelectedCategory(null);
     const keyword = e.target.value; // Obtiene el valor ingresado en el campo de búsqueda
     const keywords = keyword.split(/\s+/).filter(Boolean); // Divide la entrada en palabras clave y elimina los espacios en blanco
 
@@ -51,12 +44,12 @@ const Home = () => {
           [d.name, d.description, d.profiles.city].some((field) =>
             new RegExp(kw, "i").test(field)
           )
-        
-          // &&
-          // (selectedCategory === null || d.category_id === selectedCategory)
+
+        // &&
+        // (selectedCategory === null || d.category_id === selectedCategory)
       );
     });
-    console.log( "estas aqui?",filteredDonations)
+    console.log("estas aqui?", filteredDonations)
 
     setSearch(keyword); // Establece la palabra clave de búsqueda en el estado
     setDonations(filteredDonations); // Establece las donaciones filtradas en el estado
@@ -72,61 +65,72 @@ const Home = () => {
     filteredUser = donations.filter((d) => d.user_id !== store.user.id);
   }
   if (selectedCategory) {
-    filteredUser=filteredUser.filter((c)=>c.category_id ===selectedCategory)
+    filteredUser = filteredUser.filter((c) => c.category_id === selectedCategory)
   }
-  console.log("checking", store);
-  console.log()
-  console.log( "hi?????",donations);
+  console.log("checking store: ", store);
+  console.log("donations state variable: ", donations);
+  useEffect(() => {
+    const isTheFirstTime = localStorage.getItem('primeraVisita')
+    if (isTheFirstTime || store.user) {
+      navigate('/')
+    } else {
+      navigate('/splash')
+
+    }
+  }, [])
+
+
+
+
+
   return (
-    
+
     <div>
-      <div className="">
+      <div className="overflow-hidden">
         <div className="mx-auto max-w-2xl px-4 pt-6 pb-20 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="flex justify-center align-center mb-3 gap-2 flex-col">
             <SearchInput value={search} onSearchChange={handleFilter} />
           </div>
-          <h3 className="pt-8 text-xl text-center">Productos por Categoría</h3>
+          <h3 className="pt-8 text-center">Productos por Categoría</h3>
 
-          <div class="w-96 carousel rounded-box mb-4"> 
+          <div class="w-96 carousel rounded-box my-3 gap-6 px-5">
             {store.categories.map((category) => (
               <div
-                className=" items-center justify-around gap-8 "
+                className="carousel-item flex flex-col text-center"
                 key={category.id}
                 onClick={() => handleCategoryFilter(category.id)}
               >
-              <div className="carousel-item ">
                 <Icon
                   icon={category.icon_classes}
-                  className=" text-4xl my-6 mr-2 hover:text-green-300 w-full pe-6	"
+                  className={`${selectedCategory == category.id ? 'text-accent' : ''} text-4xl w-full pe-6'`}
                 />
-              </div>
-              <div className="carousel-item">
-                <span className=" text-sm hover:text-green-300 text-center my-px mx-1 pt-px	pe-6	">{category.name}</span>
-              </div>
-
+                <span className="text-sm">{category.name}</span>
               </div>
             ))}
           </div>
 
-          
+
 
 
           {store.user && <div>
-            <h2>Donaciones cerca de {store.user.city}</h2>
-            <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
+            <h3 className="text-center pt-4">Donaciones en {store.user.city}</h3>
+            <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box px-16">
               {nearbyDonations.map((donation) => (
-                <div className="carousel-item" key={donation.id}>
-                  <img
-                    className="rounded-box max-w-xs max-h-80"
-                    src={donation.image_url }
-                    alt={donation.name}
-                    style={{}}
-                  />
-                 
-                </div>
+                <Link className="group relative" to={"/product/" + donation.id}>
+                  <div className="carousel-item" key={donation.id}>
+                    <img
+                      className="rounded-box max-w-xs max-h-80"
+                      src={donation.image_url}
+                      alt={donation.name}
+                      style={{}}
+                    />
+
+                  </div>
+                </Link>
               ))}
             </div>
           </div>}
+          <h3 className="text-center py-4">¿Qué necesitas? </h3>
 
           {donations.length > 0 ? (
             <DonationList items={filteredUser} />
