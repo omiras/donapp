@@ -12,6 +12,8 @@ import { useContext, useEffect, useState } from "react";
 import EditProfile from "./views/EditProfile";
 
 const Layout = () => {
+  const [splash, SetSplash] = useState(false)
+
   const { store, actions } = useContext(Context);
   const [loading, setLoading] = useState(true);
   const location = useLocation();
@@ -22,7 +24,7 @@ const Layout = () => {
     const checkIfUserIsLoggedIn = async () => {
       await actions.getUserSession();
       await actions.getDonations();
-     
+
       setLoading(false);
     };
 
