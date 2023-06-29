@@ -11,6 +11,18 @@ const DetailView = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const handleDonation = async (e) => {
+    const idProduct = e.target.id;
+    await actions.setDonationDate(new Date(), idProduct);
+    window.location.href = "/profile";
+  };
+  // Send the delete date to the database.
+  const handleDeleteProduct = async (e) => {
+    const idProduct = e.target.id;
+    await actions.setDeletedProduct(new Date(), idProduct);
+    window.location.href = "/profile";
+  };
+
   const product = store.donations.find(
     (donation) => donation.id + "" === id + ""
   );

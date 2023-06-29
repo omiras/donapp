@@ -7,7 +7,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: null,
       donations: [],
       categories: [],
-     
     },
     actions: {
       addNewDonation: async (newDonation) => {
@@ -21,21 +20,18 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       getCategories: async () => {
-        const { data, error } = await supabase
-          .from("categories")
-          .select(); 
+        const { data, error } = await supabase.from("categories").select();
         if (error) return console.log(error);
         setStore({ categories: [...data] });
         console.log(data);
-       
-        
       },
-      
 
       getDonations: async () => {
         const { data, error } = await supabase
           .from("donations")
-          .select(`*,profiles(*)`);
+          .select(`*,profiles(*)`)
+          .is("donation_at", null)
+          .is("deleted_at", null);
         if (error) return console.log(error);
         setStore({ donations: [...data] });
       }, //Funsión creada por Hector para ayudarnos a Daniel y Nordim
