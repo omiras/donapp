@@ -14,10 +14,13 @@ const Home = () => {
   ]);
 
   const filterByCity = () => {
-    return store.donations.filter(
-      (donation) =>
-        donation.profiles.city?.toLowerCase() === store.user?.city.toLowerCase()
-    );
+ 
+  
+     return store.donations.filter(
+      (donation) => 
+         donation.profiles.city?.toLowerCase() === store.user?.city.toLowerCase()
+        && donation.user_id !== store.user?.id
+     )
   };
 
   const [nearbyDonations, setNearbyDonations] = useState(filterByCity);
@@ -110,6 +113,11 @@ const Home = () => {
             <h2>Donaciones cerca de {store.user.city}</h2>
             <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box">
               {nearbyDonations.map((donation) => (
+                <Link
+                to={"/product/" + donation.id}
+                className="group relative"
+                key={donation.id}
+              >
                 <div className="carousel-item" key={donation.id}>
                   <img
                     className="rounded-box max-w-xs max-h-80"
@@ -118,7 +126,8 @@ const Home = () => {
                     style={{}}
                   />
                  
-                </div>
+                  </div>
+              </Link>
               ))}
             </div>
           </div>}
