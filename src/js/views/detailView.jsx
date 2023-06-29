@@ -18,9 +18,23 @@ const DetailView = () => {
   console.log(product.user_id, store.user.id);
 
   const openChat = async () => {
+    const wanted = await supabase
+      .from("rooms")
+      .select(`*,messages(*),donations(*),profiles!rooms_user1_id_fkey(*)`)
+      .eq(`user2_id`, store.user.id)
+      .eq(`donation_id`, product.id)
+      .select();
+
+    if (wanted.error) console.log(wanted.error);
+    if (wanted.data[0]) {
+      navigate(`/chat/${wanted.data[0].id}`);
+      return;
+    }
+
+    if (wanted.error) console.log(wanted.error);
     const { data, error } = await supabase
       .from("rooms")
-      .insert({
+      .upsert({
         user1_id: product.profiles.id,
         user2_id: store.user.id,
         donation_id: product.id,
