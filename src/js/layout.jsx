@@ -35,7 +35,8 @@ const Layout = () => {
   }, []);
   const basename = process.env.BASENAME || "";
 
-  const showNavbar = !location.pathname.includes("splash");
+  const showNavbar = location.pathname !== "/splash";
+
   return (
     <BrowserRouter basename={basename} >
       <div className="flex flex-col w-full place-items-center">
