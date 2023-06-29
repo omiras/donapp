@@ -1,22 +1,12 @@
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 
 export default function EditProfile() {
   const { store, actions } = useContext(Context);
-
-  const {
-    register,
-    handleSubmit,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    await actions.editProfile(data);
-  };
+  const [name, setName] = useState(store.user.full_name);
+  const [city, setCity] = useState(store.user.city || '');
+  const [avatar, setAvatar] = useState(store.user.avatar_url);
 
   return (
     <form

@@ -64,7 +64,6 @@ const getState = ({ getStore, getActions, setStore }) => {
         const { error } = await supabase.auth.signOut();
         if (error) return console.log(error);
         setStore({ session: null });
-        setStore({ user: null });
       },
       // La función supabase.auth nos autentifica usando Google
       signInWithProvider: async (provider) => {
@@ -83,6 +82,19 @@ const getState = ({ getStore, getActions, setStore }) => {
           .eq("id", idProduct)
           .select();
         if (error) return console.log(error);
+      },
+      setDeletedProduct: async (date, idProduct) => {
+        const store = getStore();
+
+        console.log(store.user);
+        const { data, error } = await supabase
+          .from("donations")
+          .update({ deleted_at: date })
+          .eq("id", idProduct)
+          .select();
+        if (error) return console.log(error);
+        console.log(data);
+        console.log(date);
       },
       editProfile: async (profile) => {
         const store = getStore();

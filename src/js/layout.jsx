@@ -1,42 +1,40 @@
-import {} from "react-router-dom";
-
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import SplashPage from "./views/SplashPage";
 import Home from "./views/home";
 import injectContext, { Context } from "./store/appContext";
 import { Profile } from "./views/profile";
-
+import { Navigate } from "react-router-dom";
 import { Navbar } from "./component/navbar";
 import { NewDonation } from "./views/newdonation";
 import DetailView from "./views/detailView";
 import Auth from "./views/auth";
-import { useContext, useEffect } from "react";
-import { Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import EditProfile from "./views/EditProfile";
-import DonationList from "./component/donationList";
 import Chat from "./views/chat";
 import Room from "./views/room";
-import { BrowserRouter } from "react-router-dom";
-import { Routes } from "react-router-dom";
-import { Route } from "react-router-dom";
 
-const basename = import.meta.env.BASENAME || "";
 
-//create your first component
 const Layout = () => {
+  const [splash, SetSplash] = useState(false)
+
   const { store, actions } = useContext(Context);
-  //loading usestate
   const [loading, setLoading] = useState(true);
 
+
+
   useEffect(() => {
-    //async function calls itself
     const checkIfUserIsLoggedIn = async () => {
       await actions.getUserSession();
       await actions.getDonations();
+
       setLoading(false);
     };
 
     checkIfUserIsLoggedIn();
   }, []);
+
+  const showNavbar = location.pathname !== "/splash";
+
   return (
     <BrowserRouter>
       <div className="flex flex-col w-full place-items-center">
@@ -49,6 +47,7 @@ const Layout = () => {
                 {/* si la variable store.session tiene algún valor, significa que estamos logueados. En este apartado, vamos a mostrar todas las rutas a las que podemos acceder SIN estar logueados*/}
                 {!store.session ? (
                   <>
+                    <Route path="/splash" element={<SplashPage />} />
                     <Route path="/" element={<Home />} />
                     <Route path="/product/:id" element={<DetailView />} />
                     <Route path="/auth" element={<Auth />} />
@@ -76,11 +75,12 @@ const Layout = () => {
           </Routes>
         </div>
         <div className="flex h-[70px]">
-          <Navbar />
+          {showNavbar && <Navbar />}
         </div>
       </div>
     </BrowserRouter>
   );
 };
+
 
 export default injectContext(Layout);

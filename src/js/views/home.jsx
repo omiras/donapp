@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import SearchInput from "../component/search";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DonationList from "../component/donationList";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
 
   const [search, setSearch] = useState("");
@@ -35,6 +36,19 @@ const Home = () => {
   if (store.user) {
     filteredUser = donations.filter((d) => d.user_id !== store.user.id);
   }
+  useEffect(() => {
+    const isTheFirstTime = localStorage.getItem('primeraVisita')
+    if (isTheFirstTime || store.user) {
+      navigate('/')
+    } else {
+      navigate('/splash')
+
+    }
+  }, [])
+
+
+
+
 
   return (
     <div className="mx-auto max-w-2xl px-4 pt-6  sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">

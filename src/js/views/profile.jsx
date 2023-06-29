@@ -8,6 +8,7 @@ import { Link, useParams } from "react-router-dom";
 import DonationList from "../component/donationList";
 
 export const Profile = () => {
+
   const { store, actions } = useContext(Context);
   const { id } = useParams();
 
@@ -41,9 +42,7 @@ export const Profile = () => {
     setRating(ratingValue);
   };
 
-  /**
-   * Si venimos de una ruta, tipo /profile/id-del-usuario ya sabemos que no tenemos que traernos la info del usaurio logueado, si no del usuario id-del-usuario
-   */
+  let donations = store.donations.filter((d) => d.user_id === store.user.id);
 
   /**
    * Usad JSX condicional para ocultar EDit Profile y Logout si estamos viendo el profile de otra persona . Acordaos de como JSX &&
@@ -53,7 +52,6 @@ export const Profile = () => {
    * MEter un WIDTH fijo a todo el avatar
    */
 
-  let donations;
   if (id) {
     // si le he pasado un id por parámetro, quiero todas las donaciones de ese id, NO del logueado
     donations = store.donations.filter((d) => d.user_id === id);

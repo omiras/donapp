@@ -1,8 +1,7 @@
 import { useContext } from "react";
 import { Context } from "../store/appContext";
-import { Link, useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { Icon } from "@iconify/react";
-import { useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 
@@ -105,6 +104,26 @@ const DetailView = () => {
           </div>
         </div>
       </div>
+      {store.user?.id === product.profiles.id ? (
+        <div className="flex flex-col">
+          <button
+            id={product.id}
+            onClick={(e) => handleDonation(e)}
+            className="btn btn-success mb-1"
+          >
+            Marcar Donación
+          </button>
+
+          <button
+            id={product.id}
+            onClick={(e) => handleDeleteProduct(e)}
+            className="btn btn-error"
+          >
+            Eliminar
+          </button>
+        </div>
+      ) : null}
+
     </div>
   );
 };

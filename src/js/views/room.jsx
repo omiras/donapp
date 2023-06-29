@@ -22,7 +22,8 @@ export default function Room() {
       .single();
 
     if (error) console.log(error);
-    setDonation(data.donations);
+    console.log('data getDonacion', data)
+    setDonation(data);
   };
 
   const getMessages = async (id) => {
@@ -69,7 +70,7 @@ export default function Room() {
     <div className="flex flex-col justify-between h-[90vh] w-full gap-16 p-3 relative ">
       <div className="flex gap-5">
         <h3>CHAT</h3>
-        {!donation.donation_at && donation.user_id == store.user.id && (
+        {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -79,12 +80,12 @@ export default function Room() {
           >
             Entregado
           </button>
-        )}
-        {donation.donation_at && donation.user_id != store.user.id && (
+        )} */}
+        {/* {donation.donation_at && donation.user_id != donation.user2_id && (
           <>
             <StaticRating rating={4} isEditable={false} />
           </>
-        )}
+        )} */}
       </div>
       {messages.map((message) => (
         <div key={message.id}>
