@@ -42,7 +42,7 @@ export const Profile = () => {
     setRating(ratingValue);
   };
 
-  let donations = store.donations.filter((d) => d.user_id === store.user.id);
+  let donations = store.donations.filter((d) => d.user_id === store.user?.id);
 
   /**
    * Usad JSX condicional para ocultar EDit Profile y Logout si estamos viendo el profile de otra persona . Acordaos de como JSX &&
@@ -56,7 +56,7 @@ export const Profile = () => {
     // si le he pasado un id por parámetro, quiero todas las donaciones de ese id, NO del logueado
     donations = store.donations.filter((d) => d.user_id === id);
   } else {
-    donations = store.donations.filter((d) => d.user_id === store.user.id);
+    donations = store.donations.filter((d) => d.user_id === store.user?.id);
   }
 
   return (

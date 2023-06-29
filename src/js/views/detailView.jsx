@@ -26,7 +26,7 @@ const DetailView = () => {
   const product = store.donations.find(
     (donation) => donation.id + "" === id + ""
   );
-  console.log(product.user_id, store.user.id);
+  console.log(product.user_id, store.user?.id);
 
   const openChat = async () => {
     const wanted = await supabase
@@ -74,7 +74,7 @@ const DetailView = () => {
               </h5>
             </Link>
           </div>
-          {product.user_id !== store.user.id ? (
+          {store.user && (product.user_id !== store.user?.id) ? (
             <div className="contact" onClick={openChat}>
               <Icon
                 icon="fluent:chat-16-regular"
