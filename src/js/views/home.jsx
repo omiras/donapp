@@ -85,26 +85,31 @@ const Home = () => {
           <div className="flex justify-center align-center mb-3 gap-2 flex-col">
             <SearchInput value={search} onSearchChange={handleFilter} />
           </div>
-          <h1>Productos por Categoría</h1>
+          <h3 className="pt-8 text-xl text-center">Productos por Categoría</h3>
 
-          <div
-            className="flex
-           flex-row"
-          >
+          <div class="w-96 carousel rounded-box mb-4"> 
             {store.categories.map((category) => (
               <div
-                className="flex flex-col items-center justify-around"
+                className=" items-center justify-around gap-8 "
                 key={category.id}
                 onClick={() => handleCategoryFilter(category.id)}
               >
+              <div className="carousel-item ">
                 <Icon
                   icon={category.icon_classes}
-                  className="text-4xl my-6 mr-2 hover:text-green-300"
+                  className=" text-4xl my-6 mr-2 hover:text-green-300 w-full pe-6	"
                 />
-                <span className="text-sm my-px mx-1">{category.name}</span>
+              </div>
+              <div className="carousel-item">
+                <span className=" text-sm hover:text-green-300 text-center my-px mx-1 pt-px	pe-6	">{category.name}</span>
+              </div>
+
               </div>
             ))}
           </div>
+
+          
+
 
           {store.user && <div>
             <h2>Donaciones cerca de {store.user.city}</h2>
