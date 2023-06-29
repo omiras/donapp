@@ -1,11 +1,12 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import SearchInput from "../component/search";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import DonationList from "../component/donationList";
 
 const Home = () => {
+  const navigate = useNavigate();
   const { store, actions } = useContext(Context);
 
   const [search, setSearch] = useState("");
@@ -14,7 +15,7 @@ const Home = () => {
   const handleFilter = (e) => {
     const keyword = e.target.value; // Obtiene el valor ingresado en el campo de búsqueda
     const keywords = keyword.split(/\s+/).filter(Boolean); // Divide la entrada en palabras clave y elimina los espacios en blanco
-  
+
     const filteredDonations = store.donations.filter((d) => {
       return keywords.every((kw) =>
         [d.name, d.description, d.profiles.city].some((field) =>
@@ -22,12 +23,12 @@ const Home = () => {
         )
       );
     });
-  
+
     setSearch(keyword); // Establece la palabra clave de búsqueda en el estado
     setDonations(filteredDonations); // Establece las donaciones filtradas en el estado
 
   };
-  
+
   // Por defeccto, me las como todas
   let filteredUser = donations;
 
@@ -38,6 +39,19 @@ const Home = () => {
     console.log(donations);
     filteredUser = donations.filter((d) => d.user_id !== store.user.id);
   }
+  useEffect(() => {
+    const isTheFirstTime = localStorage.getItem('primeraVisita')
+    if (isTheFirstTime) {
+      navigate('/')
+    } else {
+      navigate('/splash')
+
+    }
+  }, [])
+
+
+
+
 
   return (
     <div>
