@@ -46,6 +46,7 @@ export default function Room() {
           event: "INSERT",
           schema: "public",
           table: "messages",
+          filter: `room_id=eq.${id}`,
         },
         (payload) => getMessages(payload.new.room_id)
       )
@@ -99,7 +100,7 @@ export default function Room() {
         />
         <button
           className="btn btn-primary"
-          onClick={() => sendMessage(text, messages.room)}
+          onClick={() => sendMessage(text, id)}
         >
           Enviar
         </button>
