@@ -142,7 +142,7 @@ export default function Room() {
         ))}
       </div>
 
-      <form action="" className="w-full  px-2 flex gap-2 fixed bottom-16 z-10">
+      <form action="" className="w-full  px-2 flex gap-2 fixed bottom-[90px] z-10">
         <input
           type="text"
           value={text}

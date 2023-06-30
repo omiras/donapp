@@ -41,7 +41,7 @@ const Layout = () => {
   return (
     <BrowserRouter  >
       <div className="flex flex-col w-full place-items-center">
-        <div className="w-full">
+        <div className="w-full h-[90vh]">
           <Routes>
             {loading ? (
               <Route path="*" element={<h1>Loading...</h1>} />
@@ -77,9 +77,7 @@ const Layout = () => {
             )}
           </Routes>
         </div>
-        <div className="flex h-[70px]">
-          {!showNavbar && <Navbar />}
-        </div>
+        {!showNavbar && <Navbar />}
       </div>
     </BrowserRouter>
   );
