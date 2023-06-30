@@ -67,24 +67,23 @@ export default function Room() {
   }, []);
   return (
     <>
-      <div className="flex flex-col space-y-4  w-full gap-8 p-3 relative">
-        <div className="flex gap-5 items-start">
-          <div className="flex flex-col">
-            <h3>CHAT</h3>
+      <div className="flex flex-col justify-between w-full gap-16 p-3 relative ">        <div className="flex gap-5 items-start">
+        <div className="flex flex-col">
+          <h3>CHAT</h3>
 
-            {/* Restante do conteúdo do chat */}
-          </div>
-          <div className="ml-auto">
-            <h5>{donation?.donations?.name}</h5>
-          </div>
-          <div className="ml-auto">
-            <img
-              src={donation?.donations?.image_url}
-              alt="Product"
-              className="w-12 h-12"
-            />
-          </div>
-          {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
+          {/* Restante do conteúdo do chat */}
+        </div>
+        <div className="ml-auto">
+          <h5>{donation?.donations?.name}</h5>
+        </div>
+        <div className="ml-auto">
+          <img
+            src={donation?.donations?.image_url}
+            alt="Product"
+            className="w-12 h-12"
+          />
+        </div>
+        {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -95,51 +94,52 @@ export default function Room() {
             Entregado
           </button>
         )} */}
-          {/* {donation.donation_at && donation.user_id != donation.user2_id && (
+        {/* {donation.donation_at && donation.user_id != donation.user2_id && (
           <>
             <StaticRating rating={4} isEditable={false} />
           </>
         )} */}
+      </div>
+        <div className="flex flex-col h-[90vh] overflow-auto">
+          {messages.map((message) => (
+            <div key={message.id}>
+              {message.profiles.id === store.user.id ? (
+                <div className="chat chat-end ">
+                  <div className="chat-image avatar">
+                    <div className="w-10 rounded-full">
+                      <img src={message.profiles.avatar_url} />
+                    </div>
+                  </div>
+                  <div className="flex gap-2 place-items-center chat-header">
+                    {message.profiles.full_name}
+                    <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleString()}</time>
+                  </div>
+                  <div className="chat-bubble chat-bubble-secondary">
+                    {message.message}
+                  </div>
+                </div>
+              ) : (
+                <div className="chat chat-start w-fit">
+                  <div className="chat-image avatar">
+                    <div className="w-10 rounded-full">
+                      <img src={message.profiles.avatar_url} />
+                    </div>
+                  </div>
+                  <div className="flex gap-1 place-items-center chat-header">
+                    {message.profiles.full_name}
+                    <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleString()}</time>
+                  </div>
+                  <div className="chat-bubble chat-bubble-secondary">
+                    {message.message}
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
-
-        {messages.map((message) => (
-          <div key={message.id}>
-            {message.profiles.id === store.user.id ? (
-              <div className="chat chat-end ">
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={message.profiles.avatar_url} />
-                  </div>
-                </div>
-                <div className="flex gap-2 place-items-center chat-header">
-                  {message.profiles.full_name}
-                  <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleString()}</time>
-                </div>
-                <div className="chat-bubble chat-bubble-secondary">
-                  {message.message}
-                </div>
-              </div>
-            ) : (
-              <div className="chat chat-start w-fit">
-                <div className="chat-image avatar">
-                  <div className="w-10 rounded-full">
-                    <img src={message.profiles.avatar_url} />
-                  </div>
-                </div>
-                <div className="flex gap-1 place-items-center chat-header">
-                  {message.profiles.full_name}
-                  <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleString()}</time>
-                </div>
-                <div className="chat-bubble chat-bubble-secondary">
-                  {message.message}
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
       </div>
 
-      <form action="" className="w-full  px-2 flex gap-2 fixed bottom-[90px] z-10">
+      <form action="" className="flex gap-2 fixed bottom-20 right-2 left-2 ">
         <input
           type="text"
           value={text}
