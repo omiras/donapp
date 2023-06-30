@@ -100,7 +100,7 @@ export default function Room() {
           </>
         )} */}
       </div>
-        <div className="flex flex-col h-[90vh] overflow-auto">
+        <div className="flex flex-col h-[70vh] overflow-auto">
           {messages.map((message) => (
             <div key={message.id}>
               {message.profiles.id === store.user.id ? (
