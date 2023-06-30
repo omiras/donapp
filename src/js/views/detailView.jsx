@@ -96,7 +96,7 @@ const DetailView = () => {
           </span>
         </div>
         <div
-          className="location flex gap-1  place-items-center justify-end mr-3"
+          className="location flex gap-1 justify-end mr-3"
           style={{ "--flow-space": "0.3em" }}
         >
           <p>{product.profiles.city}</p>
