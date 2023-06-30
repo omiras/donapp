@@ -4,7 +4,6 @@ import { supabase } from "../../lib/supabaseClient";
 import { Context } from "../store/appContext";
 import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import StaticRating from "../component/StaticRating";
 
 export default function Room() {
   const [messages, setMessages] = useState([]);
@@ -78,15 +77,13 @@ export default function Room() {
           <div className="ml-auto">
             <h5>{donation?.donations?.name}</h5>
           </div>
-          <Link to={"/product/" + donation?.donations?.id}>
-            <div className="ml-auto">
-              <img
-                src={donation?.donations?.image_url}
-                alt="Product"
-                className="w-12 h-12"
-              />
-            </div>
-          </Link>
+          <div className="ml-auto">
+            <img
+              src={donation?.donations?.image_url}
+              alt="Product"
+              className="w-12 h-12"
+            />
+          </div>
           {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
           <button
             className="btn btn-primary"
@@ -116,7 +113,7 @@ export default function Room() {
                 </div>
                 <div className="flex gap-2 place-items-center chat-header">
                   {message.profiles.full_name}
-                  <time className="text-xs opacity-50">{message.created_at}</time>
+                  <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleDateString()}</time>
                 </div>
                 <div className="chat-bubble chat-bubble-secondary">
                   {message.message}
