@@ -113,7 +113,7 @@ export default function Room() {
                 </div>
                 <div className="flex gap-2 place-items-center chat-header">
                   {message.profiles.full_name}
-                  <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleDateString()}</time>
+                  <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleString()}</time>
                 </div>
                 <div className="chat-bubble chat-bubble-secondary">
                   {message.message}
@@ -128,7 +128,7 @@ export default function Room() {
                 </div>
                 <div className="flex gap-1 place-items-center chat-header">
                   {message.profiles.full_name}
-                  <time className="text-xs opacity-50">{message.created_at}</time>
+                  <time className="text-xs opacity-50">{new Date(message.created_at).toLocaleString()}</time>
                 </div>
                 <div className="chat-bubble chat-bubble-secondary">
                   {message.message}
