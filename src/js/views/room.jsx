@@ -68,7 +68,7 @@ export default function Room() {
   }, []);
   return (
     <>
-      <div className="flex flex-col space-y-4 h-[90vh] w-full gap-16 p-3 relative">
+      <div className="flex flex-col space-y-4 h-[90vh] w-full gap-8 p-3 relative">
         <div className="flex gap-5 items-start">
           <div className="flex flex-col">
             <h3>CHAT</h3>
@@ -142,7 +142,7 @@ export default function Room() {
         ))}
       </div>
 
-      <form action="" className=" pb-6 px-2 flex gap-2 fixed bottom-0 z-10">
+      <form action="" className="w-full pb-6 px-2 flex gap-2 fixed bottom-15 z-10">
         <input
           type="text"
           value={text}
