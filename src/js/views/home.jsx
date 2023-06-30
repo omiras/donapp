@@ -18,18 +18,20 @@ const Home = () => {
   const [donations, setDonations] = useState([...store.donations]);
 
   const handleCategoryFilter = (categoryId) => {
-    setSearch('');
+    setSearch("");
     setSelectedCategory(categoryId);
   };
 
   let nearbyDonations = donations; // TODAS
   nearbyDonations = donations.filter(
     (donation) =>
-      donation.profiles.city?.toLowerCase() === store.user?.city.toLowerCase()
-      && donation.user_id !== store.user?.id
+      donation.profiles.city?.toLowerCase() ===
+        store.user?.city.toLowerCase() && donation.user_id !== store.user?.id
   ); // Me quedo con aquellos que son de mi ciudad y no son mías
   if (selectedCategory) {
-    nearbyDonations = nearbyDonations.filter((c) => c.category_id === selectedCategory)
+    nearbyDonations = nearbyDonations.filter(
+      (c) => c.category_id === selectedCategory
+    );
   } // además, si tengo seleccionado el filtro de categorías, debo quedarme también solamente con las donaciones de esa categoría
 
   const handleFilter = (e) => {
@@ -49,7 +51,7 @@ const Home = () => {
         // (selectedCategory === null || d.category_id === selectedCategory)
       );
     });
-    console.log("estas aqui?", filteredDonations)
+    console.log("estas aqui?", filteredDonations);
 
     setSearch(keyword); // Establece la palabra clave de búsqueda en el estado
     setDonations(filteredDonations); // Establece las donaciones filtradas en el estado
@@ -65,26 +67,22 @@ const Home = () => {
     filteredUser = donations.filter((d) => d.user_id !== store.user.id);
   }
   if (selectedCategory) {
-    filteredUser = filteredUser.filter((c) => c.category_id === selectedCategory)
+    filteredUser = filteredUser.filter(
+      (c) => c.category_id === selectedCategory
+    );
   }
   console.log("checking store: ", store);
   console.log("donations state variable: ", donations);
   useEffect(() => {
-    const isTheFirstTime = localStorage.getItem('primeraVisita')
+    const isTheFirstTime = localStorage.getItem("primeraVisita");
     if (isTheFirstTime || store.user) {
-      navigate('/')
+      navigate("/");
     } else {
-      navigate('/splash')
-
+      navigate("/splash");
     }
-  }, [])
-
-
-
-
+  }, []);
 
   return (
-
     <div>
       <div className="overflow-hidden">
         <div className="mx-auto max-w-2xl px-4 pt-6 pb-20 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
@@ -93,43 +91,48 @@ const Home = () => {
           </div>
           <h3 className="pt-8 text-center">Productos por Categoría</h3>
 
-          <div class="w-96 carousel rounded-box my-3 gap-6 px-5">
+          <div class="w-96 carousel space-x-8 my-3 px-5">
             {store.categories.map((category) => (
               <div
-                className="carousel-item flex flex-col text-center"
+                className="flex flex-col text-center"
                 key={category.id}
                 onClick={() => handleCategoryFilter(category.id)}
               >
                 <Icon
                   icon={category.icon_classes}
-                  className={`${selectedCategory == category.id ? 'text-accent' : ''} text-4xl w-full pe-6'`}
+                  className={`${
+                    selectedCategory == category.id ? "text-accent" : ""
+                  } text-4xl w-full pe-6'`}
                 />
                 <span className="text-sm">{category.name}</span>
               </div>
             ))}
           </div>
 
-
-
-
-          {store.user && <div>
-            <h3 className="text-center pt-4">Donaciones en {store.user.city}</h3>
-            <div className=" items-center carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box px-16">
-              {nearbyDonations.map((donation) => (
-                <Link className="group relative" to={"/product/" + donation.id}>
-                  <div className="carousel-item" key={donation.id}>
-                    <img
-                      className="rounded-box max-w-xs max-h-80"
-                      src={donation.image_url}
-                      alt={donation.name}
-                      style={{}}
-                    />
-
-                  </div>
-                </Link>
-              ))}
+          {store.user && (
+            <div>
+              <h3 className="text-center pt-4">
+                Donaciones en {store.user.city}
+              </h3>
+              <div className="items-center carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box px-16">
+                {nearbyDonations.map((donation) => (
+                  <Link
+                    className="group relative"
+                    to={"/product/" + donation.id}
+                  >
+                    <div className="carousel-item" key={donation.id}>
+                      <img
+                        className="rounded-box max-w-xs max-h-80"
+                        src={donation.image_url}
+                        alt={donation.name}
+                        style={{}}
+                      />
+                    </div>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>}
+          )}
           <h3 className="text-center py-4">¿Qué necesitas? </h3>
 
           {donations.length > 0 ? (

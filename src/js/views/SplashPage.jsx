@@ -54,7 +54,9 @@ function SplashPage() {
           marginBottom: "2rem",
         }}
       >
-        <ButtonsSplash>¿Quiénes somos?</ButtonsSplash>
+        
+        <a href="https://donapp-sand.vercel.app/"><ButtonsSplash>¿Quiénes somos?</ButtonsSplash></a>
+        
         <nav></nav>
         <div onClick={() => window.location.replace('/')}>
           <ButtonsSplash>¡Empieza a Donar+!</ButtonsSplash>
