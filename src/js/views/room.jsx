@@ -67,24 +67,23 @@ export default function Room() {
   }, []);
   return (
     <>
-      <div className="flex flex-col justify-between w-full h-[90vh]  gap-16 p-3">
-        <div className="flex gap-5">
-          <div className="flex flex-col">
-            <h3>CHAT</h3>
+      <div className="flex flex-col justify-between w-full gap-16 p-3 relative ">        <div className="flex gap-5">
+        <div className="flex flex-col">
+          <h3>CHAT</h3>
 
-            {/* Restante do conteúdo do chat */}
-          </div>
-          <div className="ml-auto">
-            <h5>{donation?.donations?.name}</h5>
-          </div>
-          <div className="ml-auto">
-            <img
-              src={donation?.donations?.image_url}
-              alt="Product"
-              className="w-12 h-12"
-            />
-          </div>
-          {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
+          {/* Restante do conteúdo do chat */}
+        </div>
+        <div className="ml-auto">
+          <h5>{donation?.donations?.name}</h5>
+        </div>
+        <div className="ml-auto">
+          <img
+            src={donation?.donations?.image_url}
+            alt="Product"
+            className="w-12 h-12"
+          />
+        </div>
+        {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -95,13 +94,13 @@ export default function Room() {
             Entregado
           </button>
         )} */}
-          {/* {donation.donation_at && donation.user_id != donation.user2_id && (
+        {/* {donation.donation_at && donation.user_id != donation.user2_id && (
           <>
             <StaticRating rating={4} isEditable={false} />
           </>
         )} */}
-        </div>
-        <div className="flex flex-col mb-7">
+      </div>
+        <div className="flex flex-col h-[70vh] overflow-y-scroll">
           {messages.map((message) => (
             <div key={message.id}>
               {message.profiles.id === store.user.id ? (
@@ -140,7 +139,7 @@ export default function Room() {
         </div>
       </div>
 
-      <form action="" className="flex gap-2 sticky bottom-20">
+      <form action="" className="flex gap-2 fixed bottom-20 right-2 left-2 ">
         <input
           type="text"
           value={text}
