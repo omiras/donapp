@@ -114,7 +114,7 @@ const Home = () => {
               <h3 className="text-center pt-4">
                 Donaciones en {store.user.city}
               </h3>
-              <div className="carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box px-16">
+              <div className="items-center carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box px-16">
                 {nearbyDonations.map((donation) => (
                   <Link
                     className="group relative"
