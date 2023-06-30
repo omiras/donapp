@@ -14,6 +14,7 @@ import Chat from "./views/chat";
 import Room from "./views/room";
 
 
+
 const Layout = () => {
   const [splash, SetSplash] = useState(false)
 
@@ -33,12 +34,12 @@ const Layout = () => {
 
     checkIfUserIsLoggedIn();
   }, []);
-  const basename = process.env.BASENAME || "";
+  // const basename = process.env.BASENAME || "";
 
   const showNavbar = location.pathname !== "/splash";
   console.log(location.pathname);
   return (
-    <BrowserRouter basename={basename} >
+    <BrowserRouter  >
       <div className="flex flex-col w-full place-items-center">
         <div className="w-full">
           <Routes>
