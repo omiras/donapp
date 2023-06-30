@@ -67,7 +67,7 @@ export default function Room() {
   }, []);
   return (
     <>
-      <div className="flex flex-col justify-between w-full gap-16 p-3 relative ">        <div className="flex gap-5 items-start">
+      <div className="flex flex-col justify-between w-full gap-16 p-3 relative ">        <div className="flex gap-5">
         <div className="flex flex-col">
           <h3>CHAT</h3>
 
