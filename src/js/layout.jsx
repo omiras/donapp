@@ -40,7 +40,7 @@ const Layout = () => {
   console.log(location.pathname);
   return (
     <BrowserRouter  >
-      <div className="flex w-full place-items-center">
+      <div className="flex flex-col w-full place-items-center">
         <div className="w-full">
           <Routes>
             {loading ? (
