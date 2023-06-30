@@ -67,9 +67,24 @@ export default function Room() {
       .subscribe();
   }, []);
   return (
-    <div className="flex flex-col justify-between h-[90vh] w-full gap-16 p-3 relative ">
-      <div className="flex gap-5">
-        <h3>CHAT</h3>
+    <>
+  <div className="flex flex-col space-y-4 h-[90vh] w-full gap-16 p-3 relative">
+  <div className="flex gap-5 items-start">
+    <div className="flex flex-col">
+      <h3>CHAT</h3>
+
+      {/* Restante do conteúdo do chat */}
+    </div>
+    <div className="ml-auto">
+      <h5>{donation?.donations?.name}</h5>
+    </div>
+    <div className="ml-auto">
+      <img
+        src={donation?.donations?.image_url}
+        alt="Product"
+        className="w-12 h-12"
+      />
+    </div>
         {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
           <button
             className="btn btn-primary"
@@ -87,6 +102,7 @@ export default function Room() {
           </>
         )} */}
       </div>
+      
       {messages.map((message) => (
         <div key={message.id}>
           {message.profiles.id === store.user.id ? (
@@ -122,21 +138,22 @@ export default function Room() {
           )}
         </div>
       ))}
-
-      <form action="" className="flex gap-2 ">
-        <input
-          type="text"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          className="input mx-auto input-primary input-bordered w-full"
-        />
-        <button
-          className="btn btn-primary"
-          onClick={() => sendMessage(text, id)}
-        >
-          Enviar
-        </button>
-      </form>
     </div>
+
+     <form action="" className=" pb-6 px-2 flex gap-2 ">
+     <input
+       type="text"
+       value={text}
+       onChange={(e) => setText(e.target.value)}
+       className="input mx-auto input-primary input-bordered w-full"
+     />
+     <button
+       className="btn btn-primary"
+       onClick={() => sendMessage(text, id)}
+     >
+       Enviar
+     </button>
+   </form>
+   </>
   );
 }
