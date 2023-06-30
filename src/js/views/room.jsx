@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { Context } from "../store/appContext";
 import { useContext } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import StaticRating from "../component/StaticRating";
 
 export default function Room() {
@@ -68,24 +68,26 @@ export default function Room() {
   }, []);
   return (
     <>
-  <div className="flex flex-col space-y-4 h-[90vh] w-full gap-16 p-3 relative">
-  <div className="flex gap-5 items-start">
-    <div className="flex flex-col">
-      <h3>CHAT</h3>
+      <div className="flex flex-col space-y-4 h-[90vh] w-full gap-16 p-3 relative">
+        <div className="flex gap-5 items-start">
+          <div className="flex flex-col">
+            <h3>CHAT</h3>
 
-      {/* Restante do conteúdo do chat */}
-    </div>
-    <div className="ml-auto">
-      <h5>{donation?.donations?.name}</h5>
-    </div>
-    <div className="ml-auto">
-      <img
-        src={donation?.donations?.image_url}
-        alt="Product"
-        className="w-12 h-12"
-      />
-    </div>
-        {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
+            {/* Restante do conteúdo do chat */}
+          </div>
+          <div className="ml-auto">
+            <h5>{donation?.donations?.name}</h5>
+          </div>
+          <Link to={"/product/" + donation?.donations?.id}>
+            <div className="ml-auto">
+              <img
+                src={donation?.donations?.image_url}
+                alt="Product"
+                className="w-12 h-12"
+              />
+            </div>
+          </Link>
+          {/* {!donation.donations?.donation_at && donation.donations?.user_id == store.user.id && (
           <button
             className="btn btn-primary"
             onClick={() => {
@@ -96,64 +98,64 @@ export default function Room() {
             Entregado
           </button>
         )} */}
-        {/* {donation.donation_at && donation.user_id != donation.user2_id && (
+          {/* {donation.donation_at && donation.user_id != donation.user2_id && (
           <>
             <StaticRating rating={4} isEditable={false} />
           </>
         )} */}
-      </div>
-      
-      {messages.map((message) => (
-        <div key={message.id}>
-          {message.profiles.id === store.user.id ? (
-            <div className="chat chat-end ">
-              <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                  <img src={message.profiles.avatar_url} />
-                </div>
-              </div>
-              <div className="flex gap-2 place-items-center chat-header">
-                {message.profiles.full_name}
-                <time className="text-xs opacity-50">{message.created_at}</time>
-              </div>
-              <div className="chat-bubble chat-bubble-secondary">
-                {message.message}
-              </div>
-            </div>
-          ) : (
-            <div className="chat chat-start w-fit">
-              <div className="chat-image avatar">
-                <div className="w-10 rounded-full">
-                  <img src={message.profiles.avatar_url} />
-                </div>
-              </div>
-              <div className="flex gap-1 place-items-center chat-header">
-                {message.profiles.full_name}
-                <time className="text-xs opacity-50">{message.created_at}</time>
-              </div>
-              <div className="chat-bubble chat-bubble-secondary">
-                {message.message}
-              </div>
-            </div>
-          )}
         </div>
-      ))}
-    </div>
 
-     <form action="" className=" pb-6 px-2 flex gap-2 ">
-     <input
-       type="text"
-       value={text}
-       onChange={(e) => setText(e.target.value)}
-       className="input mx-auto input-primary input-bordered w-full"
-     />
-     <button
-       className="btn btn-primary"
-       onClick={() => sendMessage(text, id)}
-     >
-       Enviar
-     </button>
-   </form>
-   </>
+        {messages.map((message) => (
+          <div key={message.id}>
+            {message.profiles.id === store.user.id ? (
+              <div className="chat chat-end ">
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={message.profiles.avatar_url} />
+                  </div>
+                </div>
+                <div className="flex gap-2 place-items-center chat-header">
+                  {message.profiles.full_name}
+                  <time className="text-xs opacity-50">{message.created_at}</time>
+                </div>
+                <div className="chat-bubble chat-bubble-secondary">
+                  {message.message}
+                </div>
+              </div>
+            ) : (
+              <div className="chat chat-start w-fit">
+                <div className="chat-image avatar">
+                  <div className="w-10 rounded-full">
+                    <img src={message.profiles.avatar_url} />
+                  </div>
+                </div>
+                <div className="flex gap-1 place-items-center chat-header">
+                  {message.profiles.full_name}
+                  <time className="text-xs opacity-50">{message.created_at}</time>
+                </div>
+                <div className="chat-bubble chat-bubble-secondary">
+                  {message.message}
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      <form action="" className=" pb-6 px-2 flex gap-2 fixed bottom-0 z-10">
+        <input
+          type="text"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          className="input mx-auto input-primary input-bordered w-full"
+        />
+        <button
+          className="btn btn-primary"
+          onClick={() => sendMessage(text, id)}
+        >
+          Enviar
+        </button>
+      </form>
+    </>
   );
 }
