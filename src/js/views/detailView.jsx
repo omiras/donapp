@@ -85,9 +85,9 @@ const DetailView = () => {
           ) : null}
         </div>
 
-        <div className=" relative">
+        <div className="relative">
           <img
-            className="w-full h-full rounded-lg"
+            className="w-full h-full rounded-lg object-cover	h-72	"
             src={product.image_url}
             alt="product-image"
           />
