@@ -77,7 +77,9 @@ const Layout = () => {
             )}
           </Routes>
         </div>
-        {!showNavbar && <Navbar />}
+        <div className="flex h-[70px]">
+          {!showNavbar && <Navbar />}
+        </div>
       </div>
     </BrowserRouter>
   );
