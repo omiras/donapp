@@ -17,7 +17,7 @@ export const Navbar = () => {
   };
 
   return (
-    <nav className=" place-items-center h-[70px] btm-nav bg-secondary">
+    <nav className=" place-items-center h-[70px] btm-nav bg-secondary md:w-2/4 mx-auto">
       <Link to="/" className="flex-col">
         <button>
           <Icon width={28} color="#265a7d" icon="material-symbols:home" />
