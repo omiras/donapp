@@ -26,7 +26,7 @@ const Home = () => {
   nearbyDonations = donations.filter(
     (donation) =>
       donation.profiles.city?.toLowerCase() ===
-        store.user?.city.toLowerCase() && donation.user_id !== store.user?.id
+      store.user?.city.toLowerCase() && donation.user_id !== store.user?.id
   ); // Me quedo con aquellos que son de mi ciudad y no son mías
   if (selectedCategory) {
     nearbyDonations = nearbyDonations.filter(
@@ -100,9 +100,8 @@ const Home = () => {
               >
                 <Icon
                   icon={category.icon_classes}
-                  className={`${
-                    selectedCategory == category.id ? "text-accent" : ""
-                  } text-4xl w-full pe-6'`}
+                  className={`${selectedCategory == category.id ? "text-accent" : ""
+                    } text-4xl w-full pe-6'`}
                 />
                 <span className="text-sm">{category.name}</span>
               </div>
@@ -114,7 +113,7 @@ const Home = () => {
               <h3 className="text-center pt-4">
                 Donaciones en {store.user.city}
               </h3>
-              <div className="items-center carousel carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box px-16">
+              <div className="items-center carousel md:carousel-vertical carousel-center max-w-md p-4 space-x-4 bg-neutral rounded-box px-16">
                 {nearbyDonations.map((donation) => (
                   <Link
                     className="group relative"
