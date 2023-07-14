@@ -1,10 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { Context } from "../store/appContext";
 import SearchInput from "../component/search";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import DonationList from "../component/donationList";
 import { Icon } from "@iconify/react";
+import { isMobile } from "react-device-detect";
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -16,6 +18,7 @@ const Home = () => {
 
   const [search, setSearch] = useState("");
   const [donations, setDonations] = useState([...store.donations]);
+
 
   const handleCategoryFilter = (categoryId) => {
     setSearch("");
@@ -91,7 +94,7 @@ const Home = () => {
           </div>
           <h3 className="pt-8 text-center">Productos por Categoría</h3>
 
-          <div class="w-96 carousel space-x-8 my-3 px-5">
+          <div className="w-96 carousel space-x-8 my-3 px-5">
             {store.categories.map((category) => (
               <div
                 className="flex flex-col text-center"
@@ -108,7 +111,7 @@ const Home = () => {
             ))}
           </div>
 
-          {store.user && (
+          {isMobile && store.user && (
             <div>
               <h3 className="text-center pt-4">
                 Donaciones en {store.user.city}
